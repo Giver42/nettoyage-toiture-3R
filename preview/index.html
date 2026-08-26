@@ -763,7 +763,11 @@ body{background:#FCFBF7}
 
 
 
-<!-- STYLES SECTION 3 V2 — NOUVELLE SECTION 3 VALIDÉE -->
+<!-- STYLES SECTION 3 V2 — VALIDÉE / FOND GRIS -->
+<style>
+html,body{margin:0;padding:0;background:#F1EEE8}
+body{color:#463B35;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+</style>
 <style id="section4-v2-validee-verrouillee">
 .s4v2-b3-wrap{
   background:#F1EEE8;
@@ -1024,8 +1028,35 @@ html, body{
   font-size:.95rem !important;
 }
 </style>
+<style id="section3-v2-no-white-card">
+html, body{
+  background:#F1EEE8 !important;
+}
+.s4v2-b3-wrap{
+  background:#F1EEE8 !important;
+}
+.s4v2-b3-card{
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+.s4v2-b3-card,
+.s4v2-b3-card .content,
+.s4v2-b3-card .body,
+.s4v2-b3-card .stats,
+.s4v2-b3-card .results,
+.s4v2-b3-card .result-list{
+  background:transparent !important;
+}
+.s4v2-b3-card .bridge{
+  box-shadow:none !important;
+}
+</style>
 
-<!-- STYLES SECTION 4 V2 — VALIDÉE / VERROUILLÉE -->
+<!-- STYLES SECTION 4 V2 — VALIDÉE -->
 <style>
 html,body{
   margin:0;
@@ -1276,6 +1307,33 @@ body{
   padding:15px 16px !important;
 }
 
+</style>
+<style id="section4-green-spacing-harmonized">
+/* Harmonisation avec la section "NOS PRIX SONT ABORDABLES" */
+.s5 .s5-green-head h1{
+  background:#668F2E !important;
+}
+
+/* La section doit respirer comme une section autonome */
+.s5{
+  padding-top:54px !important;
+}
+
+@media(min-width:760px){
+  .s5{
+    padding-top:76px !important;
+  }
+}
+</style>
+<style id="section4-full-bleed-green">
+/* Bandeau vert bord à bord */
+.s5 .s5-green-head h1{
+  background:#668F2E !important;
+  margin-left:calc(50% - 50vw) !important;
+  margin-right:calc(50% - 50vw) !important;
+  padding-left:max(20px, calc((100vw - 1040px)/2 + 20px)) !important;
+  padding-right:max(20px, calc((100vw - 1040px)/2 + 20px)) !important;
+}
 </style>
 
 <!-- STYLES SECTION 5 V2 — VALIDÉE -->
@@ -1929,7 +1987,7 @@ body{
 
 </style>
 
-<title>Page V2 — Toutes les sections validées</title>
+<title>Page V2 — Toutes les sections validées — S4 v7</title>
 
 <style id="test-v2-inversion-backgrounds-s1-s2">
 /* TEST UNIQUEMENT — inversion des backgrounds Section 1 V2 / Section 2 V2
@@ -2023,8 +2081,8 @@ html,body{
 PAGE V2 — ASSEMBLAGE DES SECTIONS VALIDÉES
 Section 1 V2 : validée / verrouillée
 Section 2 V2 : validée
-Section 3 V2 : validée
-Section 4 V2 : validée / verrouillée
+Section 3 V2 : validée — fond gris, sans encart blanc
+Section 4 V2 : validée
 Sections 5 à 8 V2 : validées
 -->
 
@@ -2343,8 +2401,11 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
 </script>
 
 <!-- =========================
-     SECTION 3 V2 — VALIDÉE / VERROUILLÉE
+     SECTION 3 V2 — VALIDÉE
+     Tout sur fond gris, sans encart blanc
      ========================= -->
+<!-- SECTION 4 V2 — VALIDÉE / VERROUILLÉE — Variante B3 -->
+
 <div class="s4v2-b3-wrap">
   <section class="s4v2-b3-card">
     <h1>Expertise Toiture Complète &amp; Gratuite — <span class="accent">Plus d'informations pour plus de précisions</span></h1>
@@ -2380,18 +2441,18 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
 </div>
 
 <!-- =========================
-     SECTION 4 V2 — VALIDÉE / VERROUILLÉE
+     SECTION 4 V2 — VALIDÉE
      ========================= -->
 <!-- SECTION 4 V2 — REPRISE DE L’ANCIENNE SECTION 3 V2 -->
 <!-- SECTION 5 VALIDÉE / VERROUILLÉE -->
 <section class="s5">
 
-  <div class="s5-green-shell"><div class="s5-green-head"><h1>Quelques minutes de plus pour préserver des années de toiture</h1>
+  <div class="s5-green-shell"><div class="s5-green-head"><h1>Quelques minutes de précision pour des années de solidité</h1>
 
   <div class="s5-intro-copy">
   <p>Pour vous offrir une protection toiture maximale, nous <strong>préférons la précision à la vitesse…</strong></p>
-  <p class="emphasis">→ Comptez légèrement plus de temps pour notre expertise et le devis que chez nos confrères.</p>
-  <p>C'est le prix à payer pour nettoyer efficacement sans réduire la vie de votre toiture ou rapprocher vos prochaines dépenses…</p>
+  <p class="emphasis">→ Comptez un peu plus de temps pour votre expertise et votre devis que chez nos confrères.</p>
+  <p>Moins rapide mais plus précise et plus maîtrisée, l’approche 3R Services garantie un toit impeccable ET protégé SANS réduire la vie de votre toiture.</p>
 </div></div></div>
 
   <div class="compare">
