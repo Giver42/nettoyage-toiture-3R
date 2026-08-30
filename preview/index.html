@@ -2075,6 +2075,388 @@ html,body{
 }
 </style>
 
+<style id="estimate-form-styles">
+.estimate-modal-open{
+  overflow:hidden;
+}
+.estimate-modal[hidden]{
+  display:none !important;
+}
+.estimate-modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:stretch;
+  background:rgba(70,59,53,.48);
+  color:#463B35;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.estimate-backdrop{
+  position:absolute;
+  inset:0;
+}
+.estimate-dialog{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  min-height:100svh;
+  max-height:100vh;
+  max-height:100svh;
+  overflow:auto;
+  background:#FCFBF7;
+  outline:none;
+  display:flex;
+  flex-direction:column;
+}
+.estimate-header{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:16px;
+  border-bottom:1px solid #E8E1DA;
+  background:#FCFBF7;
+}
+.estimate-header-title{
+  margin:0;
+  font-size:14px;
+  line-height:1.2;
+  font-weight:950;
+}
+.estimate-close{
+  width:44px;
+  height:44px;
+  border:1px solid #D9D0C8;
+  border-radius:50%;
+  background:#fff;
+  color:#463B35;
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+}
+.estimate-close:focus-visible,
+.estimate-back:focus-visible,
+.estimate-next:focus-visible,
+.estimate-choice input:focus-visible + span,
+.estimate-input:focus-visible,
+.estimate-consent input:focus-visible + span{
+  outline:3px solid rgba(102,143,46,.34);
+  outline-offset:2px;
+}
+.estimate-form{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.estimate-progress{
+  padding:16px 16px 0;
+}
+.estimate-progress-text{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:9px;
+  color:#756B64;
+  font-size:12px;
+  line-height:1.2;
+  font-weight:850;
+}
+.estimate-progress-track{
+  height:6px;
+  border-radius:999px;
+  background:#E8E1DA;
+  overflow:hidden;
+}
+.estimate-progress-bar{
+  width:20%;
+  height:100%;
+  border-radius:999px;
+  background:#668F2E;
+  transition:width .2s ease;
+}
+.estimate-body{
+  flex:1;
+  padding:26px 16px 20px;
+}
+.estimate-step[hidden]{
+  display:none !important;
+}
+.estimate-step{
+  animation:estimateFade .18s ease;
+}
+@keyframes estimateFade{
+  from{opacity:.65;transform:translateY(4px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.estimate-step h2{
+  margin:0 0 10px;
+  font-size:30px;
+  line-height:1.06;
+  letter-spacing:-.04em;
+  font-weight:950;
+}
+.estimate-help,
+.estimate-small{
+  margin:0 0 20px;
+  color:#756B64;
+  font-size:14px;
+  line-height:1.45;
+}
+.estimate-field{
+  display:grid;
+  gap:7px;
+  margin:0 0 16px;
+}
+.estimate-label{
+  font-size:13px;
+  line-height:1.25;
+  font-weight:900;
+}
+.estimate-input{
+  width:100%;
+  min-height:54px;
+  padding:13px 14px;
+  border:1px solid #D9D0C8;
+  border-radius:12px;
+  background:#fff;
+  color:#463B35;
+  font:800 16px/1.25 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.estimate-input[aria-invalid="true"]{
+  border-color:#B53B32;
+  background:#FBF1F0;
+}
+.estimate-options{
+  display:grid;
+  gap:10px;
+  margin:0;
+  padding:0;
+  border:0;
+}
+.estimate-choice{
+  display:block;
+  position:relative;
+  cursor:pointer;
+}
+.estimate-choice input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+.estimate-choice > span{
+  min-height:56px;
+  padding:15px;
+  border:1px solid #D9D0C8;
+  border-radius:14px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  color:#463B35;
+  font-size:15px;
+  line-height:1.3;
+  font-weight:900;
+}
+.estimate-choice input:checked + span{
+  border-color:#668F2E;
+  background:#F3F8EA;
+  box-shadow:inset 0 0 0 1px #668F2E;
+}
+.estimate-choice-media{
+  display:grid !important;
+  grid-template-columns:minmax(146px,180px) minmax(0,1fr);
+  gap:12px;
+  align-items:center;
+  padding:10px 12px !important;
+}
+.estimate-choice .estimate-material-thumbs{
+  display:grid !important;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  min-width:0;
+  min-height:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  align-items:stretch;
+}
+.estimate-material-thumb{
+  width:100%;
+  height:64px;
+  display:block;
+  object-fit:cover;
+  border-radius:9px;
+  background:#E8E1DA;
+}
+.estimate-choice-media b{
+  display:block;
+  font:inherit;
+  min-width:0;
+}
+@media(max-width:360px){
+  .estimate-choice-media{
+    grid-template-columns:122px minmax(0,1fr);
+    gap:10px;
+  }
+  .estimate-material-thumb{
+    height:54px;
+  }
+}
+.estimate-error{
+  margin:8px 0 0;
+  color:#B53B32;
+  font-size:13px;
+  line-height:1.35;
+  font-weight:850;
+}
+.estimate-error[hidden]{
+  display:none !important;
+}
+.estimate-contact-grid{
+  display:grid;
+  gap:12px;
+}
+.estimate-consent{
+  display:grid;
+  grid-template-columns:22px minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+  margin:4px 0 8px;
+  cursor:pointer;
+}
+.estimate-consent input{
+  width:20px;
+  height:20px;
+  margin:1px 0 0;
+  accent-color:#668F2E;
+}
+.estimate-consent span{
+  color:#463B35;
+  font-size:13px;
+  line-height:1.42;
+  font-weight:750;
+}
+.estimate-privacy{
+  margin:0;
+  color:#756B64;
+  font-size:12px;
+  line-height:1.4;
+}
+.estimate-result-card{
+  padding:18px 16px;
+  border:1px solid #D7E5C5;
+  border-radius:16px;
+  background:#F3F8EA;
+}
+.estimate-result-label{
+  margin:0 0 8px;
+  color:#668F2E;
+  font-size:13px;
+  line-height:1.2;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.estimate-result-price{
+  margin:0 0 12px;
+  font-size:30px;
+  line-height:1.08;
+  letter-spacing:-.04em;
+  font-weight:950;
+}
+.estimate-result-copy{
+  margin:0;
+  color:#5E554F;
+  font-size:14px;
+  line-height:1.5;
+  font-weight:700;
+}
+.estimate-result-success{
+  color:#668F2E;
+  font-weight:950;
+}
+.estimate-footer{
+  position:sticky;
+  bottom:0;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1.45fr;
+  gap:10px;
+  padding:14px 16px 16px;
+  border-top:1px solid #E8E1DA;
+  background:#FCFBF7;
+}
+.estimate-back,
+.estimate-next{
+  min-height:54px;
+  border-radius:14px;
+  border:2px solid #668F2E;
+  padding:13px 14px;
+  font-size:13px;
+  line-height:1.2;
+  font-weight:950;
+  cursor:pointer;
+}
+.estimate-back{
+  background:#fff;
+  color:#668F2E;
+}
+.estimate-next{
+  background:#668F2E;
+  color:#fff;
+}
+.estimate-back:disabled,
+.estimate-next:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+.estimate-visually-hidden{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+@media(min-width:760px){
+  .estimate-modal{
+    place-items:center;
+    padding:24px;
+  }
+  .estimate-dialog{
+    width:min(100%,640px);
+    min-height:0;
+    max-height:calc(100vh - 48px);
+    border-radius:18px;
+    box-shadow:0 24px 80px rgba(70,59,53,.24);
+  }
+  .estimate-header{
+    padding:18px 20px;
+  }
+  .estimate-progress{
+    padding:18px 20px 0;
+  }
+  .estimate-body{
+    padding:30px 20px 24px;
+  }
+  .estimate-step h2{
+    font-size:36px;
+  }
+  .estimate-footer{
+    padding:16px 20px 20px;
+  }
+}
+</style>
+
 </head>
 <body>
 <!--
@@ -2142,8 +2524,8 @@ Sections 5 à 8 V2 : validées
   <div class="spacer" aria-hidden="true"></div>
 
   <div class="ctas">
-    <a class="cta cta-primary" href="#bilan">RÉSERVER MON EXPERTISE TOITURE GRATUITE</a>
-    <a class="cta cta-secondary" href="#prix">ESTIMER MON PRIX EN 1 MIN</a>
+    <a class="cta cta-primary" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    <a class="cta cta-secondary" href="#prix" data-estimate-open aria-haspopup="dialog">ESTIMER MON PRIX EN 1 MIN</a>
   </div>
 </section>
 
@@ -2242,7 +2624,7 @@ Sections 5 à 8 V2 : validées
 
           <p>La bonne nouvelle ?</p>
 
-          <p>Nous vous offrons un Bilan Toiture complet 100% gratuit !</p>
+    <p>Nous vous offrons une expertise toiture complète 100% gratuit !</p>
         </div>
       </div>
     </article>
@@ -2378,7 +2760,7 @@ Sections 5 à 8 V2 : validées
             <li>Etc…</li>
           </ol>
 
-          <p>Chez 3R Services, notre bilan toiture est conçu pour nous dire exactement comment nettoyer votre toit…</p>
+  <p>Chez 3R Services, notre expertise toiture complète est conçue pour nous dire exactement comment nettoyer votre toit…</p>
         </div>
       </div>
     </article>
@@ -2452,7 +2834,7 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
   <div class="s5-intro-copy">
   <p>Pour vous offrir une protection toiture maximale, nous <strong>préférons la précision à la vitesse…</strong></p>
   <p class="emphasis">→ Comptez un peu plus de temps pour votre expertise et votre devis que chez nos confrères.</p>
-  <p>Moins rapide mais plus précise et plus maîtrisée, l’approche 3R Services garantie un toit impeccable ET protégé SANS réduire la vie de votre toiture.</p>
+  <p>Moins rapide mais plus précise et plus maîtrisée, l’approche 3R Services garantie un toit impeccable ET protégé SANS raccourcir la vie de votre toiture.</p>
 </div></div></div>
 
   <div class="compare">
@@ -2897,14 +3279,14 @@ updateArrows();
   <h1>NOS PRIX SONT ABORDABLES</h1>
 
   <div class="s9-copy">
-    <p class="estimate">Obtenez votre devis gratuit et sans engagement avec le Bilan Toiture 3R Services.</p>
+    <p class="estimate">Obtenez votre devis gratuit et sans engagement avec l'Expertise Toiture Complète 3R Services.</p>
 
     <p class="exact"></p>
   </div>
 
   <div class="actions">
-    <a class="cta cta-primary" href="#">RÉSERVER MON EXPERTISE TOITURE GRATUITE</a>
-    <a class="cta cta-secondary" href="#">ESTIMER MON PRIX EN 1 MIN</a>
+    <a class="cta cta-primary" href="#" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    <a class="cta cta-secondary" href="#" data-estimate-open aria-haspopup="dialog">ESTIMER MON PRIX EN 1 MIN</a>
   </div>
 
 </section>
@@ -2913,7 +3295,1340 @@ updateArrows();
 <!-- =========================
      SECTION 8 V2 — FAQ MISE À JOUR
      ========================= -->
-<section class="s10"><h1>FAQ</h1><div class="faq-list"><details class="faq-item"><summary>Comment savoir si ma toiture doit être nettoyée ?</summary><div class="faq-answer">La présence de mousses ne suffit pas à déterminer l'urgence — il faut aussi observer le matériau, sa porosité, l'exposition et les traitements précédents. L'expertise Santé Toiture répond à cette question.</div></details><details class="faq-item"><summary>Pouvez-vous me conseiller de ne rien faire ?</summary><div class="faq-answer">Oui. Si votre toiture n'a pas encore besoin d'entretien, nous préférons vous le dire plutôt que de réaliser une intervention inutile.</div></details><details class="faq-item"><summary>Utilisez-vous la haute pression ?</summary><div class="faq-answer">Cela dépend du matériau et de son état. Une pression excessive peut endommager certaines couvertures — nous l'adaptons selon le diagnostic.</div></details><details class="faq-item"><summary>L'hydrofuge est-il toujours nécessaire ?</summary><div class="faq-answer">Oui. Il est obligatoire. Mais vous avez l'option coloré ou incolore à votre disposition.</div></details><details class="faq-item"><summary>Pourquoi ne pas simplement réduire le dosage sur une toiture nettoyée récemment ?</summary><div class="faq-answer">Un dosage trop faible rend le traitement inefficace. S'il n'y a pas besoin d'intervenir, mieux vaut repousser le nettoyage que le sous-doser.</div></details><details class="faq-item"><summary>Combien de temps dure l'expertise Toiture chez 3R Services ?</summary><div class="faq-answer">45 minutes maximum selon la surface, l'accessibilité et les problèmes repérés.</div></details><details class="faq-item"><summary>L'expertise toiture est-elle vraiment gratuite ?</summary><div class="faq-answer">Oui, l'expertise et le devis sont gratuits et sans engagement.</div></details><details class="faq-item"><summary>Combien coûte une intervention ?</summary><div class="faq-answer">À partir de 17€/m². Cela dépend de la surface, du matériau, de l'accès et de l'état du toit.</div></details><details class="faq-item"><summary>Quelle est la durée de la protection ?</summary><div class="faq-answer">10 ans MINIMUM. Et c'est garantie contractuellement.</div></details><details class="faq-item"><summary>Dans quelles communes intervenez-vous ?</summary><div class="faq-answer">Loire (42), Haute-Loire (43) et bordures Lyonnaises (69).</div></details></div></section>
+<section class="s10"><h1>FAQ</h1><div class="faq-list"><details class="faq-item"><summary>Comment savoir si ma toiture doit être nettoyée ?</summary><div class="faq-answer">La présence de mousses ne suffit pas à déterminer l'urgence — il faut aussi observer le matériau, sa porosité, l'exposition et les traitements précédents. L'expertise Santé Toiture répond à cette question.</div></details><details class="faq-item"><summary>Pouvez-vous me conseiller de ne rien faire ?</summary><div class="faq-answer">Oui. Si votre toiture n'a pas encore besoin d'entretien, nous préférons vous le dire plutôt que de réaliser une intervention inutile.</div></details><details class="faq-item"><summary>Utilisez-vous la haute pression ?</summary><div class="faq-answer">Cela dépend du matériau et de son état. Une pression excessive peut endommager certaines couvertures — nous l'adaptons selon le diagnostic.</div></details><details class="faq-item"><summary>L'hydrofuge est-il toujours nécessaire ?</summary><div class="faq-answer">Oui. Il est obligatoire. Mais vous avez l'option colorée ou incolore à votre disposition.</div></details><details class="faq-item"><summary>Pourquoi ne pas simplement réduire le dosage sur une toiture nettoyée récemment ?</summary><div class="faq-answer">Un dosage trop faible rend le traitement inefficace. S'il n'y a pas besoin d'intervenir, mieux vaut repousser le nettoyage que le sous-doser.</div></details><details class="faq-item"><summary>Combien de temps dure l'expertise Toiture chez 3R Services ?</summary><div class="faq-answer">45 minutes maximum selon la surface, l'accessibilité et les problèmes repérés.</div></details><details class="faq-item"><summary>L'expertise toiture est-elle vraiment gratuite ?</summary><div class="faq-answer">Oui, l'expertise et le devis sont gratuits et sans engagement.</div></details><details class="faq-item"><summary>Combien coûte une intervention ?</summary><div class="faq-answer">À partir de 17€/m². Cela dépend de la surface, du matériau, de l'accès et de l'état du toit.</div></details><details class="faq-item"><summary>Quelle est la durée de la protection ?</summary><div class="faq-answer">10 ans MINIMUM. Et c'est garantie contractuellement.</div></details><details class="faq-item"><summary>Dans quelles communes intervenez-vous ?</summary><div class="faq-answer">Loire (42), Haute-Loire (43) et bordures Lyonnaises (69).</div></details></div></section>
+
+<div class="estimate-modal" id="estimate-modal" hidden>
+  <div class="estimate-backdrop" data-estimate-close aria-hidden="true"></div>
+  <section class="estimate-dialog" role="dialog" aria-modal="true" aria-labelledby="estimate-modal-title" tabindex="-1">
+    <header class="estimate-header">
+      <p class="estimate-header-title" id="estimate-modal-title">Estimer mon prix</p>
+      <button class="estimate-close" type="button" data-estimate-close aria-label="Fermer l'estimateur">×</button>
+    </header>
+
+    <form class="estimate-form" id="estimate-form" novalidate>
+      <div class="estimate-progress" aria-hidden="true">
+        <div class="estimate-progress-text">
+          <span data-estimate-progress-label>Étape 1 sur 5</span>
+          <span data-estimate-progress-name>Surface</span>
+        </div>
+        <div class="estimate-progress-track">
+          <div class="estimate-progress-bar" data-estimate-progress-bar></div>
+        </div>
+      </div>
+
+      <div class="estimate-body">
+        <div class="estimate-step" data-estimate-step="surface">
+          <h2>Quelle est approximativement la surface de votre toiture ?</h2>
+          <p class="estimate-help">Une estimation suffit.</p>
+          <fieldset class="estimate-options">
+            <legend class="estimate-visually-hidden">Surface approximative</legend>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="75_125">
+              <span>75 à 125 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="125_175">
+              <span>125 à 175 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="175_225">
+              <span>175 à 225 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="225_plus">
+              <span>225 m² et +</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="unknown">
+              <span>Je ne sais pas</span>
+            </label>
+          </fieldset>
+          <p class="estimate-error" data-estimate-error="roof_surface_range" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-estimate-step="material" hidden>
+          <h2>Quel est le matériau de votre toiture ?</h2>
+          <p class="estimate-help">Choisissez l'option la plus proche de votre situation.</p>
+          <fieldset class="estimate-options">
+            <legend class="estimate-visually-hidden">Matériau de toiture</legend>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_material" value="terre_cuite_ste_foy">
+              <span class="estimate-choice-media">
+                <span class="estimate-material-thumbs" aria-hidden="true">
+                  <img class="estimate-material-thumb" src="assets/roof-terre-cuite-ste-foy.png" alt="" loading="lazy">
+                  <img class="estimate-material-thumb" src="assets/roof-terre-cuite-ste-foy-2.png" alt="" loading="lazy">
+                </span>
+                <b>Terre cuite Ste Foy</b>
+              </span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_material" value="beton">
+              <span class="estimate-choice-media">
+                <span class="estimate-material-thumbs" aria-hidden="true">
+                  <img class="estimate-material-thumb" src="assets/roof-tuile-beton.png" alt="" loading="lazy">
+                  <img class="estimate-material-thumb" src="assets/roof-tuile-beton-2.png" alt="" loading="lazy">
+                </span>
+                <b>Béton</b>
+              </span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_material" value="unknown">
+              <span>Je ne sais pas</span>
+            </label>
+          </fieldset>
+          <p class="estimate-error" data-estimate-error="roof_material" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-estimate-step="hydrofuge" hidden>
+          <h2>Quel type d’hydrofuge souhaitez-vous ?</h2>
+          <p class="estimate-help">Vous pourrez confirmer votre choix pendant l'expertise.</p>
+          <fieldset class="estimate-options">
+            <legend class="estimate-visually-hidden">Type d'hydrofuge</legend>
+            <label class="estimate-choice">
+              <input type="radio" name="hydrofuge_type" value="incolore">
+              <span>Hydrofuge incolore</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="hydrofuge_type" value="colore">
+              <span>Hydrofuge coloré</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="hydrofuge_type" value="colore_isolant">
+              <span>Hydrofuge coloré isolant</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="hydrofuge_type" value="unknown">
+              <span>Je ne sais pas encore</span>
+            </label>
+          </fieldset>
+          <p class="estimate-error" data-estimate-error="hydrofuge_type" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-estimate-step="postcode" hidden>
+          <h2>Quel est votre code postal ?</h2>
+          <p class="estimate-help">Il sert à situer votre demande, sans bloquer votre parcours.</p>
+          <label class="estimate-field" for="estimate-postcode">
+            <span class="estimate-label">Code postal</span>
+            <input class="estimate-input" id="estimate-postcode" name="postcode" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="42000" aria-describedby="estimate-postcode-error">
+          </label>
+          <p class="estimate-error" id="estimate-postcode-error" data-estimate-error="postcode" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-estimate-step="contact" hidden>
+          <h2>Recevez votre estimation</h2>
+          <p class="estimate-help">Vos coordonnées permettent à 3R Services de confirmer votre situation toiture.</p>
+          <div class="estimate-contact-grid">
+            <label class="estimate-field" for="estimate-full-name">
+              <span class="estimate-label">Prénom et nom</span>
+              <input class="estimate-input" id="estimate-full-name" name="full_name" type="text" autocomplete="name" aria-describedby="estimate-name-error">
+              <span class="estimate-error" id="estimate-name-error" data-estimate-error="full_name" hidden></span>
+            </label>
+            <label class="estimate-field" for="estimate-phone">
+              <span class="estimate-label">Téléphone</span>
+              <input class="estimate-input" id="estimate-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" aria-describedby="estimate-phone-error">
+              <span class="estimate-error" id="estimate-phone-error" data-estimate-error="phone" hidden></span>
+            </label>
+            <label class="estimate-field" for="estimate-email">
+              <span class="estimate-label">E-mail</span>
+              <input class="estimate-input" id="estimate-email" name="email" type="email" autocomplete="email" placeholder="vous@email.fr" aria-describedby="estimate-email-error">
+              <span class="estimate-error" id="estimate-email-error" data-estimate-error="email" hidden></span>
+            </label>
+            <label class="estimate-consent" for="estimate-consent-contact">
+              <input id="estimate-consent-contact" name="consent_contact" type="checkbox" value="true" aria-describedby="estimate-consent-error">
+              <span>J’accepte d’être recontacté par 3R Services par téléphone et/ou e-mail concernant ma demande d’estimation et d’expertise toiture.</span>
+            </label>
+            <p class="estimate-error" id="estimate-consent-error" data-estimate-error="consent_contact" hidden></p>
+            <p class="estimate-privacy">Politique de confidentialité : lien à ajouter.</p>
+          </div>
+        </div>
+
+        <div class="estimate-step" data-estimate-step="result" hidden>
+          <h2 data-estimate-result-title>Votre estimation</h2>
+          <div class="estimate-result-card" data-estimate-result></div>
+        </div>
+      </div>
+
+      <footer class="estimate-footer">
+        <button class="estimate-back" type="button" data-estimate-back>Retour</button>
+        <button class="estimate-next" type="submit" data-estimate-next>Continuer</button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+<div class="estimate-modal" id="expertise-modal" hidden>
+  <div class="estimate-backdrop" data-expertise-close aria-hidden="true"></div>
+  <section class="estimate-dialog" role="dialog" aria-modal="true" aria-labelledby="expertise-modal-title" tabindex="-1">
+    <header class="estimate-header">
+      <p class="estimate-header-title" id="expertise-modal-title">Demander mon expertise toiture gratuite</p>
+      <button class="estimate-close" type="button" data-expertise-close aria-label="Fermer le formulaire">×</button>
+    </header>
+
+    <form class="estimate-form" id="expertise-form" novalidate>
+      <div class="estimate-progress" aria-hidden="true">
+        <div class="estimate-progress-text">
+          <span data-expertise-progress-label>Étape 1 sur 3</span>
+          <span data-expertise-progress-name>Code postal</span>
+        </div>
+        <div class="estimate-progress-track">
+          <div class="estimate-progress-bar" data-expertise-progress-bar></div>
+        </div>
+      </div>
+
+      <div class="estimate-body">
+        <div class="estimate-step" data-expertise-step="postcode">
+          <h2>Quel est le code postal du logement ?</h2>
+          <p class="estimate-help">Cela permet de vérifier votre secteur d’intervention.</p>
+          <label class="estimate-field" for="expertise-postcode">
+            <span class="estimate-label">Code postal</span>
+            <input class="estimate-input" id="expertise-postcode" name="postcode" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="42000" aria-describedby="expertise-postcode-error">
+          </label>
+          <p class="estimate-error" id="expertise-postcode-error" data-expertise-error="postcode" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-expertise-step="surface" hidden>
+          <h2>Quelle est approximativement la surface de votre toiture ?</h2>
+          <p class="estimate-help">Une estimation suffit.</p>
+          <fieldset class="estimate-options">
+            <legend class="estimate-visually-hidden">Surface approximative</legend>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="75_125">
+              <span>75 à 125 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="125_175">
+              <span>125 à 175 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="175_225">
+              <span>175 à 225 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="225_plus">
+              <span>225 m² et +</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="unknown">
+              <span>Je ne sais pas</span>
+            </label>
+          </fieldset>
+          <p class="estimate-error" data-expertise-error="roof_surface_range" hidden></p>
+        </div>
+
+        <div class="estimate-step" data-expertise-step="contact" hidden>
+          <h2>Comment pouvons-nous vous contacter ?</h2>
+          <p class="estimate-help">Un membre de 3R Services vous rappellera pour échanger sur votre toiture.</p>
+          <div class="estimate-contact-grid">
+            <label class="estimate-field" for="expertise-first-name">
+              <span class="estimate-label">Prénom</span>
+              <input class="estimate-input" id="expertise-first-name" name="first_name" type="text" autocomplete="given-name" aria-describedby="expertise-first-name-error">
+              <span class="estimate-error" id="expertise-first-name-error" data-expertise-error="first_name" hidden></span>
+            </label>
+            <label class="estimate-field" for="expertise-phone">
+              <span class="estimate-label">Téléphone</span>
+              <input class="estimate-input" id="expertise-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="06 12 34 56 78" aria-describedby="expertise-phone-error">
+              <span class="estimate-error" id="expertise-phone-error" data-expertise-error="phone" hidden></span>
+            </label>
+            <label class="estimate-field" for="expertise-email">
+              <span class="estimate-label">E-mail</span>
+              <input class="estimate-input" id="expertise-email" name="email" type="email" autocomplete="email" placeholder="vous@email.fr" aria-describedby="expertise-email-error">
+              <span class="estimate-error" id="expertise-email-error" data-expertise-error="email" hidden></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="estimate-step" data-expertise-step="success" hidden>
+          <h2>Bien reçu !</h2>
+          <div class="estimate-result-card">
+            <p class="estimate-result-copy estimate-result-success">Merci d'avoir rempli le formulaire ! Nous vous rappellerons dès que possible.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="estimate-footer">
+        <button class="estimate-back" type="button" data-expertise-back>Retour</button>
+        <button class="estimate-next" type="submit" data-expertise-next>Continuer</button>
+      </footer>
+    </form>
+  </section>
+</div>
+
+<script id="estimate-form-script">
+(function(){
+  const modal = document.getElementById('estimate-modal');
+  const form = document.getElementById('estimate-form');
+  if (!modal || !form) return;
+
+  const dialog = modal.querySelector('.estimate-dialog');
+  const openButtons = Array.from(document.querySelectorAll('[data-estimate-open]'));
+  const closeButtons = Array.from(modal.querySelectorAll('[data-estimate-close]'));
+  const backButton = modal.querySelector('[data-estimate-back]');
+  const nextButton = modal.querySelector('[data-estimate-next]');
+  const progressLabel = modal.querySelector('[data-estimate-progress-label]');
+  const progressName = modal.querySelector('[data-estimate-progress-name]');
+  const progressBar = modal.querySelector('[data-estimate-progress-bar]');
+  const resultTitle = modal.querySelector('[data-estimate-result-title]');
+  const resultTarget = modal.querySelector('[data-estimate-result]');
+  const steps = Array.from(modal.querySelectorAll('[data-estimate-step]'));
+
+  const attributionKeys = [
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'gclid',
+    'gbraid',
+    'wbraid'
+  ];
+
+  const surfaceRanges = [
+    { id:'75_125', label:'75 à 125 m²' },
+    { id:'125_175', label:'125 à 175 m²' },
+    { id:'175_225', label:'175 à 225 m²' },
+    { id:'225_plus', label:'225 m² et +' },
+    { id:'unknown', label:'Je ne sais pas' }
+  ];
+
+  function emptyPricingGrid(){
+    return surfaceRanges.reduce((grid, range) => {
+      grid[range.id] = { minPerM2:null, maxPerM2:null };
+      return grid;
+    }, {});
+  }
+
+  const pricingConfig = {
+    terre_cuite_ste_foy: emptyPricingGrid(),
+    beton_incolore: emptyPricingGrid(),
+    beton_colore: emptyPricingGrid(),
+    beton_colore_isolant: emptyPricingGrid(),
+    beton_indetermine: emptyPricingGrid()
+  };
+
+  const stepLabels = {
+    surface:'Surface',
+    material:'Matériau',
+    hydrofuge:'Hydrofuge',
+    postcode:'Code postal',
+    contact:'Coordonnées'
+  };
+
+  const state = {
+    currentStep:'surface',
+    values:{
+      roof_surface_range:'',
+      roof_material:'',
+      hydrofuge_type:'',
+      postcode:'',
+      full_name:'',
+      phone:'',
+      email:'',
+      consent_contact:false
+    },
+    trackedSteps:new Set(),
+    submitting:false,
+    lastTrigger:null,
+    lastPayload:null,
+    lastResult:null,
+    attribution:captureAttribution()
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      state.lastTrigger = button;
+      openEstimate();
+    });
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', closeEstimate);
+  });
+
+  backButton.addEventListener('click', () => {
+    clearAllErrors();
+    if (state.currentStep === 'result') {
+      state.currentStep = 'contact';
+      render(true);
+      return;
+    }
+
+    const flow = getStepFlow();
+    const index = flow.indexOf(state.currentStep);
+    if (index > 0) {
+      state.currentStep = flow[index - 1];
+      render(true);
+      return;
+    }
+    closeEstimate();
+  });
+
+  form.addEventListener('input', syncStateFromForm);
+  form.addEventListener('change', (event) => {
+    syncStateFromForm();
+    if (event.target && event.target.name === 'roof_material' && state.values.roof_material !== 'beton') {
+      state.values.hydrofuge_type = '';
+      setRadioValue('hydrofuge_type', '');
+    }
+    clearAllErrors();
+    render(false);
+    autoAdvanceChoiceStep(event);
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (state.currentStep === 'result') {
+      closeEstimate();
+      return;
+    }
+
+    const current = state.currentStep;
+    if (!validateStep(current)) return;
+
+    trackStepComplete(current);
+
+    if (current !== 'contact') {
+      goToNextStep();
+      return;
+    }
+
+    await submitCurrentEstimate();
+  });
+
+  modal.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeEstimate();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+    trapFocus(event);
+  });
+
+  render(false);
+
+  function openEstimate(){
+    modal.hidden = false;
+    document.documentElement.classList.add('estimate-modal-open');
+    document.body.classList.add('estimate-modal-open');
+    pushDataLayer({ event:'estimate_open', lead_type:'estimate' });
+    render(true);
+  }
+
+  function closeEstimate(){
+    syncStateFromForm();
+    modal.hidden = true;
+    document.documentElement.classList.remove('estimate-modal-open');
+    document.body.classList.remove('estimate-modal-open');
+    if (state.lastTrigger && typeof state.lastTrigger.focus === 'function') {
+      state.lastTrigger.focus({ preventScroll:true });
+    }
+  }
+
+  function getStepFlow(){
+    const flow = ['surface', 'material'];
+    if (state.values.roof_material === 'beton') {
+      flow.push('hydrofuge');
+    }
+    flow.push('postcode', 'contact');
+    return flow;
+  }
+
+  function goToNextStep(){
+    const flow = getStepFlow();
+    const index = flow.indexOf(state.currentStep);
+    if (index >= 0 && index < flow.length - 1) {
+      state.currentStep = flow[index + 1];
+    }
+    render(true);
+  }
+
+  function render(shouldFocus){
+    syncFormFromState();
+    const flow = getStepFlow();
+    if (state.currentStep !== 'result' && !flow.includes(state.currentStep)) {
+      state.currentStep = flow[flow.length - 1];
+    }
+
+    steps.forEach((step) => {
+      step.hidden = step.getAttribute('data-estimate-step') !== state.currentStep;
+    });
+
+    const isResult = state.currentStep === 'result';
+    const currentIndex = isResult ? flow.length : Math.max(flow.indexOf(state.currentStep) + 1, 1);
+    const percent = isResult ? 100 : Math.round((currentIndex / flow.length) * 100);
+
+    progressLabel.textContent = isResult ? 'Parcours terminé' : `Étape ${currentIndex} sur ${flow.length}`;
+    progressName.textContent = isResult ? 'Résultat' : stepLabels[state.currentStep];
+    progressBar.style.width = `${percent}%`;
+
+    backButton.disabled = state.submitting;
+    backButton.textContent = isResult ? 'Modifier' : 'Retour';
+    nextButton.disabled = state.submitting;
+    nextButton.textContent = getNextButtonLabel(isResult);
+
+    if (shouldFocus) {
+      window.requestAnimationFrame(focusActiveStep);
+    }
+  }
+
+  function getNextButtonLabel(isResult){
+    if (state.submitting) return 'Traitement...';
+    if (isResult) return 'Fermer';
+    if (state.currentStep === 'contact') return 'Voir mon estimation';
+    return 'Continuer';
+  }
+
+  function syncStateFromForm(){
+    const elements = form.elements;
+    state.values.roof_surface_range = getRadioValue('roof_surface_range');
+    state.values.roof_material = getRadioValue('roof_material');
+    state.values.hydrofuge_type = getRadioValue('hydrofuge_type');
+    state.values.postcode = elements.postcode.value;
+    state.values.full_name = elements.full_name.value;
+    state.values.phone = elements.phone.value;
+    state.values.email = elements.email.value;
+    state.values.consent_contact = elements.consent_contact.checked;
+  }
+
+  function syncFormFromState(){
+    const elements = form.elements;
+    elements.postcode.value = state.values.postcode;
+    elements.full_name.value = state.values.full_name;
+    elements.phone.value = state.values.phone;
+    elements.email.value = state.values.email;
+    elements.consent_contact.checked = state.values.consent_contact;
+    setRadioValue('roof_surface_range', state.values.roof_surface_range);
+    setRadioValue('roof_material', state.values.roof_material);
+    setRadioValue('hydrofuge_type', state.values.hydrofuge_type);
+  }
+
+  function autoAdvanceChoiceStep(event){
+    const target = event.target;
+    if (!target || target.type !== 'radio' || !target.checked) return;
+
+    const choiceStepByName = {
+      roof_surface_range:'surface',
+      roof_material:'material',
+      hydrofuge_type:'hydrofuge'
+    };
+    const stepName = choiceStepByName[target.name];
+    if (!stepName || state.currentStep !== stepName) return;
+
+    window.setTimeout(() => {
+      if (state.currentStep !== stepName || state.submitting) return;
+      if (!validateStep(stepName)) return;
+      trackStepComplete(stepName);
+      goToNextStep();
+    }, 120);
+  }
+
+  function getRadioValue(name){
+    const checked = form.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : '';
+  }
+
+  function setRadioValue(name, value){
+    form.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = input.value === value;
+    });
+  }
+
+  function validateStep(step){
+    syncStateFromForm();
+    clearAllErrors();
+
+    if (step === 'surface') return validateSurface();
+    if (step === 'material') return validateMaterial();
+    if (step === 'hydrofuge') return validateHydrofuge();
+    if (step === 'postcode') return validatePostcode();
+    if (step === 'contact') return validateContact();
+    return true;
+  }
+
+  function validateSurface(){
+    if (!state.values.roof_surface_range) {
+      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.');
+    }
+    return true;
+  }
+
+  function validateMaterial(){
+    if (!state.values.roof_material) {
+      return fail('roof_material', 'Veuillez choisir le matériau de votre toiture.');
+    }
+    if (state.values.roof_material !== 'beton') {
+      state.values.hydrofuge_type = '';
+      setRadioValue('hydrofuge_type', '');
+    }
+    return true;
+  }
+
+  function validateHydrofuge(){
+    if (state.values.roof_material !== 'beton') return true;
+    if (!state.values.hydrofuge_type) {
+      return fail('hydrofuge_type', 'Veuillez choisir un type d’hydrofuge.');
+    }
+    return true;
+  }
+
+  function validatePostcode(){
+    const postcode = state.values.postcode.trim();
+    if (!postcode) {
+      return fail('postcode', 'Veuillez saisir votre code postal.');
+    }
+    if (!/^\d{5}$/.test(postcode)) {
+      return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.');
+    }
+    state.values.postcode = postcode;
+    return true;
+  }
+
+  function validateContact(){
+    let valid = true;
+    const fullName = state.values.full_name.trim();
+    const normalizedEmail = normalizeEmail(state.values.email);
+    const normalizedPhone = normalizePhone(state.values.phone);
+
+    if (!fullName) {
+      fail('full_name', 'Veuillez saisir votre prénom et votre nom.');
+      valid = false;
+    }
+    if (!normalizedPhone) {
+      fail('phone', 'Veuillez saisir un numéro de téléphone français valide.');
+      valid = false;
+    }
+    if (!normalizedEmail || !isValidEmail(normalizedEmail)) {
+      fail('email', 'Veuillez saisir une adresse e-mail valide.');
+      valid = false;
+    }
+    if (!state.values.consent_contact) {
+      fail('consent_contact', 'Veuillez accepter d’être recontacté pour recevoir votre estimation.');
+      valid = false;
+    }
+
+    if (!valid) {
+      focusFirstInvalid();
+      return false;
+    }
+
+    state.values.full_name = fullName;
+    state.values.email = normalizedEmail;
+    state.values.phone = normalizedPhone;
+    syncFormFromState();
+    return true;
+  }
+
+  function fail(name, message){
+    setError(name, message);
+    focusFirstInvalid();
+    return false;
+  }
+
+  function setError(name, message){
+    const error = form.querySelector(`[data-estimate-error="${name}"]`);
+    if (error) {
+      error.textContent = message;
+      error.hidden = !message;
+    }
+    form.querySelectorAll(`[name="${name}"]`).forEach((field) => {
+      if (message) {
+        field.setAttribute('aria-invalid', 'true');
+      } else {
+        field.removeAttribute('aria-invalid');
+      }
+    });
+  }
+
+  function clearAllErrors(){
+    form.querySelectorAll('[data-estimate-error]').forEach((error) => {
+      error.textContent = '';
+      error.hidden = true;
+    });
+    form.querySelectorAll('[aria-invalid="true"]').forEach((field) => {
+      field.removeAttribute('aria-invalid');
+    });
+  }
+
+  function focusFirstInvalid(){
+    const invalid = form.querySelector('[aria-invalid="true"]');
+    if (invalid && typeof invalid.focus === 'function') {
+      invalid.focus({ preventScroll:false });
+    }
+  }
+
+  async function submitCurrentEstimate(){
+    if (state.submitting) return;
+    state.submitting = true;
+    render(false);
+
+    const payload = buildEstimatePayload();
+    const enhancedConversionData = {
+      email: payload.email,
+      phone_number: payload.phone
+    };
+
+    pushDataLayer({
+      event:'estimate_submit',
+      lead_type:'estimate',
+      enhanced_conversion_data:enhancedConversionData
+    });
+
+    try {
+      await submitEstimateLead(payload);
+      state.lastPayload = payload;
+      state.lastResult = buildResult(payload);
+      renderResult(state.lastResult);
+      pushResultEvent(state.lastResult);
+      state.currentStep = 'result';
+      render(true);
+    } finally {
+      state.submitting = false;
+      render(false);
+    }
+  }
+
+  async function submitEstimateLead(payload){
+    return { ok:true, payload };
+  }
+
+  function buildEstimatePayload(){
+    const range = getSurfaceRange(state.values.roof_surface_range);
+    const pricingCategory = getPricingCategory(state.values.roof_material, state.values.hydrofuge_type);
+    const estimate = calculateEstimate(null, range, pricingCategory);
+
+    return {
+      lead_type:'estimate',
+      full_name:state.values.full_name,
+      phone:state.values.phone,
+      email:state.values.email,
+      postcode:state.values.postcode,
+      roof_surface_m2:null,
+      roof_surface_range:range ? range.id : null,
+      roof_material:state.values.roof_material,
+      hydrofuge_type:state.values.roof_material === 'beton' ? state.values.hydrofuge_type : null,
+      pricing_category:pricingCategory,
+      price_min:estimate.available ? estimate.min : null,
+      price_max:estimate.available ? estimate.max : null,
+      utm_source:state.attribution.utm_source,
+      utm_medium:state.attribution.utm_medium,
+      utm_campaign:state.attribution.utm_campaign,
+      utm_content:state.attribution.utm_content,
+      utm_term:state.attribution.utm_term,
+      gclid:state.attribution.gclid,
+      gbraid:state.attribution.gbraid,
+      wbraid:state.attribution.wbraid,
+      landing_page:state.attribution.landing_page,
+      referrer:state.attribution.referrer,
+      consent_contact:true
+    };
+  }
+
+  function buildResult(payload){
+    if (payload.price_min !== null && payload.price_max !== null) {
+      return {
+        type:'price_available',
+        title:'Votre estimation',
+        price:`Entre ${formatEuro(payload.price_min)} et ${formatEuro(payload.price_max)}`,
+        copy:'Cette estimation est indicative. Le prix définitif dépendra de l’expertise réelle de votre toiture.'
+      };
+    }
+
+    return {
+      type:payload.roof_material === 'unknown' ? 'material_unknown' : 'pricing_unconfigured',
+      title:'Bien reçu !',
+      price:null,
+      copy:"Merci d'avoir rempli le formulaire ! Nous vous rappellerons dès que possible."
+    };
+  }
+
+  function renderResult(result){
+    resultTitle.textContent = result.title;
+    if (result.price) {
+      resultTarget.innerHTML = `
+        <p class="estimate-result-label">Votre estimation</p>
+        <p class="estimate-result-price">${escapeHtml(result.price)}</p>
+        <p class="estimate-result-copy">${escapeHtml(result.copy)}</p>
+      `;
+      return;
+    }
+
+    resultTarget.innerHTML = `
+      <p class="estimate-result-label">À confirmer</p>
+      <p class="estimate-result-copy estimate-result-success">${escapeHtml(result.copy)}</p>
+    `;
+  }
+
+  function pushResultEvent(result){
+    const resultType = result.type === 'pricing_unconfigured' ? 'pricing_unconfigured' : result.type;
+    pushDataLayer({
+      event:'estimate_result',
+      lead_type:'estimate',
+      result_type:resultType
+    });
+  }
+
+  function trackStepComplete(stepName){
+    if (state.trackedSteps.has(stepName)) return;
+    state.trackedSteps.add(stepName);
+    pushDataLayer({
+      event:'estimate_step_complete',
+      lead_type:'estimate',
+      step_name:stepName
+    });
+  }
+
+  function pushDataLayer(payload){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(payload);
+  }
+
+  function getSurfaceRange(rangeId){
+    return surfaceRanges.find((range) => range.id === rangeId) || null;
+  }
+
+  function getPricingCategory(material, hydrofugeType){
+    if (material === 'terre_cuite_ste_foy') return 'terre_cuite_ste_foy';
+    if (material !== 'beton') return null;
+    if (hydrofugeType === 'incolore') return 'beton_incolore';
+    if (hydrofugeType === 'colore') return 'beton_colore';
+    if (hydrofugeType === 'colore_isolant') return 'beton_colore_isolant';
+    return 'beton_indetermine';
+  }
+
+  function calculateEstimate(surface, range, pricingCategory){
+    if (!Number.isFinite(surface) || !range || !pricingCategory || !pricingConfig[pricingCategory]) {
+      return { available:false, min:null, max:null };
+    }
+
+    const pricing = pricingConfig[pricingCategory][range.id];
+    if (!pricing || !isValidPrice(pricing.minPerM2) || !isValidPrice(pricing.maxPerM2)) {
+      return { available:false, min:null, max:null };
+    }
+
+    const min = Math.round(surface * pricing.minPerM2);
+    const max = Math.round(surface * pricing.maxPerM2);
+    if (!Number.isFinite(min) || !Number.isFinite(max) || min <= 0 || max <= 0) {
+      return { available:false, min:null, max:null };
+    }
+
+    return { available:true, min, max };
+  }
+
+  function isValidPrice(value){
+    return typeof value === 'number' && Number.isFinite(value) && value > 0;
+  }
+
+  function parseSurface(value){
+    return Number(String(value).replace(',', '.'));
+  }
+
+  function normalizeEmail(value){
+    return String(value || '').trim().replace(/\s+/g, '').toLowerCase();
+  }
+
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function normalizePhone(value){
+    const raw = String(value || '').trim();
+    if (!raw) return null;
+
+    let cleaned = raw.replace(/[.\s\-()]/g, '');
+    if (cleaned.startsWith('00')) cleaned = `+${cleaned.slice(2)}`;
+
+    if (/^0[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+33${cleaned.slice(1)}`;
+    } else if (/^33[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+${cleaned}`;
+    }
+
+    if (/^\+33[1-9]\d{8}$/.test(cleaned)) return cleaned;
+    return null;
+  }
+
+  function formatEuro(value){
+    return new Intl.NumberFormat('fr-FR', {
+      style:'currency',
+      currency:'EUR',
+      maximumFractionDigits:0
+    }).format(value);
+  }
+
+  function captureAttribution(){
+    const params = new URLSearchParams(window.location.search);
+    const stored = readStoredAttribution();
+    const attribution = Object.assign({}, stored);
+    const hasUrlAttribution = attributionKeys.some((key) => params.has(key));
+
+    attributionKeys.forEach((key) => {
+      if (params.has(key)) {
+        attribution[key] = params.get(key) || null;
+      } else if (!(key in attribution)) {
+        attribution[key] = null;
+      }
+    });
+
+    if (hasUrlAttribution || !attribution.landing_page) {
+      attribution.landing_page = window.location.href;
+    }
+    if (!attribution.referrer) {
+      attribution.referrer = document.referrer || null;
+    }
+
+    storeAttribution(attribution);
+    return attribution;
+  }
+
+  function readStoredAttribution(){
+    try {
+      return JSON.parse(window.sessionStorage.getItem('estimate_attribution') || '{}') || {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function storeAttribution(attribution){
+    try {
+      window.sessionStorage.setItem('estimate_attribution', JSON.stringify(attribution));
+    } catch (error) {}
+  }
+
+  function focusActiveStep(){
+    const activeStep = modal.querySelector(`[data-estimate-step="${state.currentStep}"]`);
+    const focusTarget = activeStep && activeStep.querySelector('input, button, [href]');
+    if (focusTarget && typeof focusTarget.focus === 'function') {
+      focusTarget.focus({ preventScroll:true });
+      return;
+    }
+    dialog.focus({ preventScroll:true });
+  }
+
+  function trapFocus(event){
+    const focusable = Array.from(dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+      .filter((element) => !element.disabled && !element.hidden && element.offsetParent !== null);
+
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function escapeHtml(value){
+    const div = document.createElement('div');
+    div.textContent = value;
+    return div.innerHTML;
+  }
+})();
+</script>
+
+<script id="expertise-form-script">
+(function(){
+  const modal = document.getElementById('expertise-modal');
+  const form = document.getElementById('expertise-form');
+  if (!modal || !form) return;
+
+  const dialog = modal.querySelector('.estimate-dialog');
+  const openButtons = Array.from(document.querySelectorAll('[data-expertise-open]'));
+  const closeButtons = Array.from(modal.querySelectorAll('[data-expertise-close]'));
+  const backButton = modal.querySelector('[data-expertise-back]');
+  const nextButton = modal.querySelector('[data-expertise-next]');
+  const progressLabel = modal.querySelector('[data-expertise-progress-label]');
+  const progressName = modal.querySelector('[data-expertise-progress-name]');
+  const progressBar = modal.querySelector('[data-expertise-progress-bar]');
+  const steps = Array.from(modal.querySelectorAll('[data-expertise-step]'));
+
+  const flow = ['postcode', 'surface', 'contact'];
+  const labels = {
+    postcode:'Code postal',
+    surface:'Surface',
+    contact:'Contact'
+  };
+  const state = {
+    currentStep:'postcode',
+    values:{
+      postcode:'',
+      roof_surface_range:'',
+      first_name:'',
+      phone:'',
+      email:''
+    },
+    started:false,
+    submitting:false,
+    lastTrigger:null
+  };
+
+  openButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      state.lastTrigger = button;
+      openExpertise();
+    });
+  });
+
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', closeExpertise);
+  });
+
+  backButton.addEventListener('click', () => {
+    clearErrors();
+    if (state.currentStep === 'success') {
+      state.currentStep = 'contact';
+      render(true);
+      return;
+    }
+    const index = flow.indexOf(state.currentStep);
+    if (index > 0) {
+      state.currentStep = flow[index - 1];
+      render(true);
+      return;
+    }
+    closeExpertise();
+  });
+
+  form.addEventListener('input', syncStateFromForm);
+  form.addEventListener('change', (event) => {
+    syncStateFromForm();
+    clearErrors();
+    autoAdvanceChoiceStep(event);
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (state.currentStep === 'success') {
+      closeExpertise();
+      return;
+    }
+    if (!validateStep(state.currentStep)) return;
+
+    const index = flow.indexOf(state.currentStep);
+    if (index < flow.length - 1) {
+      state.currentStep = flow[index + 1];
+      pushDataLayer({
+        event:'form_step',
+        form_name:'expertise_toiture_gratuite',
+        form_step:index + 2
+      });
+      render(true);
+      return;
+    }
+
+    await submitExpertise();
+  });
+
+  modal.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeExpertise();
+      return;
+    }
+    if (event.key === 'Tab') trapFocus(event);
+  });
+
+  render(false);
+
+  function openExpertise(){
+    modal.hidden = false;
+    document.documentElement.classList.add('estimate-modal-open');
+    document.body.classList.add('estimate-modal-open');
+    if (!state.started) {
+      state.started = true;
+      pushDataLayer({
+        event:'form_start',
+        form_name:'expertise_toiture_gratuite'
+      });
+    }
+    render(true);
+  }
+
+  function closeExpertise(){
+    syncStateFromForm();
+    modal.hidden = true;
+    document.documentElement.classList.remove('estimate-modal-open');
+    document.body.classList.remove('estimate-modal-open');
+    if (state.lastTrigger && typeof state.lastTrigger.focus === 'function') {
+      state.lastTrigger.focus({ preventScroll:true });
+    }
+  }
+
+  function render(shouldFocus){
+    syncFormFromState();
+    steps.forEach((step) => {
+      step.hidden = step.getAttribute('data-expertise-step') !== state.currentStep;
+    });
+
+    const isSuccess = state.currentStep === 'success';
+    const index = isSuccess ? flow.length : Math.max(flow.indexOf(state.currentStep) + 1, 1);
+    progressLabel.textContent = isSuccess ? 'Demande envoyée' : `Étape ${index} sur ${flow.length}`;
+    progressName.textContent = isSuccess ? 'Confirmation' : labels[state.currentStep];
+    progressBar.style.width = `${isSuccess ? 100 : Math.round((index / flow.length) * 100)}%`;
+    backButton.disabled = state.submitting;
+    backButton.textContent = isSuccess ? 'Modifier' : 'Retour';
+    nextButton.disabled = state.submitting;
+    nextButton.textContent = getNextLabel(isSuccess);
+
+    if (shouldFocus) {
+      window.requestAnimationFrame(focusActiveStep);
+    }
+  }
+
+  function getNextLabel(isSuccess){
+    if (state.submitting) return 'Envoi...';
+    if (isSuccess) return 'Fermer';
+    if (state.currentStep === 'contact') return 'JE DEMANDE MON EXPERTISE TOITURE GRATUTIE';
+    return 'Continuer';
+  }
+
+  function syncStateFromForm(){
+    const elements = form.elements;
+    state.values.postcode = elements.postcode.value;
+    state.values.roof_surface_range = getRadioValue('roof_surface_range');
+    state.values.first_name = elements.first_name.value;
+    state.values.phone = elements.phone.value;
+    state.values.email = elements.email.value;
+  }
+
+  function syncFormFromState(){
+    const elements = form.elements;
+    elements.postcode.value = state.values.postcode;
+    elements.first_name.value = state.values.first_name;
+    elements.phone.value = state.values.phone;
+    elements.email.value = state.values.email;
+    setRadioValue('roof_surface_range', state.values.roof_surface_range);
+  }
+
+  function autoAdvanceChoiceStep(event){
+    const target = event.target;
+    if (!target || target.type !== 'radio' || !target.checked) return;
+    if (target.name !== 'roof_surface_range' || state.currentStep !== 'surface') return;
+
+    window.setTimeout(() => {
+      if (state.currentStep !== 'surface' || state.submitting) return;
+      if (!validateStep('surface')) return;
+      goToNextExpertiseStep();
+    }, 120);
+  }
+
+  function goToNextExpertiseStep(){
+    const index = flow.indexOf(state.currentStep);
+    if (index < flow.length - 1) {
+      state.currentStep = flow[index + 1];
+      pushDataLayer({
+        event:'form_step',
+        form_name:'expertise_toiture_gratuite',
+        form_step:index + 2
+      });
+      render(true);
+    }
+  }
+
+  function validateStep(step){
+    syncStateFromForm();
+    clearErrors();
+    if (step === 'postcode') return validatePostcode();
+    if (step === 'surface') return validateSurface();
+    if (step === 'contact') return validateContact();
+    return true;
+  }
+
+  function validatePostcode(){
+    const postcode = cleanPostcode(state.values.postcode);
+    if (!postcode) return fail('postcode', 'Veuillez saisir le code postal du logement.');
+    if (!/^\d{5}$/.test(postcode)) return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.');
+    state.values.postcode = postcode;
+    return true;
+  }
+
+  function validateSurface(){
+    if (!state.values.roof_surface_range) {
+      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.');
+    }
+    return true;
+  }
+
+  function validateContact(){
+    let valid = true;
+    const firstName = state.values.first_name.trim();
+    const email = normalizeEmail(state.values.email);
+    const phone = normalizePhone(state.values.phone);
+
+    if (!firstName) {
+      setError('first_name', 'Veuillez saisir votre prénom.');
+      valid = false;
+    }
+    if (!phone) {
+      setError('phone', 'Veuillez saisir un numéro de téléphone français valide.');
+      valid = false;
+    }
+    if (!email || !isValidEmail(email)) {
+      setError('email', 'Veuillez saisir une adresse e-mail valide.');
+      valid = false;
+    }
+    if (!valid) {
+      focusFirstInvalid();
+      return false;
+    }
+
+    state.values.first_name = firstName;
+    state.values.email = email;
+    state.values.phone = phone;
+    syncFormFromState();
+    return true;
+  }
+
+  async function submitExpertise(){
+    if (state.submitting) return;
+    state.submitting = true;
+    render(false);
+
+    const payload = {
+      event:'form_submit',
+      form_name:'expertise_toiture_gratuite',
+      postcode:cleanPostcode(state.values.postcode),
+      roof_surface_range:state.values.roof_surface_range,
+      first_name:state.values.first_name.trim(),
+      email:normalizeEmail(state.values.email),
+      phone:normalizePhone(state.values.phone)
+    };
+
+    try {
+      await submitExpertiseLead(payload);
+      pushDataLayer(payload);
+      state.currentStep = 'success';
+      render(true);
+    } catch (error) {
+      pushDataLayer({
+        event:'form_error',
+        form_name:'expertise_toiture_gratuite',
+        error_type:'submit_failed'
+      });
+      setError('email', 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      state.submitting = false;
+      render(false);
+    }
+  }
+
+  async function submitExpertiseLead(payload){
+    return { ok:true, payload };
+  }
+
+  function fail(name, message){
+    setError(name, message);
+    focusFirstInvalid();
+    return false;
+  }
+
+  function setError(name, message){
+    const error = form.querySelector(`[data-expertise-error="${name}"]`);
+    if (error) {
+      error.textContent = message;
+      error.hidden = !message;
+    }
+    form.querySelectorAll(`[name="${name}"]`).forEach((field) => {
+      if (message) {
+        field.setAttribute('aria-invalid', 'true');
+      } else {
+        field.removeAttribute('aria-invalid');
+      }
+    });
+  }
+
+  function clearErrors(){
+    form.querySelectorAll('[data-expertise-error]').forEach((error) => {
+      error.textContent = '';
+      error.hidden = true;
+    });
+    form.querySelectorAll('[aria-invalid="true"]').forEach((field) => {
+      field.removeAttribute('aria-invalid');
+    });
+  }
+
+  function focusFirstInvalid(){
+    const invalid = form.querySelector('[aria-invalid="true"]');
+    if (invalid && typeof invalid.focus === 'function') {
+      invalid.focus({ preventScroll:false });
+    }
+  }
+
+  function focusActiveStep(){
+    const activeStep = modal.querySelector(`[data-expertise-step="${state.currentStep}"]`);
+    const focusTarget = activeStep && activeStep.querySelector('input, button, [href]');
+    if (focusTarget && typeof focusTarget.focus === 'function') {
+      focusTarget.focus({ preventScroll:true });
+      return;
+    }
+    dialog.focus({ preventScroll:true });
+  }
+
+  function trapFocus(event){
+    const focusable = Array.from(dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+      .filter((element) => !element.disabled && !element.hidden && element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  function getRadioValue(name){
+    const checked = form.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : '';
+  }
+
+  function setRadioValue(name, value){
+    form.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
+      input.checked = input.value === value;
+    });
+  }
+
+  function cleanPostcode(value){
+    return String(value || '').replace(/\D/g, '').slice(0, 5);
+  }
+
+  function normalizeEmail(value){
+    return String(value || '').trim().replace(/\s+/g, '').toLowerCase();
+  }
+
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function normalizePhone(value){
+    const raw = String(value || '').trim();
+    if (!raw) return null;
+    let cleaned = raw.replace(/[.\s\-()]/g, '');
+    if (cleaned.startsWith('00')) cleaned = `+${cleaned.slice(2)}`;
+    if (/^0[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+33${cleaned.slice(1)}`;
+    } else if (/^33[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+${cleaned}`;
+    }
+    if (/^\+33[1-9]\d{8}$/.test(cleaned)) return cleaned;
+    return null;
+  }
+
+  function pushDataLayer(payload){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(payload);
+  }
+})();
+</script>
 
 </body>
 </html>
