@@ -20,6 +20,320 @@
     }
   </style>
 
+  <style id="navbar-3r-styles">
+    html {
+      scroll-padding-top: 78px;
+    }
+
+    body.has-fixed-navbar-3r {
+      padding-top: 68px;
+    }
+
+    .site-header-3r {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 900;
+      width: 100%;
+      background: rgba(255,255,255,.98);
+      border-bottom: 1px solid #e9e5e1;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+
+    .navbar-3r {
+      width: min(calc(100% - 28px), 1380px);
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand-3r {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .brand-logo-3r {
+      width: 54px;
+      height: 46px;
+      display: block;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand-name-3r {
+      color: #2b2725;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: .035em;
+      white-space: nowrap;
+    }
+
+    .desktop-center-3r,
+    .desktop-phone-number-3r,
+    .desktop-cta-label-3r {
+      display: none;
+    }
+
+    .phone-link-3r {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      color: #ef5a1a;
+      text-decoration: none;
+      border-radius: 999px;
+      transition: background .18s ease, transform .18s ease;
+    }
+
+    .phone-link-3r:hover {
+      background: rgba(239,90,26,.08);
+      transform: translateY(-1px);
+    }
+
+    .phone-link-3r:focus-visible {
+      outline: 3px solid rgba(239,90,26,.25);
+      outline-offset: 3px;
+    }
+
+    .phone-link-3r svg {
+      width: 27px;
+      height: 27px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (min-width: 1024px) {
+      html {
+        scroll-padding-top: 92px;
+      }
+
+      body.has-fixed-navbar-3r {
+        padding-top: 82px;
+      }
+
+      .navbar-3r {
+        min-height: 82px;
+        display: grid;
+        grid-template-columns: minmax(275px, 1fr) minmax(360px, 1.25fr) minmax(360px, 1fr);
+        gap: 34px;
+      }
+
+      .brand-3r {
+        justify-self: start;
+      }
+
+      .brand-logo-3r {
+        width: 66px;
+        height: 58px;
+      }
+
+      .brand-name-3r {
+        font-size: 20px;
+      }
+
+      .desktop-center-3r {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 52px;
+        padding-left: 34px;
+        border-left: 1px solid #ddd7d2;
+      }
+
+      .center-title-3r {
+        margin: 0;
+        color: #4b403b;
+        font-size: 16px;
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      .center-subtitle-3r {
+        margin: 6px 0 0;
+        color: #77706c;
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
+      .desktop-contact-3r {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 18px;
+      }
+
+      .desktop-phone-number-3r {
+        display: inline-block;
+        color: #2b2725;
+        font-size: 16px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .phone-link-3r {
+        width: auto;
+        height: 48px;
+        padding: 0 22px;
+        gap: 10px;
+        border: 1.5px solid #ef5a1a;
+        background: #fff;
+      }
+
+      .phone-link-3r:hover {
+        background: rgba(239,90,26,.055);
+      }
+
+      .phone-link-3r svg {
+        width: 23px;
+        height: 23px;
+      }
+
+      .desktop-cta-label-3r {
+        display: inline;
+        color: #ef5a1a;
+        font-size: 15px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1180px) {
+      .navbar-3r {
+        grid-template-columns: minmax(250px, .9fr) minmax(300px, 1fr) auto;
+        gap: 24px;
+      }
+
+      .desktop-center-3r {
+        padding-left: 24px;
+      }
+
+      .desktop-phone-number-3r {
+        display: none;
+      }
+    }
+  </style>
+
+  <style id="footer-3r-styles">
+    .footer-3r {
+      background: #fff;
+      border-top: 1px solid #ece9e3;
+    }
+
+    .footer-3r__inner {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 104px;
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+
+    .footer-3r__brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .footer-3r__logo {
+      width: 68px;
+      height: auto;
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .footer-3r__name {
+      color: #1f211d;
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: .025em;
+      white-space: nowrap;
+    }
+
+    .footer-3r__links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #555851;
+      font-size: 14px;
+    }
+
+    .footer-3r__legal {
+      color: #33362f;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .18s ease;
+    }
+
+    .footer-3r__legal:hover,
+    .footer-3r__legal:focus-visible {
+      color: #e85f18;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .footer-3r__copyright {
+      white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      .footer-3r__inner {
+        width: min(100% - 32px, 1180px);
+        min-height: auto;
+        padding: 24px 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+      }
+
+      .footer-3r__brand {
+        justify-content: flex-start;
+      }
+
+      .footer-3r__logo {
+        width: 62px;
+      }
+
+      .footer-3r__name {
+        font-size: 18px;
+      }
+
+      .footer-3r__links {
+        padding-top: 18px;
+        border-top: 1px solid #efede8;
+        justify-content: space-between;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .footer-3r__links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+
   <style>
 /* SECTION 1 V2 — DUPLICATA INDÉPENDANT DE LA V1 */
 .hero-v13{
@@ -2458,7 +2772,40 @@ html,body{
 </style>
 
 </head>
-<body>
+<body class="has-fixed-navbar-3r">
+<header class="site-header-3r">
+  <nav class="navbar-3r" aria-label="Navigation principale">
+    <a href="#" class="brand-3r" aria-label="3R Services - Accueil">
+      <img
+        class="brand-logo-3r"
+        src="assets/logo-3r-services-navbar.png"
+        alt="Logo 3R Services"
+      >
+      <span class="brand-name-3r">3R SERVICES</span>
+    </a>
+
+    <div class="desktop-center-3r">
+      <p class="center-title-3r">11 ans d'expérience</p>
+      <p class="center-subtitle-3r"><strong>3R : Respect, Réactivité, Rigueur</strong></p>
+    </div>
+
+    <div class="desktop-contact-3r">
+      <span class="desktop-phone-number-3r">07 83 06 09 72</span>
+
+      <a
+        href="tel:+33783060972"
+        class="phone-link-3r"
+        aria-label="Appeler 3R Services au 07 83 06 09 72"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L7.8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span class="desktop-cta-label-3r">Contactez-nous</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
 <!--
 PAGE V2 — ASSEMBLAGE DES SECTIONS VALIDÉES
 Section 1 V2 : validée / verrouillée
@@ -3296,6 +3643,24 @@ updateArrows();
      SECTION 8 V2 — FAQ MISE À JOUR
      ========================= -->
 <section class="s10"><h1>FAQ</h1><div class="faq-list"><details class="faq-item"><summary>Comment savoir si ma toiture doit être nettoyée ?</summary><div class="faq-answer">La présence de mousses ne suffit pas à déterminer l'urgence — il faut aussi observer le matériau, sa porosité, l'exposition et les traitements précédents. L'expertise Santé Toiture répond à cette question.</div></details><details class="faq-item"><summary>Pouvez-vous me conseiller de ne rien faire ?</summary><div class="faq-answer">Oui. Si votre toiture n'a pas encore besoin d'entretien, nous préférons vous le dire plutôt que de réaliser une intervention inutile.</div></details><details class="faq-item"><summary>Utilisez-vous la haute pression ?</summary><div class="faq-answer">Cela dépend du matériau et de son état. Une pression excessive peut endommager certaines couvertures — nous l'adaptons selon le diagnostic.</div></details><details class="faq-item"><summary>L'hydrofuge est-il toujours nécessaire ?</summary><div class="faq-answer">Oui. Il est obligatoire. Mais vous avez l'option colorée ou incolore à votre disposition.</div></details><details class="faq-item"><summary>Pourquoi ne pas simplement réduire le dosage sur une toiture nettoyée récemment ?</summary><div class="faq-answer">Un dosage trop faible rend le traitement inefficace. S'il n'y a pas besoin d'intervenir, mieux vaut repousser le nettoyage que le sous-doser.</div></details><details class="faq-item"><summary>Combien de temps dure l'expertise Toiture chez 3R Services ?</summary><div class="faq-answer">45 minutes maximum selon la surface, l'accessibilité et les problèmes repérés.</div></details><details class="faq-item"><summary>L'expertise toiture est-elle vraiment gratuite ?</summary><div class="faq-answer">Oui, l'expertise et le devis sont gratuits et sans engagement.</div></details><details class="faq-item"><summary>Combien coûte une intervention ?</summary><div class="faq-answer">À partir de 17€/m². Cela dépend de la surface, du matériau, de l'accès et de l'état du toit.</div></details><details class="faq-item"><summary>Quelle est la durée de la protection ?</summary><div class="faq-answer">10 ans MINIMUM. Et c'est garantie contractuellement.</div></details><details class="faq-item"><summary>Dans quelles communes intervenez-vous ?</summary><div class="faq-answer">Loire (42), Haute-Loire (43) et bordures Lyonnaises (69).</div></details></div></section>
+
+<footer class="footer-3r">
+  <div class="footer-3r__inner">
+    <a class="footer-3r__brand" href="#" aria-label="3R Services - Accueil">
+      <img
+        class="footer-3r__logo"
+        src="assets/logo-3r-services-navbar.png"
+        alt="Logo 3R Services"
+      >
+      <span class="footer-3r__name">3R SERVICES</span>
+    </a>
+
+    <div class="footer-3r__links">
+      <a class="footer-3r__legal" href="mentions-legales.html">Mentions légales</a>
+      <span class="footer-3r__copyright">© 2026 3R Services</span>
+    </div>
+  </div>
+</footer>
 
 <div class="estimate-modal" id="estimate-modal" hidden>
   <div class="estimate-backdrop" data-estimate-close aria-hidden="true"></div>
