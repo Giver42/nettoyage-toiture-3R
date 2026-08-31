@@ -123,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       stroke-linejoin: round;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 64rem) {
       html {
         scroll-padding-top: 92px;
       }
@@ -218,7 +218,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
     }
 
-    @media (min-width: 1024px) and (max-width: 1180px) {
+    @media (min-width: 64rem) and (max-width: 1180px) {
       .navbar-3r {
         grid-template-columns: minmax(250px, .9fr) minmax(300px, 1fr) auto;
         gap: 24px;
@@ -2856,6 +2856,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         href="tel:+33783060972"
         class="phone-link-3r"
         aria-label="Appeler 3R Services au 07 83 06 09 72"
+        data-cro-phone-location="header"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L7.8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/>
@@ -2880,7 +2881,7 @@ Sections 5 à 8 V2 : validées
      SECTION 1 V2 — VALIDÉE
      ========================= -->
 <!-- SECTION 1 V2 — COPIE INDÉPENDANTE DE LA SECTION 1 V1 -->
-<section class="hero-v13">
+<section class="hero-v13" data-cro-section="hero" data-cro-section-index="1">
 
   <p class="owners">
     Pour les propriétaires du 42 &amp; 69
@@ -2889,7 +2890,7 @@ Sections 5 à 8 V2 : validées
   <div class="spacer" aria-hidden="true"></div>
 
   <div class="value-chunk">
-    <h1>Nettoyage toiture</h1>
+    <h1 data-cro-section-anchor>Nettoyage toiture</h1>
 
     <p class="v2-hero-subtitle">Votre toit impeccable aujourd'hui ET étanche demain</p>
 
@@ -2931,8 +2932,8 @@ Sections 5 à 8 V2 : validées
   <div class="spacer" aria-hidden="true"></div>
 
   <div class="ctas">
-    <a class="cta cta-primary" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
-    <a class="cta cta-secondary" href="#prix" data-estimate-open aria-haspopup="dialog">ESTIMER MON PRIX EN 1 MIN</a>
+    <a class="cta cta-primary" href="#bilan" data-expertise-open aria-haspopup="dialog" data-cro-cta-id="hero_bilan" data-cro-cta-type="bilan" data-cro-location="hero" data-cro-destination="bilan_form">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    <a class="cta cta-secondary" href="#prix" data-estimate-open aria-haspopup="dialog" data-cro-cta-id="hero_estimation" data-cro-cta-type="estimation" data-cro-location="hero" data-cro-destination="estimation_form">ESTIMER MON PRIX EN 1 MIN</a>
   </div>
 </section>
 
@@ -2942,9 +2943,9 @@ Sections 5 à 8 V2 : validées
 <!-- SECTION 4 V2 — DUPLICATA INDÉPENDANT DU CODE V1 -->
 <!-- SECTION 4 V2 — COPY INTÉGRÉE -->
 <div class="s4-new-shell">
-<section class="s4-new" aria-labelledby="s4-new-title">
+<section class="s4-new" aria-labelledby="s4-new-title" data-cro-section="risks" data-cro-section-index="2">
 
-  <h1 id="s4-new-title">
+  <h1 id="s4-new-title" data-cro-section-anchor>
     Votre prochain entretien toiture :
     <span class="s4-title-save">économiser…</span> ou
     <span class="s4-title-lose">perdre</span> des milliers d’euros.
@@ -2979,7 +2980,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Évitez d'user votre toiture pour rien si :
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-1">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_early" data-cro-content-position="1" aria-expanded="false" aria-controls="s4-v2-details-1">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-1" hidden>
@@ -3011,7 +3012,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Ici le risque, c'est vous…
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-2">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_late" data-cro-content-position="2" aria-expanded="false" aria-controls="s4-v2-details-2">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-2" hidden>
@@ -3051,7 +3052,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Pratique, efficace et rapide… MAIS extrêmement dangereux.
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-3">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_aggressive" data-cro-content-position="3" aria-expanded="false" aria-controls="s4-v2-details-3">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-3" hidden>
@@ -3087,7 +3088,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Repousse rapide des mousses à cause de résidus de racines non éliminés.
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-4">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_light" data-cro-content-position="4" aria-expanded="false" aria-controls="s4-v2-details-4">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-4" hidden>
@@ -3124,7 +3125,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Une seule méthode pour tous les toits… pratique à vendre MAIS rarement précis pour votre toiture.
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-5">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="standard_method" data-cro-content-position="5" aria-expanded="false" aria-controls="s4-v2-details-5">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-5" hidden>
@@ -3155,7 +3156,7 @@ Sections 5 à 8 V2 : validées
 
       <p class="s4n-preview">
         Méfiez-vous si :
-        <button class="s4n-inline-more" type="button" data-s4-more aria-expanded="false" aria-controls="s4-v2-details-6">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="quick_diagnosis" data-cro-content-position="6" aria-expanded="false" aria-controls="s4-v2-details-6">Lire plus</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-6" hidden>
@@ -3196,8 +3197,8 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
 <!-- SECTION 4 V2 — VALIDÉE / VERROUILLÉE — Variante B3 -->
 
 <div class="s4v2-b3-wrap">
-  <section class="s4v2-b3-card">
-    <h1>Expertise Toiture Complète &amp; Gratuite — <span class="accent">Plus d'informations pour plus de précisions</span></h1>
+  <section class="s4v2-b3-card" id="bilan" data-cro-section="bilan" data-cro-section-index="3">
+    <h1 data-cro-section-anchor>Expertise Toiture Complète &amp; Gratuite — <span class="accent">Plus d'informations pour plus de précisions</span></h1>
 
     <p class="intro">Votre nettoyage commence par une expertise complète, gratuite et sans engagement de votre toiture.</p>
 
@@ -3228,7 +3229,7 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
     <p class="bridge">Ensuite, <strong>VOTRE expertise toiture devient NOTRE protocole de nettoyage</strong> : jusqu’à 18 paramètres sont ajustés aux particularités de VOTRE toit.</p>
 
     <div class="section-cta-wrap">
-      <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+      <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog" data-cro-cta-id="bilan_bilan" data-cro-cta-type="bilan" data-cro-location="bilan" data-cro-destination="bilan_form">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
     </div>
   </section>
 </div>
@@ -3238,9 +3239,9 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
      ========================= -->
 <!-- SECTION 4 V2 — REPRISE DE L’ANCIENNE SECTION 3 V2 -->
 <!-- SECTION 5 VALIDÉE / VERROUILLÉE -->
-<section class="s5">
+<section class="s5" data-cro-section="comparaison" data-cro-section-index="4">
 
-  <div class="s5-green-shell"><div class="s5-green-head"><h1>Quelques minutes de précision pour des années de solidité</h1>
+  <div class="s5-green-shell"><div class="s5-green-head"><h1 data-cro-section-anchor>Quelques minutes de précision pour des années de solidité</h1>
 
   <div class="s5-intro-copy">
   <p>Pour vous offrir une protection toiture maximale, nous <strong>préférons la précision à la vitesse…</strong></p>
@@ -3291,7 +3292,7 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
   </div>
 
   <div class="section-cta-wrap">
-    <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog" data-cro-cta-id="comparaison_bilan" data-cro-cta-type="bilan" data-cro-location="comparaison" data-cro-destination="bilan_form">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
   </div>
 </section>
 
@@ -3301,8 +3302,8 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
 <!-- SECTION 5 V2 — DUPLICATA INDÉPENDANT DE LA SECTION 7 V1 -->
 <!-- SECTION 7 VALIDÉE / VERROUILLÉE -->
 <div class="s7-transition">
-<section class="s7">
-<h1>Comment ça se passe ?</h1><p class="eyebrow">4 étapes</p><div class="steps"><div class="step"><div class="num">1</div><div class="copy">
+<section class="s7" data-cro-section="process" data-cro-section-index="5">
+<h1 data-cro-section-anchor>Comment ça se passe ?</h1><p class="eyebrow">4 étapes</p><div class="steps"><div class="step"><div class="num">1</div><div class="copy">
     <strong>Prise de rendez-vous</strong>
     <div class="meta"><span class="time">en 1 min</span><span class="sep">·</span>en ligne ou par téléphone</div>
     </div></div><div class="step"><div class="num">2</div><div class="copy">
@@ -3322,9 +3323,9 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
      SECTION 6 V2 — VALIDÉE, INCHANGÉE
      ========================= -->
 <div class="s8-transition">
-<section aria-label="Avis Google de 3R Services" class="reviews-section">
+<section aria-label="Avis Google de 3R Services" class="reviews-section" data-cro-section="avis" data-cro-section-index="6">
 <div class="reviews-heading">
-<h1>Vos voisins recommandent 3R Services — <span class="reviews-title-green">“Rapide”, “Impeccable”, “Sérieux”</span></h1>
+<h1 data-cro-section-anchor>Vos voisins recommandent 3R Services — <span class="reviews-title-green">“Rapide”, “Impeccable”, “Sérieux”</span></h1>
 </div>
 <div class="reviews-shell">
 <aside class="reviews-summary">
@@ -3688,9 +3689,9 @@ updateArrows();
      ========================= -->
 <!-- SECTION 7 V2 — DUPLICATA INDÉPENDANT DE LA SECTION 9 V1 -->
 <div class="s9-transition">
-<section class="s9">
+<section class="s9" id="prix" data-cro-section="prix" data-cro-section-index="7">
 
-  <h1>NOS PRIX SONT ABORDABLES</h1>
+  <h1 data-cro-section-anchor>NOS PRIX SONT ABORDABLES</h1>
 
   <div class="s9-copy">
     <p class="estimate">Obtenez votre devis gratuit et sans engagement avec l'Expertise Toiture Complète 3R Services.</p>
@@ -3699,8 +3700,8 @@ updateArrows();
   </div>
 
   <div class="actions">
-    <a class="cta cta-primary" href="#" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
-    <a class="cta cta-secondary" href="#" data-estimate-open aria-haspopup="dialog">ESTIMER MON PRIX EN 1 MIN</a>
+    <a class="cta cta-primary" href="#" data-expertise-open aria-haspopup="dialog" data-cro-cta-id="prix_bilan" data-cro-cta-type="bilan" data-cro-location="prix" data-cro-destination="bilan_form">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    <a class="cta cta-secondary" href="#" data-estimate-open aria-haspopup="dialog" data-cro-cta-id="prix_estimation" data-cro-cta-type="estimation" data-cro-location="prix" data-cro-destination="estimation_form">ESTIMER MON PRIX EN 1 MIN</a>
   </div>
 
 </section>
@@ -3709,7 +3710,7 @@ updateArrows();
 <!-- =========================
      SECTION 8 V2 — FAQ MISE À JOUR
      ========================= -->
-<section class="s10"><h1>FAQ</h1><div class="faq-list"><details class="faq-item"><summary>Comment savoir si ma toiture doit être nettoyée ?</summary><div class="faq-answer">La présence de mousses ne suffit pas à déterminer l'urgence — il faut aussi observer le matériau, sa porosité, l'exposition et les traitements précédents. L'expertise Santé Toiture répond à cette question.</div></details><details class="faq-item"><summary>Pouvez-vous me conseiller de ne rien faire ?</summary><div class="faq-answer">Oui. Si votre toiture n'a pas encore besoin d'entretien, nous préférons vous le dire plutôt que de réaliser une intervention inutile.</div></details><details class="faq-item"><summary>Utilisez-vous la haute pression ?</summary><div class="faq-answer">Cela dépend du matériau et de son état. Une pression excessive peut endommager certaines couvertures — nous l'adaptons selon le diagnostic.</div></details><details class="faq-item"><summary>L'hydrofuge est-il toujours nécessaire ?</summary><div class="faq-answer">Oui. Il est obligatoire. Mais vous avez l'option colorée ou incolore à votre disposition.</div></details><details class="faq-item"><summary>Pourquoi ne pas simplement réduire le dosage sur une toiture nettoyée récemment ?</summary><div class="faq-answer">Un dosage trop faible rend le traitement inefficace. S'il n'y a pas besoin d'intervenir, mieux vaut repousser le nettoyage que le sous-doser.</div></details><details class="faq-item"><summary>Combien de temps dure l'expertise Toiture chez 3R Services ?</summary><div class="faq-answer">45 minutes maximum selon la surface, l'accessibilité et les problèmes repérés.</div></details><details class="faq-item"><summary>L'expertise toiture est-elle vraiment gratuite ?</summary><div class="faq-answer">Oui, l'expertise et le devis sont gratuits et sans engagement.</div></details><details class="faq-item"><summary>Combien coûte une intervention ?</summary><div class="faq-answer">À partir de 17€/m². Cela dépend de la surface, du matériau, de l'accès et de l'état du toit.</div></details><details class="faq-item"><summary>Quelle est la durée de la protection ?</summary><div class="faq-answer">10 ans MINIMUM. Et c'est garantie contractuellement.</div></details><details class="faq-item"><summary>Dans quelles communes intervenez-vous ?</summary><div class="faq-answer">Loire (42), Haute-Loire (43) et bordures Lyonnaises (69).</div></details></div></section>
+<section class="s10" data-cro-section="faq" data-cro-section-index="8"><h1 data-cro-section-anchor>FAQ</h1><div class="faq-list"><details class="faq-item"><summary>Comment savoir si ma toiture doit être nettoyée ?</summary><div class="faq-answer">La présence de mousses ne suffit pas à déterminer l'urgence — il faut aussi observer le matériau, sa porosité, l'exposition et les traitements précédents. L'expertise Santé Toiture répond à cette question.</div></details><details class="faq-item"><summary>Pouvez-vous me conseiller de ne rien faire ?</summary><div class="faq-answer">Oui. Si votre toiture n'a pas encore besoin d'entretien, nous préférons vous le dire plutôt que de réaliser une intervention inutile.</div></details><details class="faq-item"><summary>Utilisez-vous la haute pression ?</summary><div class="faq-answer">Cela dépend du matériau et de son état. Une pression excessive peut endommager certaines couvertures — nous l'adaptons selon le diagnostic.</div></details><details class="faq-item"><summary>L'hydrofuge est-il toujours nécessaire ?</summary><div class="faq-answer">Oui. Il est obligatoire. Mais vous avez l'option colorée ou incolore à votre disposition.</div></details><details class="faq-item"><summary>Pourquoi ne pas simplement réduire le dosage sur une toiture nettoyée récemment ?</summary><div class="faq-answer">Un dosage trop faible rend le traitement inefficace. S'il n'y a pas besoin d'intervenir, mieux vaut repousser le nettoyage que le sous-doser.</div></details><details class="faq-item"><summary>Combien de temps dure l'expertise Toiture chez 3R Services ?</summary><div class="faq-answer">45 minutes maximum selon la surface, l'accessibilité et les problèmes repérés.</div></details><details class="faq-item"><summary>L'expertise toiture est-elle vraiment gratuite ?</summary><div class="faq-answer">Oui, l'expertise et le devis sont gratuits et sans engagement.</div></details><details class="faq-item"><summary>Combien coûte une intervention ?</summary><div class="faq-answer">À partir de 17€/m². Cela dépend de la surface, du matériau, de l'accès et de l'état du toit.</div></details><details class="faq-item"><summary>Quelle est la durée de la protection ?</summary><div class="faq-answer">10 ans MINIMUM. Et c'est garantie contractuellement.</div></details><details class="faq-item"><summary>Dans quelles communes intervenez-vous ?</summary><div class="faq-answer">Loire (42), Haute-Loire (43) et bordures Lyonnaises (69).</div></details></div></section>
 
 <footer class="footer-3r">
   <div class="footer-3r__inner">
@@ -3728,6 +3729,801 @@ updateArrows();
     </div>
   </div>
 </footer>
+
+<script id="cro-tracking-script">
+(function(){
+  'use strict';
+
+  const LP_NAME = 'nettoyage_toiture_3r';
+  const LP_VARIANT = 'preview';
+  const PAGE_TYPE = 'landing_page';
+  const SECTION_VIEW_DELAY_MS = 800;
+  const SECTION_ENGAGEMENT_MS = 4000;
+  const SECTION_REVISIT_OUT_MS = 2000;
+  const REVIEW_VIEW_DELAY_MS = 800;
+  const REVIEW_VISIBLE_RATIO = 0.6;
+  const desktopMediaQuery = typeof window.matchMedia === 'function'
+    ? window.matchMedia('(min-width: 64rem)')
+    : { matches:false };
+  const pageStartedAt = nowMs();
+
+  const expandedContent = new Set();
+  const sectionStates = new Map();
+  const reviewTimers = new Map();
+  const reviewsSeen = new Set();
+  const formContexts = new Map();
+  const scrollDepthsSent = new Set();
+  const reengagementCounts = new Map();
+  const engagementCounts = new Map();
+
+  let currentCtaContext = null;
+  let reviewsSeenUniqueCount = 0;
+  let reviewNavigationClickCount = 0;
+  let lastScrollY = window.scrollY || 0;
+  let lastScrollDirection = 'down';
+  let sectionFrame = null;
+  let reviewFrame = null;
+  let sectionEvaluationAllowsVisitStart = false;
+  let lastEngagementTick = nowMs();
+  let lastEngagedSection = null;
+  let lastReengagedSection = null;
+  let mostEngagedSection = null;
+  let mostEngagedSectionCount = 0;
+  let mostReengagedSection = null;
+  let mostReengagedSectionCount = 0;
+
+  window.CroTracker = {
+    pushEvent: pushCroEvent,
+    trackFormOpen,
+    trackFormStart,
+    trackFormStepView,
+    trackFormStepComplete,
+    trackFormError,
+    trackLeadSubmit,
+    trackLeadSuccess,
+    trackLeadUserDataReady,
+    normalizeEmail,
+    normalizePhone,
+    getDepartment,
+    isZoneEligible,
+    getReadingLineRatio
+  };
+
+  pushCroEvent('cro_page_view', {
+    lp_name: LP_NAME,
+    lp_variant: LP_VARIANT,
+    page_type: PAGE_TYPE
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCroTracking, { once:true });
+  } else {
+    initCroTracking();
+  }
+
+  function initCroTracking(){
+    decorateFaqItems();
+    decorateReviewCards();
+    initSections();
+    initReviews();
+    initClickTracking();
+    initScrollDepthTracking();
+    initVisibilityTracking();
+  }
+
+  function pushCroEvent(eventName, data){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(cleanPayload(Object.assign({ event:eventName }, data || {})));
+  }
+
+  function cleanPayload(payload){
+    const clean = {};
+    Object.keys(payload).forEach((key) => {
+      if (payload[key] !== undefined) clean[key] = payload[key];
+    });
+    return clean;
+  }
+
+  function nowMs(){
+    return window.performance && typeof window.performance.now === 'function'
+      ? window.performance.now()
+      : Date.now();
+  }
+
+  function getTimeToActionBucket(referenceMs){
+    const elapsedSeconds = Math.max(0, Math.floor(((referenceMs || nowMs()) - pageStartedAt) / 1000));
+    if (elapsedSeconds <= 15) return '0_15s';
+    if (elapsedSeconds <= 30) return '16_30s';
+    if (elapsedSeconds <= 60) return '31_60s';
+    if (elapsedSeconds <= 120) return '61_120s';
+    return '120s_plus';
+  }
+
+  function getDurationBucket(ms){
+    const seconds = Math.max(0, Math.floor(ms / 1000));
+    if (seconds <= 10) return '4_10s';
+    if (seconds <= 20) return '11_20s';
+    if (seconds <= 40) return '21_40s';
+    return '40s_plus';
+  }
+
+  function getVisitIndex(value){
+    if (value <= 3) return value;
+    return '4_plus';
+  }
+
+  function getIntentContext(){
+    const context = {};
+    if (lastEngagedSection) context.last_engaged_section = lastEngagedSection;
+    if (lastReengagedSection) context.last_reengaged_section = lastReengagedSection;
+    if (mostEngagedSection) {
+      context.most_engaged_section = mostEngagedSection;
+      context.most_engaged_section_count = mostEngagedSectionCount;
+    }
+    if (mostReengagedSection) {
+      context.most_reengaged_section = mostReengagedSection;
+      context.most_reengaged_section_count = mostReengagedSectionCount;
+    }
+    return context;
+  }
+
+  function withActionContext(data){
+    return Object.assign({
+      time_to_action_bucket:getTimeToActionBucket()
+    }, getIntentContext(), data || {});
+  }
+
+  function initClickTracking(){
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const phoneLink = target.closest('a[href^="tel:"]');
+      if (phoneLink) trackPhoneClick(phoneLink);
+
+      const cta = target.closest('[data-cro-cta-id]');
+      if (cta) trackCtaClick(cta);
+
+      const riskToggle = target.closest('[data-cro-content-type="risk"][data-cro-content-id]');
+      if (riskToggle && riskToggle.getAttribute('aria-expanded') !== 'true') {
+        trackContentExpand({
+          section_id:'risks',
+          content_type:'risk',
+          content_id:riskToggle.dataset.croContentId,
+          content_position:toNumber(riskToggle.dataset.croContentPosition)
+        });
+      }
+
+      const reviewMore = target.closest('.review-card .more');
+      if (reviewMore && reviewMore.getAttribute('aria-expanded') !== 'true') {
+        const card = reviewMore.closest('.review-card');
+        trackContentExpand({
+          section_id:'avis',
+          content_type:'review',
+          content_id:card && card.dataset.croReviewId,
+          content_position:card && toNumber(card.dataset.croReviewPosition)
+        });
+      }
+
+      const faqSummary = target.closest('.faq-item > summary');
+      if (faqSummary) {
+        const item = faqSummary.closest('.faq-item');
+        if (item && !item.open) {
+          trackContentExpand({
+            section_id:'faq',
+            content_type:'faq',
+            content_id:item.dataset.croContentId,
+            content_position:toNumber(item.dataset.croContentPosition)
+          });
+        }
+      }
+
+      const reviewArrow = target.closest('.carousel-arrow');
+      if (reviewArrow && !reviewArrow.disabled) {
+        trackReviewNavigation(reviewArrow.classList.contains('prev') ? 'previous' : 'next');
+      }
+    }, true);
+  }
+
+  function trackCtaClick(cta){
+    const ctaData = getCtaData(cta);
+    currentCtaContext = {
+      form_type:ctaData.cta_type,
+      source_cta_id:ctaData.cta_id,
+      source_section:ctaData.cta_location
+    };
+
+    pushCroEvent('cro_cta_click', withActionContext({
+      cta_id:ctaData.cta_id,
+      cta_type:ctaData.cta_type,
+      cta_location:ctaData.cta_location,
+      destination:ctaData.destination
+    }));
+  }
+
+  function getCtaData(cta){
+    return {
+      cta_id:cta.dataset.croCtaId,
+      cta_type:cta.dataset.croCtaType,
+      cta_location:cta.dataset.croLocation,
+      destination:cta.dataset.croDestination
+    };
+  }
+
+  function trackPhoneClick(link){
+    pushCroEvent('cro_phone_click', withActionContext({
+      click_location:link.dataset.croPhoneLocation || findSectionId(link) || 'unknown'
+    }));
+  }
+
+  function trackContentExpand(data){
+    if (!data.content_id) return;
+    const key = [data.section_id, data.content_type, data.content_id].join(':');
+    if (expandedContent.has(key)) return;
+    expandedContent.add(key);
+    pushCroEvent('cro_content_expand', withActionContext(data));
+  }
+
+  function trackReviewNavigation(direction){
+    reviewNavigationClickCount += 1;
+    pushCroEvent('cro_review_navigation', {
+      navigation_direction:direction,
+      navigation_click_count:reviewNavigationClickCount
+    });
+  }
+
+  function decorateFaqItems(){
+    const faqIds = [
+      'roof_cleaning_needed',
+      'can_advise_waiting',
+      'high_pressure',
+      'hydrofuge_needed',
+      'reduced_dosage',
+      'expertise_duration',
+      'free_expertise',
+      'intervention_price',
+      'protection_duration',
+      'service_area'
+    ];
+
+    document.querySelectorAll('.faq-item').forEach((item, index) => {
+      item.dataset.croContentType = 'faq';
+      item.dataset.croContentId = faqIds[index] || `faq_${String(index + 1).padStart(2, '0')}`;
+      item.dataset.croContentPosition = String(index + 1);
+    });
+  }
+
+  function decorateReviewCards(){
+    document.querySelectorAll('.review-card').forEach((card, index) => {
+      card.dataset.croReviewId = `review_${String(index + 1).padStart(2, '0')}`;
+      card.dataset.croReviewPosition = String(index + 1);
+    });
+  }
+
+  function initSections(){
+    const sections = Array.from(document.querySelectorAll('[data-cro-section][data-cro-section-index]'));
+    sections.forEach((element) => {
+      const sectionId = element.dataset.croSection;
+      const anchor = getSectionAnchor(element);
+      sectionStates.set(sectionId, {
+        element,
+        anchor,
+        sectionId,
+        sectionIndex:toNumber(element.dataset.croSectionIndex),
+        isQualified:false,
+        hasViewed:false,
+        hasEngaged:false,
+        visitCount:0,
+        engagementCount:0,
+        reengagementCount:0,
+        totalEngagementMs:0,
+        currentVisitEngagementMs:0,
+        currentVisitIndex:null,
+        currentVisitDirection:null,
+        currentVisitTimeSinceFirstVisitBucket:null,
+        currentVisitReengaged:false,
+        firstVisitAt:null,
+        lastEngagedAt:null,
+        lastReengagedAt:null,
+        revisitEligible:false,
+        pendingVisitTimer:null,
+        outTimer:null
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(scheduleSectionEvaluation, {
+        threshold:[0, 0.05, 0.1, 0.2, 0.35, 0.5, 0.75, 1]
+      });
+      sectionStates.forEach((state) => observer.observe(state.element));
+    }
+
+    scheduleSectionEvaluation({ allowVisitStart:true });
+  }
+
+  function scheduleSectionEvaluation(options){
+    if (options && options.allowVisitStart) {
+      sectionEvaluationAllowsVisitStart = true;
+    }
+    if (sectionFrame) return;
+    sectionFrame = window.requestAnimationFrame(() => {
+      sectionFrame = null;
+      const allowVisitStart = sectionEvaluationAllowsVisitStart;
+      sectionEvaluationAllowsVisitStart = false;
+      evaluateSections(allowVisitStart);
+    });
+  }
+
+  function evaluateSections(allowVisitStart){
+    const current = nowMs();
+    sectionStates.forEach((state) => {
+      const qualified = isSectionQualified(state);
+      if (qualified !== state.isQualified) {
+        if (qualified && !allowVisitStart) return;
+        handleSectionVisibilityChange(state, qualified, current);
+      }
+    });
+  }
+
+  function isSectionQualified(state){
+    if (document.visibilityState !== 'visible') return false;
+    const readingLineY = getReadingLineY();
+    const sectionRect = state.element.getBoundingClientRect();
+    const anchorRect = state.anchor.getBoundingClientRect();
+    const lineIsInsideSection = sectionRect.top <= readingLineY && sectionRect.bottom >= readingLineY;
+    const anchorHasReachedReadingLine = anchorRect.top <= readingLineY;
+    return lineIsInsideSection && anchorHasReachedReadingLine;
+  }
+
+  function getSectionAnchor(section){
+    return section.querySelector('[data-cro-section-anchor]')
+      || section.querySelector('h1, h2, .intro, .lead, .eyebrow, p')
+      || section;
+  }
+
+  function getReadingLineRatio(){
+    return desktopMediaQuery.matches ? 0.5 : 0.4;
+  }
+
+  function getReadingLineY(){
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    return viewportHeight * getReadingLineRatio();
+  }
+
+  function handleSectionVisibilityChange(state, qualified, current){
+    state.isQualified = qualified;
+
+    if (qualified) {
+      if (state.outTimer) {
+        window.clearTimeout(state.outTimer);
+        state.outTimer = null;
+      }
+      const entryDirection = lastScrollDirection;
+      if (state.visitCount === 0) {
+        startVisitTimer(state, false, entryDirection);
+      } else if (state.revisitEligible) {
+        startVisitTimer(state, true, entryDirection);
+      }
+      return;
+    }
+
+    if (state.pendingVisitTimer) {
+      window.clearTimeout(state.pendingVisitTimer);
+      state.pendingVisitTimer = null;
+    }
+
+    if (state.visitCount > 0) {
+      if (state.outTimer) window.clearTimeout(state.outTimer);
+      state.outTimer = window.setTimeout(() => {
+        if (!state.isQualified) state.revisitEligible = true;
+      }, SECTION_REVISIT_OUT_MS);
+    }
+  }
+
+  function startVisitTimer(state, isRevisit, entryDirection){
+    if (state.pendingVisitTimer) return;
+    state.pendingVisitTimer = window.setTimeout(() => {
+      state.pendingVisitTimer = null;
+      if (!state.isQualified || document.visibilityState !== 'visible') return;
+      confirmSectionVisit(state, isRevisit, entryDirection);
+    }, SECTION_VIEW_DELAY_MS);
+  }
+
+  function confirmSectionVisit(state, isRevisit, entryDirection){
+    const current = nowMs();
+    state.visitCount += 1;
+    state.currentVisitIndex = state.visitCount;
+    state.currentVisitDirection = entryDirection || lastScrollDirection;
+    state.currentVisitEngagementMs = 0;
+    state.currentVisitReengaged = false;
+
+    if (!state.firstVisitAt) state.firstVisitAt = current;
+    state.currentVisitTimeSinceFirstVisitBucket = null;
+
+    if (!state.hasViewed) {
+      state.hasViewed = true;
+      pushCroEvent('cro_section_view', {
+        section_id:state.sectionId,
+        section_index:state.sectionIndex
+      });
+    } else if (isRevisit) {
+      const timeSinceFirstVisitBucket = bucketFromMs(current - state.firstVisitAt);
+      state.currentVisitTimeSinceFirstVisitBucket = timeSinceFirstVisitBucket;
+      pushCroEvent('cro_section_revisit', {
+        section_id:state.sectionId,
+        section_index:state.sectionIndex,
+        visit_index:getVisitIndex(state.visitCount),
+        entry_direction:state.currentVisitDirection,
+        time_since_first_visit_bucket:timeSinceFirstVisitBucket
+      });
+    }
+
+    state.revisitEligible = false;
+  }
+
+  function initVisibilityTracking(){
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY || 0;
+      if (Math.abs(currentY - lastScrollY) > 2) {
+        lastScrollDirection = currentY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentY;
+      }
+      scheduleSectionEvaluation({ allowVisitStart:true });
+      scheduleReviewEvaluation();
+      trackScrollDepth();
+    }, { passive:true });
+
+    window.addEventListener('resize', () => {
+      scheduleSectionEvaluation({ allowVisitStart:false });
+      scheduleReviewEvaluation();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      lastEngagementTick = nowMs();
+      if (document.visibilityState !== 'visible') {
+        sectionStates.forEach((state) => {
+          if (state.pendingVisitTimer) {
+            window.clearTimeout(state.pendingVisitTimer);
+            state.pendingVisitTimer = null;
+          }
+        });
+        return;
+      }
+      sectionStates.forEach((state) => {
+        state.isQualified = false;
+      });
+      scheduleSectionEvaluation({ allowVisitStart:true });
+      scheduleReviewEvaluation();
+    });
+
+    window.setInterval(trackSectionEngagement, 250);
+  }
+
+  function trackSectionEngagement(){
+    const current = nowMs();
+    const delta = current - lastEngagementTick;
+    lastEngagementTick = current;
+
+    if (document.visibilityState !== 'visible' || delta <= 0) return;
+
+    sectionStates.forEach((state) => {
+      if (!state.isQualified || state.visitCount < 1) return;
+      state.totalEngagementMs += delta;
+      state.currentVisitEngagementMs += delta;
+
+      if (!state.hasEngaged && state.totalEngagementMs >= SECTION_ENGAGEMENT_MS) {
+        state.hasEngaged = true;
+        recordSectionEngagement(state, false);
+        pushCroEvent('cro_section_engaged', {
+          section_id:state.sectionId,
+          section_index:state.sectionIndex
+        });
+      }
+
+      if (state.currentVisitIndex > 1 && !state.currentVisitReengaged && state.currentVisitEngagementMs >= SECTION_ENGAGEMENT_MS) {
+        state.currentVisitReengaged = true;
+        recordSectionEngagement(state, true);
+        pushCroEvent('cro_section_reengaged', {
+          section_id:state.sectionId,
+          section_index:state.sectionIndex,
+          visit_index:getVisitIndex(state.visitCount),
+          entry_direction:state.currentVisitDirection,
+          time_since_first_visit_bucket:state.currentVisitTimeSinceFirstVisitBucket,
+          engagement_time_bucket:getDurationBucket(state.currentVisitEngagementMs)
+        });
+      }
+    });
+  }
+
+  function recordSectionEngagement(state, isReengagement){
+    const current = nowMs();
+    state.engagementCount += 1;
+    state.lastEngagedAt = current;
+    lastEngagedSection = state.sectionId;
+    engagementCounts.set(state.sectionId, state.engagementCount);
+    if (state.engagementCount >= mostEngagedSectionCount) {
+      mostEngagedSection = state.sectionId;
+      mostEngagedSectionCount = state.engagementCount;
+    }
+
+    if (isReengagement) {
+      state.reengagementCount += 1;
+      state.lastReengagedAt = current;
+      lastReengagedSection = state.sectionId;
+      reengagementCounts.set(state.sectionId, state.reengagementCount);
+      if (state.reengagementCount >= mostReengagedSectionCount) {
+        mostReengagedSection = state.sectionId;
+        mostReengagedSectionCount = state.reengagementCount;
+      }
+    }
+  }
+
+  function initReviews(){
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(scheduleReviewEvaluation, {
+        threshold:[0, 0.25, 0.5, 0.6, 0.75, 1]
+      });
+      document.querySelectorAll('.review-card').forEach((card) => observer.observe(card));
+    }
+    scheduleReviewEvaluation();
+  }
+
+  function scheduleReviewEvaluation(){
+    if (reviewFrame) return;
+    reviewFrame = window.requestAnimationFrame(() => {
+      reviewFrame = null;
+      evaluateReviews();
+    });
+  }
+
+  function evaluateReviews(){
+    document.querySelectorAll('.review-card').forEach((card) => {
+      const reviewId = card.dataset.croReviewId;
+      if (!reviewId || reviewsSeen.has(reviewId)) return;
+
+      if (document.visibilityState === 'visible' && getVisibleRatio(card) >= REVIEW_VISIBLE_RATIO) {
+        if (!reviewTimers.has(reviewId)) {
+          const timer = window.setTimeout(() => {
+            reviewTimers.delete(reviewId);
+            if (reviewsSeen.has(reviewId)) return;
+            if (document.visibilityState !== 'visible' || getVisibleRatio(card) < REVIEW_VISIBLE_RATIO) return;
+            reviewsSeen.add(reviewId);
+            reviewsSeenUniqueCount += 1;
+            pushCroEvent('cro_review_view', {
+              review_id:reviewId,
+              review_position:toNumber(card.dataset.croReviewPosition),
+              reviews_seen_unique_count:reviewsSeenUniqueCount
+            });
+          }, REVIEW_VIEW_DELAY_MS);
+          reviewTimers.set(reviewId, timer);
+        }
+      } else if (reviewTimers.has(reviewId)) {
+        window.clearTimeout(reviewTimers.get(reviewId));
+        reviewTimers.delete(reviewId);
+      }
+    });
+  }
+
+  function getVisibleRatio(element){
+    const rect = element.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+    let clipTop = 0;
+    let clipRight = viewportWidth;
+    let clipBottom = viewportHeight;
+    let clipLeft = 0;
+    const carouselViewport = element.closest('.carousel-viewport');
+    if (carouselViewport) {
+      const clip = carouselViewport.getBoundingClientRect();
+      clipTop = Math.max(clipTop, clip.top);
+      clipRight = Math.min(clipRight, clip.right);
+      clipBottom = Math.min(clipBottom, clip.bottom);
+      clipLeft = Math.max(clipLeft, clip.left);
+    }
+    const visibleWidth = Math.min(rect.right, clipRight) - Math.max(rect.left, clipLeft);
+    const visibleHeight = Math.min(rect.bottom, clipBottom) - Math.max(rect.top, clipTop);
+    if (visibleWidth <= 0 || visibleHeight <= 0 || rect.width <= 0 || rect.height <= 0) return 0;
+    return (visibleWidth * visibleHeight) / (rect.width * rect.height);
+  }
+
+  function initScrollDepthTracking(){
+    trackScrollDepth();
+  }
+
+  function trackScrollDepth(){
+    const doc = document.documentElement;
+    const scrollable = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const currentPercent = Math.min(100, Math.round(((window.scrollY || doc.scrollTop || 0) / scrollable) * 100));
+    [25, 50, 75, 90].forEach((threshold) => {
+      if (currentPercent >= threshold && !scrollDepthsSent.has(threshold)) {
+        scrollDepthsSent.add(threshold);
+        pushCroEvent('cro_scroll_depth', { scroll_percent:threshold });
+      }
+    });
+  }
+
+  function trackFormOpen(formType, sourceElement){
+    const sourceContext = resolveFormSource(formType, sourceElement);
+    const context = {
+      form_type:formType,
+      source_cta_id:sourceContext.source_cta_id,
+      source_section:sourceContext.source_section,
+      started:false,
+      leadSubmitSent:false,
+      leadSuccessSent:false,
+      leadUserDataSent:false,
+      lastStepViewKey:null
+    };
+    formContexts.set(formType, context);
+
+    pushCroEvent('cro_form_open', withActionContext({
+      form_type:formType,
+      source_cta_id:context.source_cta_id,
+      source_section:context.source_section
+    }));
+  }
+
+  function trackFormStart(formType){
+    const context = ensureFormContext(formType);
+    if (context.started) return;
+    context.started = true;
+    pushCroEvent('cro_form_start', {
+      form_type:formType,
+      source_cta_id:context.source_cta_id,
+      source_section:context.source_section
+    });
+  }
+
+  function trackFormStepView(formType, stepIndex, stepId){
+    const context = ensureFormContext(formType);
+    const key = `${stepIndex}:${stepId}`;
+    if (context.lastStepViewKey === key) return;
+    context.lastStepViewKey = key;
+    pushCroEvent('cro_form_step_view', {
+      form_type:formType,
+      step_index:stepIndex,
+      step_id:stepId,
+      source_cta_id:context.source_cta_id,
+      source_section:context.source_section
+    });
+  }
+
+  function trackFormStepComplete(formType, stepIndex, stepId){
+    pushCroEvent('cro_form_step_complete', {
+      form_type:formType,
+      step_index:stepIndex,
+      step_id:stepId
+    });
+  }
+
+  function trackFormError(formType, stepId, fieldId, errorType){
+    pushCroEvent('cro_form_error', {
+      form_type:formType,
+      step_id:stepId,
+      field_id:fieldId,
+      error_type:errorType
+    });
+  }
+
+  function trackLeadSubmit(formType, data){
+    const context = ensureFormContext(formType);
+    pushCroEvent('cro_lead_submit', withActionContext(Object.assign({
+      form_type:formType,
+      source_cta_id:context.source_cta_id,
+      source_section:context.source_section
+    }, data || {})));
+  }
+
+  function trackLeadSuccess(formType, data){
+    const context = ensureFormContext(formType);
+    if (context.leadSuccessSent) return;
+    context.leadSuccessSent = true;
+    pushCroEvent('cro_lead_success', withActionContext(Object.assign({
+      form_type:formType,
+      source_cta_id:context.source_cta_id,
+      source_section:context.source_section
+    }, data || {})));
+  }
+
+  function trackLeadUserDataReady(formType, userData){
+    const context = ensureFormContext(formType);
+    if (context.leadUserDataSent) return;
+
+    const leadsUserData = {};
+    const email = normalizeEmail(userData && userData.email);
+    const phone = normalizePhone(userData && userData.phone_number);
+    if (email && isValidEmail(email)) leadsUserData.email = email;
+    if (phone) leadsUserData.phone_number = phone;
+    if (!Object.keys(leadsUserData).length) return;
+
+    context.leadUserDataSent = true;
+    pushCroEvent('lead_user_data_ready', {
+      form_type:formType,
+      leadsUserData:leadsUserData
+    });
+  }
+
+  function resolveFormSource(formType, sourceElement){
+    if (sourceElement && sourceElement.dataset && sourceElement.dataset.croCtaId) {
+      const ctaData = getCtaData(sourceElement);
+      return {
+        source_cta_id:ctaData.cta_id,
+        source_section:ctaData.cta_location
+      };
+    }
+    if (currentCtaContext && currentCtaContext.form_type === formType) {
+      return currentCtaContext;
+    }
+    return {};
+  }
+
+  function ensureFormContext(formType){
+    if (!formContexts.has(formType)) {
+      formContexts.set(formType, {
+        form_type:formType,
+        source_cta_id:undefined,
+        source_section:undefined,
+        started:false,
+        leadSubmitSent:false,
+        leadSuccessSent:false,
+        leadUserDataSent:false,
+        lastStepViewKey:null
+      });
+    }
+    return formContexts.get(formType);
+  }
+
+  function normalizeEmail(value){
+    return String(value || '').trim().replace(/\s+/g, '').toLowerCase();
+  }
+
+  function normalizePhone(value){
+    const raw = String(value || '').trim();
+    if (!raw) return null;
+    let cleaned = raw.replace(/[.\s\-()]/g, '');
+    if (cleaned.startsWith('00')) cleaned = `+${cleaned.slice(2)}`;
+    if (/^0[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+33${cleaned.slice(1)}`;
+    } else if (/^33[1-9]\d{8}$/.test(cleaned)) {
+      cleaned = `+${cleaned}`;
+    }
+    if (/^\+33[1-9]\d{8}$/.test(cleaned)) return cleaned;
+    return null;
+  }
+
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function getDepartment(postcode){
+    const clean = String(postcode || '').replace(/\D/g, '').slice(0, 5);
+    return clean.length >= 2 ? clean.slice(0, 2) : null;
+  }
+
+  function isZoneEligible(department){
+    return ['42', '43', '69'].includes(String(department || ''));
+  }
+
+  function findSectionId(element){
+    const section = element.closest('[data-cro-section]');
+    return section ? section.dataset.croSection : null;
+  }
+
+  function bucketFromMs(ms){
+    const seconds = Math.max(0, Math.floor(ms / 1000));
+    if (seconds <= 15) return '0_15s';
+    if (seconds <= 30) return '16_30s';
+    if (seconds <= 60) return '31_60s';
+    if (seconds <= 120) return '61_120s';
+    return '120s_plus';
+  }
+
+  function toNumber(value){
+    const number = Number(value);
+    return Number.isFinite(number) ? number : undefined;
+  }
+})();
+</script>
 
 <div class="estimate-modal" id="estimate-modal" hidden>
   <div class="estimate-backdrop" data-estimate-close aria-hidden="true"></div>
@@ -4058,6 +4854,7 @@ updateArrows();
       consent_contact:false
     },
     trackedSteps:new Set(),
+    started:false,
     submitting:false,
     lastTrigger:null,
     lastPayload:null,
@@ -4095,8 +4892,12 @@ updateArrows();
     closeEstimate();
   });
 
-  form.addEventListener('input', syncStateFromForm);
+  form.addEventListener('input', (event) => {
+    trackFormStartFromEvent(event);
+    syncStateFromForm();
+  });
   form.addEventListener('change', (event) => {
+    trackFormStartFromEvent(event);
     syncStateFromForm();
     if (event.target && event.target.name === 'roof_material' && state.values.roof_material !== 'beton') {
       state.values.hydrofuge_type = '';
@@ -4144,7 +4945,11 @@ updateArrows();
     modal.hidden = false;
     document.documentElement.classList.add('estimate-modal-open');
     document.body.classList.add('estimate-modal-open');
-    pushDataLayer({ event:'estimate_open', lead_type:'estimate' });
+    state.started = false;
+    state.trackedSteps = new Set();
+    if (window.CroTracker) {
+      window.CroTracker.trackFormOpen('estimation', state.lastTrigger);
+    }
     render(true);
   }
 
@@ -4199,6 +5004,8 @@ updateArrows();
     backButton.textContent = isResult ? 'Modifier' : 'Retour';
     nextButton.disabled = state.submitting;
     nextButton.textContent = getNextButtonLabel(isResult);
+
+    trackCurrentStepView(flow, isResult);
 
     if (shouldFocus) {
       window.requestAnimationFrame(focusActiveStep);
@@ -4281,14 +5088,14 @@ updateArrows();
 
   function validateSurface(){
     if (!state.values.roof_surface_range) {
-      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.');
+      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.', 'required');
     }
     return true;
   }
 
   function validateMaterial(){
     if (!state.values.roof_material) {
-      return fail('roof_material', 'Veuillez choisir le matériau de votre toiture.');
+      return fail('roof_material', 'Veuillez choisir le matériau de votre toiture.', 'required');
     }
     if (state.values.roof_material !== 'beton') {
       state.values.hydrofuge_type = '';
@@ -4300,7 +5107,7 @@ updateArrows();
   function validateHydrofuge(){
     if (state.values.roof_material !== 'beton') return true;
     if (!state.values.hydrofuge_type) {
-      return fail('hydrofuge_type', 'Veuillez choisir un type d’hydrofuge.');
+      return fail('hydrofuge_type', 'Veuillez choisir un type d’hydrofuge.', 'required');
     }
     return true;
   }
@@ -4308,10 +5115,10 @@ updateArrows();
   function validatePostcode(){
     const postcode = state.values.postcode.trim();
     if (!postcode) {
-      return fail('postcode', 'Veuillez saisir votre code postal.');
+      return fail('postcode', 'Veuillez saisir votre code postal.', 'required');
     }
     if (!/^\d{5}$/.test(postcode)) {
-      return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.');
+      return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.', 'invalid_postcode');
     }
     state.values.postcode = postcode;
     return true;
@@ -4324,19 +5131,19 @@ updateArrows();
     const normalizedPhone = normalizePhone(state.values.phone);
 
     if (!fullName) {
-      fail('full_name', 'Veuillez saisir votre prénom et votre nom.');
+      fail('full_name', 'Veuillez saisir votre prénom et votre nom.', 'required');
       valid = false;
     }
     if (!normalizedPhone) {
-      fail('phone', 'Veuillez saisir un numéro de téléphone français valide.');
+      fail('phone', 'Veuillez saisir un numéro de téléphone français valide.', state.values.phone.trim() ? 'invalid_format' : 'required');
       valid = false;
     }
     if (!normalizedEmail || !isValidEmail(normalizedEmail)) {
-      fail('email', 'Veuillez saisir une adresse e-mail valide.');
+      fail('email', 'Veuillez saisir une adresse e-mail valide.', state.values.email.trim() ? 'invalid_format' : 'required');
       valid = false;
     }
     if (!state.values.consent_contact) {
-      fail('consent_contact', 'Veuillez accepter d’être recontacté pour recevoir votre estimation.');
+      fail('consent_contact', 'Veuillez accepter d’être recontacté pour recevoir votre estimation.', 'consent_required');
       valid = false;
     }
 
@@ -4352,8 +5159,9 @@ updateArrows();
     return true;
   }
 
-  function fail(name, message){
+  function fail(name, message, errorType){
     setError(name, message);
+    trackFormError(name, errorType || 'required');
     focusFirstInvalid();
     return false;
   }
@@ -4396,25 +5204,19 @@ updateArrows();
     render(false);
 
     const payload = buildEstimatePayload();
-    const enhancedConversionData = {
-      email: payload.email,
-      phone_number: payload.phone
-    };
-
-    pushDataLayer({
-      event:'estimate_submit',
-      lead_type:'estimate',
-      enhanced_conversion_data:enhancedConversionData
-    });
+    const trackingData = buildEstimateTrackingData(payload);
+    if (window.CroTracker) {
+      window.CroTracker.trackLeadSubmit('estimation', trackingData);
+    }
 
     try {
       await submitEstimateLead(payload);
       state.lastPayload = payload;
       state.lastResult = buildResult(payload);
       renderResult(state.lastResult);
-      pushResultEvent(state.lastResult);
       state.currentStep = 'result';
       render(true);
+      trackEstimateSuccess(payload, trackingData);
     } finally {
       state.submitting = false;
       render(false);
@@ -4431,7 +5233,6 @@ updateArrows();
     const estimate = calculateEstimate(null, range, pricingCategory);
 
     return {
-      lead_type:'estimate',
       full_name:state.values.full_name,
       phone:state.values.phone,
       email:state.values.email,
@@ -4494,26 +5295,79 @@ updateArrows();
 
   function pushResultEvent(result){
     const resultType = result.type === 'pricing_unconfigured' ? 'pricing_unconfigured' : result.type;
-    pushDataLayer({
-      event:'estimate_result',
-      lead_type:'estimate',
-      result_type:resultType
-    });
+    return resultType;
   }
 
   function trackStepComplete(stepName){
     if (state.trackedSteps.has(stepName)) return;
     state.trackedSteps.add(stepName);
-    pushDataLayer({
-      event:'estimate_step_complete',
-      lead_type:'estimate',
-      step_name:stepName
-    });
+    const meta = getEstimateStepMeta(stepName);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormStepComplete('estimation', meta.stepIndex, meta.stepId);
+    }
   }
 
-  function pushDataLayer(payload){
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(payload);
+  function trackFormStartFromEvent(event){
+    if (state.started) return;
+    const target = event && event.target;
+    if (!target || !target.name) return;
+    state.started = true;
+    if (window.CroTracker) {
+      window.CroTracker.trackFormStart('estimation');
+    }
+  }
+
+  function trackCurrentStepView(flow, isResult){
+    if (modal.hidden || isResult) return;
+    const meta = getEstimateStepMeta(state.currentStep, flow);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormStepView('estimation', meta.stepIndex, meta.stepId);
+    }
+  }
+
+  function trackFormError(fieldId, errorType){
+    const meta = getEstimateStepMeta(state.currentStep);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormError('estimation', meta.stepId, fieldId, errorType);
+    }
+  }
+
+  function getEstimateStepMeta(stepName, flowOverride){
+    const stepIds = {
+      surface:'roof_surface',
+      material:'roof_material',
+      hydrofuge:'hydrofuge_choice',
+      postcode:'postcode',
+      contact:'contact'
+    };
+    const flow = flowOverride || getStepFlow();
+    const index = flow.indexOf(stepName);
+    if (index < 0 || !stepIds[stepName]) return null;
+    return {
+      stepIndex:index + 1,
+      stepId:stepIds[stepName]
+    };
+  }
+
+  function buildEstimateTrackingData(payload){
+    const department = window.CroTracker ? window.CroTracker.getDepartment(payload.postcode) : null;
+    return {
+      roof_surface_bucket:payload.roof_surface_range,
+      roof_material:payload.roof_material,
+      hydrofuge_choice:payload.hydrofuge_type,
+      department:department,
+      zone_eligible:window.CroTracker ? window.CroTracker.isZoneEligible(department) : undefined
+    };
+  }
+
+  function trackEstimateSuccess(payload, trackingData){
+    const resultStep = modal.querySelector('[data-estimate-step="result"]');
+    if (!resultStep || resultStep.hidden || !window.CroTracker) return;
+    window.CroTracker.trackLeadSuccess('estimation', trackingData);
+    window.CroTracker.trackLeadUserDataReady('estimation', {
+      email:payload.email,
+      phone_number:payload.phone
+    });
   }
 
   function getSurfaceRange(rangeId){
@@ -4696,6 +5550,7 @@ updateArrows();
       email:''
     },
     started:false,
+    trackedSteps:new Set(),
     submitting:false,
     lastTrigger:null
   };
@@ -4728,8 +5583,12 @@ updateArrows();
     closeExpertise();
   });
 
-  form.addEventListener('input', syncStateFromForm);
+  form.addEventListener('input', (event) => {
+    trackFormStartFromEvent(event);
+    syncStateFromForm();
+  });
   form.addEventListener('change', (event) => {
+    trackFormStartFromEvent(event);
     syncStateFromForm();
     clearErrors();
     autoAdvanceChoiceStep(event);
@@ -4743,14 +5602,10 @@ updateArrows();
     }
     if (!validateStep(state.currentStep)) return;
 
+    trackStepComplete(state.currentStep);
     const index = flow.indexOf(state.currentStep);
     if (index < flow.length - 1) {
       state.currentStep = flow[index + 1];
-      pushDataLayer({
-        event:'form_step',
-        form_name:'expertise_toiture_gratuite',
-        form_step:index + 2
-      });
       render(true);
       return;
     }
@@ -4773,12 +5628,10 @@ updateArrows();
     modal.hidden = false;
     document.documentElement.classList.add('estimate-modal-open');
     document.body.classList.add('estimate-modal-open');
-    if (!state.started) {
-      state.started = true;
-      pushDataLayer({
-        event:'form_start',
-        form_name:'expertise_toiture_gratuite'
-      });
+    state.started = false;
+    state.trackedSteps = new Set();
+    if (window.CroTracker) {
+      window.CroTracker.trackFormOpen('bilan', state.lastTrigger);
     }
     render(true);
   }
@@ -4808,6 +5661,8 @@ updateArrows();
     backButton.textContent = isSuccess ? 'Modifier' : 'Retour';
     nextButton.disabled = state.submitting;
     nextButton.textContent = getNextLabel(isSuccess);
+
+    trackCurrentStepView(isSuccess);
 
     if (shouldFocus) {
       window.requestAnimationFrame(focusActiveStep);
@@ -4847,6 +5702,7 @@ updateArrows();
     window.setTimeout(() => {
       if (state.currentStep !== 'surface' || state.submitting) return;
       if (!validateStep('surface')) return;
+      trackStepComplete('surface');
       goToNextExpertiseStep();
     }, 120);
   }
@@ -4855,11 +5711,6 @@ updateArrows();
     const index = flow.indexOf(state.currentStep);
     if (index < flow.length - 1) {
       state.currentStep = flow[index + 1];
-      pushDataLayer({
-        event:'form_step',
-        form_name:'expertise_toiture_gratuite',
-        form_step:index + 2
-      });
       render(true);
     }
   }
@@ -4875,15 +5726,15 @@ updateArrows();
 
   function validatePostcode(){
     const postcode = cleanPostcode(state.values.postcode);
-    if (!postcode) return fail('postcode', 'Veuillez saisir le code postal du logement.');
-    if (!/^\d{5}$/.test(postcode)) return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.');
+    if (!postcode) return fail('postcode', 'Veuillez saisir le code postal du logement.', 'required');
+    if (!/^\d{5}$/.test(postcode)) return fail('postcode', 'Veuillez saisir un code postal français à 5 chiffres.', 'invalid_postcode');
     state.values.postcode = postcode;
     return true;
   }
 
   function validateSurface(){
     if (!state.values.roof_surface_range) {
-      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.');
+      return fail('roof_surface_range', 'Veuillez choisir une surface approximative.', 'required');
     }
     return true;
   }
@@ -4895,15 +5746,15 @@ updateArrows();
     const phone = normalizePhone(state.values.phone);
 
     if (!firstName) {
-      setError('first_name', 'Veuillez saisir votre prénom.');
+      fail('first_name', 'Veuillez saisir votre prénom.', 'required');
       valid = false;
     }
     if (!phone) {
-      setError('phone', 'Veuillez saisir un numéro de téléphone français valide.');
+      fail('phone', 'Veuillez saisir un numéro de téléphone français valide.', state.values.phone.trim() ? 'invalid_format' : 'required');
       valid = false;
     }
     if (!email || !isValidEmail(email)) {
-      setError('email', 'Veuillez saisir une adresse e-mail valide.');
+      fail('email', 'Veuillez saisir une adresse e-mail valide.', state.values.email.trim() ? 'invalid_format' : 'required');
       valid = false;
     }
     if (!valid) {
@@ -4924,26 +5775,26 @@ updateArrows();
     render(false);
 
     const payload = {
-      event:'form_submit',
-      form_name:'expertise_toiture_gratuite',
       postcode:cleanPostcode(state.values.postcode),
       roof_surface_range:state.values.roof_surface_range,
       first_name:state.values.first_name.trim(),
       email:normalizeEmail(state.values.email),
       phone:normalizePhone(state.values.phone)
     };
+    const trackingData = buildBilanTrackingData(payload);
+    if (window.CroTracker) {
+      window.CroTracker.trackLeadSubmit('bilan', trackingData);
+    }
 
     try {
       await submitExpertiseLead(payload);
-      pushDataLayer(payload);
       state.currentStep = 'success';
       render(true);
+      trackExpertiseSuccess(payload, trackingData);
     } catch (error) {
-      pushDataLayer({
-        event:'form_error',
-        form_name:'expertise_toiture_gratuite',
-        error_type:'submit_failed'
-      });
+      if (window.CroTracker) {
+        window.CroTracker.trackFormError('bilan', 'contact', 'form', 'submit_failed');
+      }
       setError('email', 'Une erreur est survenue. Veuillez réessayer.');
     } finally {
       state.submitting = false;
@@ -4955,8 +5806,9 @@ updateArrows();
     return { ok:true, payload };
   }
 
-  function fail(name, message){
+  function fail(name, message, errorType){
     setError(name, message);
+    trackFormError(name, errorType || 'required');
     focusFirstInvalid();
     return false;
   }
@@ -5055,9 +5907,71 @@ updateArrows();
     return null;
   }
 
-  function pushDataLayer(payload){
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(payload);
+  function trackFormStartFromEvent(event){
+    if (state.started) return;
+    const target = event && event.target;
+    if (!target || !target.name) return;
+    state.started = true;
+    if (window.CroTracker) {
+      window.CroTracker.trackFormStart('bilan');
+    }
+  }
+
+  function trackCurrentStepView(isSuccess){
+    if (modal.hidden || isSuccess) return;
+    const meta = getExpertiseStepMeta(state.currentStep);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormStepView('bilan', meta.stepIndex, meta.stepId);
+    }
+  }
+
+  function trackStepComplete(stepName){
+    if (state.trackedSteps.has(stepName)) return;
+    state.trackedSteps.add(stepName);
+    const meta = getExpertiseStepMeta(stepName);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormStepComplete('bilan', meta.stepIndex, meta.stepId);
+    }
+  }
+
+  function trackFormError(fieldId, errorType){
+    const meta = getExpertiseStepMeta(state.currentStep);
+    if (window.CroTracker && meta) {
+      window.CroTracker.trackFormError('bilan', meta.stepId, fieldId, errorType);
+    }
+  }
+
+  function getExpertiseStepMeta(stepName){
+    const stepIds = {
+      postcode:'postcode',
+      surface:'roof_surface',
+      contact:'contact'
+    };
+    const index = flow.indexOf(stepName);
+    if (index < 0 || !stepIds[stepName]) return null;
+    return {
+      stepIndex:index + 1,
+      stepId:stepIds[stepName]
+    };
+  }
+
+  function buildBilanTrackingData(payload){
+    const department = window.CroTracker ? window.CroTracker.getDepartment(payload.postcode) : null;
+    return {
+      roof_surface_bucket:payload.roof_surface_range,
+      department:department,
+      zone_eligible:window.CroTracker ? window.CroTracker.isZoneEligible(department) : undefined
+    };
+  }
+
+  function trackExpertiseSuccess(payload, trackingData){
+    const successStep = modal.querySelector('[data-expertise-step="success"]');
+    if (!successStep || successStep.hidden || !window.CroTracker) return;
+    window.CroTracker.trackLeadSuccess('bilan', trackingData);
+    window.CroTracker.trackLeadUserDataReady('bilan', {
+      email:payload.email,
+      phone_number:payload.phone
+    });
   }
 })();
 </script>
