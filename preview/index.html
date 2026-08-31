@@ -334,6 +334,55 @@
     }
   </style>
 
+  <style id="section-cta-styles">
+    .section-cta-wrap {
+      display: grid;
+      margin: 28px 0 0;
+      padding: 0;
+    }
+
+    .section-cta {
+      width: 100%;
+      min-height: 58px;
+      padding: 15px 16px;
+      border: 2px solid #668F2E;
+      border-radius: 14px;
+      background: #668F2E;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 950;
+    }
+
+    .s4v2-b3-card .section-cta-wrap {
+      margin-top: 48px;
+    }
+
+    .section-cta:focus-visible {
+      outline: 3px solid rgba(102,143,46,.34);
+      outline-offset: 3px;
+    }
+
+    @media (min-width: 760px) {
+      .section-cta-wrap {
+        margin-top: 34px;
+      }
+
+      .s4v2-b3-card .section-cta-wrap {
+        margin-top: 62px;
+      }
+
+      .section-cta {
+        font-size: 14px;
+      }
+    }
+  </style>
+
   <style>
 /* SECTION 1 V2 — DUPLICATA INDÉPENDANT DE LA V1 */
 .hero-v13{
@@ -3166,6 +3215,10 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
     </div>
 
     <p class="bridge">Ensuite, <strong>VOTRE expertise toiture devient NOTRE protocole de nettoyage</strong> : jusqu’à 18 paramètres sont ajustés aux particularités de VOTRE toit.</p>
+
+    <div class="section-cta-wrap">
+      <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+    </div>
   </section>
 </div>
 
@@ -3226,6 +3279,9 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
     </div>
   </div>
 
+  <div class="section-cta-wrap">
+    <a class="section-cta" href="#bilan" data-expertise-open aria-haspopup="dialog">DEMANDER MON EXPERTISE TOITURE GRATUITE</a>
+  </div>
 </section>
 
 <!-- =========================
