@@ -961,30 +961,30 @@ body{background:#FCFBF7}
 .s4-new .s4n-item{
   background:var(--s4-surface);
   border:1px solid var(--s4-line);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 10px 24px rgba(0,0,0,.04);
+  border-radius:22px;
+  padding:25px 24px 27px;
+  box-shadow:0 8px 18px rgba(0,0,0,.035);
 }
 .s4-new .s4n-item-head{
   display:flex;
-  gap:12px;
-  align-items:flex-start;
+  gap:15px;
+  align-items:center;
 }
 .s4-new .s4n-num{
   display:grid;
   place-items:center;
-  width:30px;
-  height:30px;
+  width:37px;
+  height:37px;
   border-radius:50%;
   background:var(--s4-dark);
   color:#fff;
   font-weight:900;
-  font-size:.8rem;
+  font-size:.92rem;
   flex:0 0 auto;
 }
 .s4-new h2{
-  margin:1px 0 0;
-  font-size:1.18rem;
+  margin:0;
+  font-size:1.32rem;
   line-height:1.2;
   letter-spacing:-.02em;
   font-weight:950;
@@ -992,19 +992,19 @@ body{background:#FCFBF7}
 .s4-new .s4n-cause-line{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-top:14px;
+  gap:14px;
+  margin-top:26px;
   color:var(--s4-accent);
-  font-size:.92rem;
-  font-weight:800;
+  font-size:.98rem;
+  font-weight:900;
 }
 .s4-new .s4n-cause-flow{
   display:flex;
   align-items:center;
-  flex:0 0 34px;
+  flex:0 0 40px;
 }
 .s4-new .s4n-flow-line{
-  width:18px;
+  width:25px;
   height:1px;
   background:#cfc6c1;
 }
@@ -1015,35 +1015,30 @@ body{background:#FCFBF7}
   font-weight:900;
 }
 .s4-new .s4n-preview{
-  margin:15px 0 0;
-  padding-top:14px;
-  border-top:1px solid #ece8e4;
-  font-weight:750;
+  margin:24px 0 0;
+  font-weight:800;
 }
 .s4-new .s4n-inline-more{
-  display:inline;
+  display:inline-block;
   border:0;
   background:none;
   padding:0;
-  margin-left:4px;
-  color:#8a8784;
+  margin:0;
+  color:#5c5957;
   font:inherit;
-  font-weight:600;
+  font-weight:850;
+  text-decoration:underline;
+  text-underline-offset:4px;
   cursor:pointer;
 }
-.s4-new .s4n-inline-more::before{
-  content:"·";
-  margin-right:5px;
-  color:#aaa6a2;
-}
-.s4-new .s4n-inline-more:hover{color:#5c5957}
+.s4-new .s4n-inline-more:hover{color:#2d2b29}
 .s4-new .s4n-inline-more:focus-visible{
   outline:2px solid #777;
-  outline-offset:3px;
+  outline-offset:5px;
   border-radius:2px;
 }
 .s4-new .s4n-details-inner{
-  padding-top:11px;
+  padding-top:18px;
   color:var(--s4-muted);
   font-size:.94rem;
 }
@@ -2979,12 +2974,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Évitez d'user votre toiture pour rien si :
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_early" data-cro-content-position="1" aria-expanded="false" aria-controls="s4-v2-details-1">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_early" data-cro-content-position="1" aria-expanded="false" aria-controls="s4-v2-details-1">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-1" hidden>
         <div class="s4n-details-inner">
+          <p>Évitez d'user votre toiture pour rien si :</p>
+
           <ul>
             <li>Votre toit a été nettoyé il y a moins de 10 ans ?</li>
             <li>Les mousses sont peu visibles ?</li>
@@ -3011,12 +3007,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Ici le risque, c'est vous…
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_late" data-cro-content-position="2" aria-expanded="false" aria-controls="s4-v2-details-2">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_late" data-cro-content-position="2" aria-expanded="false" aria-controls="s4-v2-details-2">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-2" hidden>
         <div class="s4n-details-inner">
+          <p>Ici le risque, c'est vous…</p>
+
           <p>C'est attendre alors que votre toit à :</p>
 
           <ul>
@@ -3051,12 +3048,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Pratique, efficace et rapide… MAIS extrêmement dangereux.
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_aggressive" data-cro-content-position="3" aria-expanded="false" aria-controls="s4-v2-details-3">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_aggressive" data-cro-content-position="3" aria-expanded="false" aria-controls="s4-v2-details-3">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-3" hidden>
         <div class="s4n-details-inner">
+          <p>Pratique, efficace et rapide… MAIS extrêmement dangereux.</p>
+
           <p>Le nettoyage trop agressif donne un visuel propre…</p>
 
           <p>MAIS l'excès de produit, pression, action, etc :</p>
@@ -3087,12 +3085,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Repousse rapide des mousses à cause de résidus de racines non éliminés.
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_light" data-cro-content-position="4" aria-expanded="false" aria-controls="s4-v2-details-4">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="too_light" data-cro-content-position="4" aria-expanded="false" aria-controls="s4-v2-details-4">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-4" hidden>
         <div class="s4n-details-inner">
+          <p>Repousse rapide des mousses à cause de résidus de racines non éliminés.</p>
+
           <p>Le nettoyage trop faible donne aussi un visuel propre.</p>
 
           <p>MAIS le manque de produit, pression, action, etc :</p>
@@ -3124,12 +3123,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Une seule méthode pour tous les toits… pratique à vendre MAIS rarement précis pour votre toiture.
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="standard_method" data-cro-content-position="5" aria-expanded="false" aria-controls="s4-v2-details-5">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="standard_method" data-cro-content-position="5" aria-expanded="false" aria-controls="s4-v2-details-5">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-5" hidden>
         <div class="s4n-details-inner">
+          <p>Une seule méthode pour tous les toits… pratique à vendre MAIS rarement précis pour votre toiture.</p>
+
           <p>Car dès qu’on standardise, on risque d’en faire trop… ou pas assez.</p>
 
           <p>Seul un nettoyage adapté vous permet d'éviter l'excès et l'inefficacité.</p>
@@ -3155,12 +3155,13 @@ Sections 5 à 8 V2 : validées
       </div>
 
       <p class="s4n-preview">
-        Méfiez-vous si :
-        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="quick_diagnosis" data-cro-content-position="6" aria-expanded="false" aria-controls="s4-v2-details-6">Lire plus</button>
+        <button class="s4n-inline-more" type="button" data-s4-more data-cro-content-type="risk" data-cro-content-id="quick_diagnosis" data-cro-content-position="6" aria-expanded="false" aria-controls="s4-v2-details-6">Voir le détail</button>
       </p>
 
       <div class="s4n-details" id="s4-v2-details-6" hidden>
         <div class="s4n-details-inner">
+          <p>Méfiez-vous si :</p>
+
           <ol>
             <li>Le diagnostic se fait depuis le sol, ou depuis Google Earth</li>
             <li>Aucune photo ne prouve ce qui est annoncé</li>
@@ -3185,7 +3186,7 @@ document.querySelectorAll('[data-s4-more]').forEach((button) => {
     const open = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!open));
     panel.hidden = open;
-    button.textContent = open ? 'Lire plus' : 'Réduire';
+    button.textContent = open ? 'Voir le détail' : 'Masquer le détail';
   });
 });
 </script>
