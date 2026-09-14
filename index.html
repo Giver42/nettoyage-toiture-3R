@@ -3765,7 +3765,7 @@ updateArrows();
   let sectionFrame = null;
   let reviewFrame = null;
   let sectionEvaluationAllowsVisitStart = false;
-  let lastEngagementTick = nowMs();
+  let pageIsActive = document.visibilityState === 'visible';
   let lastEngagedSection = null;
   let lastReengagedSection = null;
   let mostEngagedSection = null;
@@ -3838,14 +3838,6 @@ updateArrows();
     if (elapsedSeconds <= 60) return '31_60s';
     if (elapsedSeconds <= 120) return '61_120s';
     return '120s_plus';
-  }
-
-  function getDurationBucket(ms){
-    const seconds = Math.max(0, Math.floor(ms / 1000));
-    if (seconds <= 10) return '4_10s';
-    if (seconds <= 20) return '11_20s';
-    if (seconds <= 40) return '21_40s';
-    return '40s_plus';
   }
 
   function getVisitIndex(value){
@@ -4019,6 +4011,8 @@ updateArrows();
         reengagementCount:0,
         totalEngagementMs:0,
         currentVisitEngagementMs:0,
+        currentVisitTimeSentMs:0,
+        engagementStartedAt:null,
         currentVisitIndex:null,
         currentVisitDirection:null,
         currentVisitTimeSinceFirstVisitBucket:null,
@@ -4056,7 +4050,9 @@ updateArrows();
   }
 
   function evaluateSections(allowVisitStart){
+    if (!pageIsActive || document.visibilityState !== 'visible') return;
     const current = nowMs();
+    trackSectionEngagement(current);
     sectionStates.forEach((state) => {
       const qualified = isSectionQualified(state);
       if (qualified !== state.isQualified) {
@@ -4071,7 +4067,7 @@ updateArrows();
     const readingLineY = getReadingLineY();
     const sectionRect = state.element.getBoundingClientRect();
     const anchorRect = state.anchor.getBoundingClientRect();
-    const lineIsInsideSection = sectionRect.top <= readingLineY && sectionRect.bottom >= readingLineY;
+    const lineIsInsideSection = sectionRect.top <= readingLineY && sectionRect.bottom > readingLineY;
     const anchorHasReachedReadingLine = anchorRect.top <= readingLineY;
     return lineIsInsideSection && anchorHasReachedReadingLine;
   }
@@ -4104,10 +4100,14 @@ updateArrows();
         startVisitTimer(state, false, entryDirection);
       } else if (state.revisitEligible) {
         startVisitTimer(state, true, entryDirection);
+      } else {
+        state.engagementStartedAt = current;
       }
       return;
     }
 
+    state.engagementStartedAt = null;
+    flushSectionTime(state);
     if (state.pendingVisitTimer) {
       window.clearTimeout(state.pendingVisitTimer);
       state.pendingVisitTimer = null;
@@ -4125,7 +4125,7 @@ updateArrows();
     if (state.pendingVisitTimer) return;
     state.pendingVisitTimer = window.setTimeout(() => {
       state.pendingVisitTimer = null;
-      if (!state.isQualified || document.visibilityState !== 'visible') return;
+      if (!pageIsActive || !state.isQualified || !isSectionQualified(state)) return;
       confirmSectionVisit(state, isRevisit, entryDirection);
     }, SECTION_VIEW_DELAY_MS);
   }
@@ -4136,9 +4136,11 @@ updateArrows();
     state.currentVisitIndex = state.visitCount;
     state.currentVisitDirection = entryDirection || lastScrollDirection;
     state.currentVisitEngagementMs = 0;
+    state.currentVisitTimeSentMs = 0;
+    state.engagementStartedAt = current;
     state.currentVisitReengaged = false;
 
-    if (!state.firstVisitAt) state.firstVisitAt = current;
+    if (state.firstVisitAt === null) state.firstVisitAt = current;
     state.currentVisitTimeSinceFirstVisitBucket = null;
 
     if (!state.hasViewed) {
@@ -4180,35 +4182,70 @@ updateArrows();
     });
 
     document.addEventListener('visibilitychange', () => {
-      lastEngagementTick = nowMs();
       if (document.visibilityState !== 'visible') {
-        sectionStates.forEach((state) => {
-          if (state.pendingVisitTimer) {
-            window.clearTimeout(state.pendingVisitTimer);
-            state.pendingVisitTimer = null;
-          }
-        });
-        return;
+        pauseSectionTiming();
+      } else {
+        resumeSectionTiming();
       }
-      sectionStates.forEach((state) => {
-        state.isQualified = false;
-      });
-      scheduleSectionEvaluation({ allowVisitStart:true });
-      scheduleReviewEvaluation();
     });
+    window.addEventListener('pagehide', pauseSectionTiming);
+    window.addEventListener('pageshow', resumeSectionTiming);
 
     window.setInterval(trackSectionEngagement, 250);
   }
 
-  function trackSectionEngagement(){
-    const current = nowMs();
-    const delta = current - lastEngagementTick;
-    lastEngagementTick = current;
+  function pauseSectionTiming(){
+    if (!pageIsActive) return;
+    trackSectionEngagement();
+    pageIsActive = false;
+    sectionStates.forEach((state) => {
+      state.engagementStartedAt = null;
+      flushSectionTime(state);
+      if (state.pendingVisitTimer) {
+        window.clearTimeout(state.pendingVisitTimer);
+        state.pendingVisitTimer = null;
+      }
+    });
+  }
 
-    if (document.visibilityState !== 'visible' || delta <= 0) return;
+  function resumeSectionTiming(){
+    if (pageIsActive || document.visibilityState !== 'visible') return;
+    pageIsActive = true;
+    const current = nowMs();
+    sectionStates.forEach((state) => {
+      const qualified = isSectionQualified(state);
+      if (qualified || state.isQualified) {
+        handleSectionVisibilityChange(state, qualified, current);
+      }
+    });
+    scheduleReviewEvaluation();
+  }
+
+  function flushSectionTime(state){
+    // Send deltas so hiding, resuming and leaving never resend the same time.
+    const measuredMs = Math.floor(state.currentVisitEngagementMs);
+    const unsentMs = measuredMs - state.currentVisitTimeSentMs;
+    if (state.currentVisitIndex === null || unsentMs <= 0) return;
+    state.currentVisitTimeSentMs = measuredMs;
+    pushCroEvent('cro_section_time', {
+      lp_name:LP_NAME,
+      lp_variant:LP_VARIANT,
+      page_type:PAGE_TYPE,
+      section_id:state.sectionId,
+      section_index:state.sectionIndex,
+      section_visit_index:getVisitIndex(state.currentVisitIndex),
+      section_visit_type:state.currentVisitIndex === 1 ? 'first' : 'return',
+      section_engagement_time:unsentMs
+    });
+  }
+
+  function trackSectionEngagement(current = nowMs()){
+    if (!pageIsActive) return;
 
     sectionStates.forEach((state) => {
-      if (!state.isQualified || state.visitCount < 1) return;
+      if (!state.isQualified || state.engagementStartedAt === null) return;
+      const delta = Math.max(0, current - state.engagementStartedAt);
+      state.engagementStartedAt = current;
       state.totalEngagementMs += delta;
       state.currentVisitEngagementMs += delta;
 
@@ -4229,8 +4266,7 @@ updateArrows();
           section_index:state.sectionIndex,
           visit_index:getVisitIndex(state.visitCount),
           entry_direction:state.currentVisitDirection,
-          time_since_first_visit_bucket:state.currentVisitTimeSinceFirstVisitBucket,
-          engagement_time_bucket:getDurationBucket(state.currentVisitEngagementMs)
+          time_since_first_visit_bucket:state.currentVisitTimeSinceFirstVisitBucket
         });
       }
     });
