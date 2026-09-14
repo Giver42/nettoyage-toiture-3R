@@ -1,0 +1,67 @@
+# Section time tracking
+
+The main page emits `cro_section_time` to `window.dataLayer`. GTM must forward
+this event to GA4; this repository change does not configure or publish GTM.
+
+## Measurement rules
+
+- Qualification uses the existing reading line: 40% of viewport height on
+  mobile, 50% at widths of 64rem and above, after the section text anchor.
+- A passage is confirmed after 800ms of continuous qualification. Timing begins
+  at confirmation, excluding this initial delay and unconfirmed passages.
+- Leaving a section flushes its measured duration. An absence shorter than
+  2000ms resumes the same passage. After 2000ms outside, a new passage requires
+  another 800ms confirmation.
+- Hiding the browser tab or receiving `pagehide` flushes and pauses timing.
+  Returning to the same section resumes the same passage. Hidden time is excluded.
+- Each flush sends only previously unsent milliseconds. Multiple events for
+  one passage are expected; SUM is the correct aggregation, not event count.
+- Passage numbering is per section and page load, not a persistent user visit
+  counter. Reload resets it; back-forward cache restoration preserves it.
+- Time measures qualified on-screen presence, not verified attention. Delivery
+  to GA4 still depends on GTM, consent, network and browser lifecycle constraints.
+
+## GTM and GA4 mapping
+
+For this event, configure Data Layer Variables (Version 2) reading these exact
+keys. Variable display names are arbitrary; the underlying key is not.
+
+| Data layer key / GA4 parameter | Values | GA4 definition |
+| --- | --- | --- |
+| `section_id` | `hero`, `risks`, etc. | Event-scoped dimension |
+| `section_index` | Section position | Event-scoped dimension if needed |
+| `section_visit_index` | `1`, `2`, `3`, `4_plus` | Event-scoped dimension |
+| `section_visit_type` | `first`, `return` | Event-scoped dimension |
+| `section_engagement_time` | Positive integer milliseconds, incremental | Custom metric, milliseconds |
+
+The payload also includes `lp_name`, `lp_variant`, and `page_type` with the
+page's existing values.
+
+Legacy `cro_section_revisit` and `cro_section_reengaged` events still use
+`visit_index` as their data layer key. Keep the DLV reading `visit_index` for
+those events; use a separate DLV reading `section_visit_index` for the new time
+event. Do not silently repoint the old DLV and break the existing tags.
+
+Trigger on the exact custom event `cro_section_time`. Configure one GA4 sending
+path only: either extend a matching shared tag or add a dedicated tag and ensure
+the shared tag excludes this event. Remove `section_engagement_time_bucket`
+from the GTM tag parameters; `engagement_time_bucket` is no longer emitted by
+the main page's reengagement event.
+
+## Reporting
+
+Filter to `cro_section_time`, use section as rows and passage index as columns,
+and SUM of the custom duration metric as the value. The `return` filter includes
+passages 2, 3 and 4_plus. Total includes first and returns once each; do not add
+the return subtotal again. Individual-user inspection requires a user-level
+exploration; a normal section table aggregates all selected users.
+
+## Verification
+
+Run `node --test tests/section-time.test.cjs`. Tests execute the production script
+with controlled browser time, visibility and section geometry. A separate local
+Chrome smoke check verified real scroll events and numeric duration payloads
+without JavaScript errors, blocking external requests to avoid test analytics.
+
+After deployment, verify the GTM mapping in Tag Assistant and actual receipt in
+GA4 DebugView. Local dataLayer checks do not establish GA4 receipt.
