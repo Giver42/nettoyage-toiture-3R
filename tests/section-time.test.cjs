@@ -226,10 +226,11 @@ test('CTA rankings count 6s + 2s + 5s as 11s and two qualified passages', () => 
   assert.equal(event.cta_most_time_section_id, 'hero');
   assert.equal(event.cta_most_time_section_time, 11000);
   assert.equal(event.cta_most_visited_section_id, 'hero');
-  assert.equal(event.cta_most_visited_count, 2);
+  assert.equal(event.cta_most_visited_section_count, 2);
   assert.equal(b.times().reduce((sum, e) => sum + e.section_engagement_time, 0), 13000);
   assert.equal(event.cta_id, 'hero_bilan');
-  assert.equal(event.destination, 'bilan_form');
+  assert.ok(!('destination' in event));
+  assert.ok(!('cta_most_visited_count' in event));
   assert.ok(!('most_engaged_section' in event));
   assert.ok(!('most_reengaged_section' in event));
 });
@@ -242,10 +243,10 @@ test('CTA at 3999ms has no winner; at 4000ms it credits the full current passage
   b.advance(1);
   const qualified = b.clickCta();
   assert.equal(qualified.cta_most_time_section_time, 4000);
-  assert.equal(qualified.cta_most_visited_count, 1);
+  assert.equal(qualified.cta_most_visited_section_count, 1);
   const repeated = b.clickCta();
   assert.equal(repeated.cta_most_time_section_time, 4000);
-  assert.equal(repeated.cta_most_visited_count, 1);
+  assert.equal(repeated.cta_most_visited_section_count, 1);
   b.advance(2000);
   assert.equal(b.clickCta().cta_most_time_section_time, 6000);
 });
@@ -265,7 +266,7 @@ test('CTA ranking excludes hidden time, retains partial passage and counts it on
   b.advance(2000);
   const event = b.clickCta();
   assert.equal(event.cta_most_time_section_time, 6000);
-  assert.equal(event.cta_most_visited_count, 1);
+  assert.equal(event.cta_most_visited_section_count, 1);
 });
 
 test('CTA time and frequency rankings can select different sections', () => {
@@ -284,7 +285,7 @@ test('CTA time and frequency rankings can select different sections', () => {
   assert.equal(event.cta_most_time_section_id, 'hero');
   assert.equal(event.cta_most_time_section_time, 20000);
   assert.equal(event.cta_most_visited_section_id, 'risks');
-  assert.equal(event.cta_most_visited_count, 2);
+  assert.equal(event.cta_most_visited_section_count, 2);
 });
 
 test('CTA ranking ties favor the most recently qualified passage', () => {
@@ -298,5 +299,5 @@ test('CTA ranking ties favor the most recently qualified passage', () => {
   assert.equal(event.cta_most_time_section_id, 'risks');
   assert.equal(event.cta_most_time_section_time, 6000);
   assert.equal(event.cta_most_visited_section_id, 'risks');
-  assert.equal(event.cta_most_visited_count, 1);
+  assert.equal(event.cta_most_visited_section_count, 1);
 });

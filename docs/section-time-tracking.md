@@ -80,7 +80,7 @@ the existing section timer. Hidden time is excluded.
 | `cta_most_time_section_id` | Section with the largest eligible duration |
 | `cta_most_time_section_time` | That section's eligible duration in milliseconds |
 | `cta_most_visited_section_id` | Section with the largest qualified passage count |
-| `cta_most_visited_count` | That section's qualified passage count |
+| `cta_most_visited_section_count` | That section's qualified passage count |
 
 Each passage counts once. Ties favor the section whose most recent qualified
 passage started later. Without a qualifying passage, ranking keys are absent.
@@ -96,5 +96,6 @@ For CTA payloads, these four parameters replace `most_engaged_section`,
 `most_reengaged_section_count`. Update the CTA GA4 tag to use DLVs reading the
 new exact keys; old values may remain in GTM's data model from other events.
 `last_engaged_section`, `last_reengaged_section`, `time_to_action_bucket`, and
-the existing CTA identity parameters are preserved. Other event types retain
+the existing CTA identity parameters are preserved. The redundant `destination`
+parameter is no longer emitted on CTA clicks. Other event types retain
 their existing context. This code change does not update GTM itself.

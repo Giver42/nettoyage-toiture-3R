@@ -3891,7 +3891,7 @@ updateArrows();
     }
     if (mostVisited) {
       context.cta_most_visited_section_id = mostVisited.sectionId;
-      context.cta_most_visited_count = mostVisited.qualifiedVisitCount;
+      context.cta_most_visited_section_count = mostVisited.qualifiedVisitCount;
     }
     return context;
   }
@@ -3960,8 +3960,7 @@ updateArrows();
     pushCroEvent('cro_cta_click', Object.assign(getCtaIntentContext(), {
       cta_id:ctaData.cta_id,
       cta_type:ctaData.cta_type,
-      cta_location:ctaData.cta_location,
-      destination:ctaData.destination
+      cta_location:ctaData.cta_location
     }));
   }
 
