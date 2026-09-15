@@ -99,3 +99,15 @@ new exact keys; old values may remain in GTM's data model from other events.
 the existing CTA identity parameters are preserved. The redundant `destination`
 parameter is no longer emitted on CTA clicks. Other event types retain
 their existing context. This code change does not update GTM itself.
+
+## Phone CTA
+
+The header telephone link now uses `cro_cta_click` with `cta_id=header_phone`,
+`cta_type=phone`, and `cta_location=header`. It receives the same CTA rankings
+and timing context. The old `cro_phone_click` emission is removed. Each click
+emits one CTA event; repeated intentional clicks remain separate events.
+Telephone clicks do not replace the source context of a previous form CTA.
+
+Reuse the existing CTA GA4 tag and DLVs. Its trigger must accept all
+`cro_cta_click` events, including type `phone`. Pause any dedicated legacy phone
+tag to prevent a second sending path. No new GA4 definitions are needed.

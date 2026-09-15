@@ -2851,7 +2851,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         href="tel:+33783060972"
         class="phone-link-3r"
         aria-label="Appeler 3R Services au 07 83 06 09 72"
-        data-cro-phone-location="header"
+        data-cro-cta-id="header_phone"
+        data-cro-cta-type="phone"
+        data-cro-location="header"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L7.8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/>
@@ -3901,9 +3903,6 @@ updateArrows();
       const target = event.target;
       if (!(target instanceof Element)) return;
 
-      const phoneLink = target.closest('a[href^="tel:"]');
-      if (phoneLink) trackPhoneClick(phoneLink);
-
       const cta = target.closest('[data-cro-cta-id]');
       if (cta) trackCtaClick(cta);
 
@@ -3951,11 +3950,13 @@ updateArrows();
   function trackCtaClick(cta){
     evaluateSections(false);
     const ctaData = getCtaData(cta);
-    currentCtaContext = {
-      form_type:ctaData.cta_type,
-      source_cta_id:ctaData.cta_id,
-      source_section:ctaData.cta_location
-    };
+    if (ctaData.cta_type === 'bilan' || ctaData.cta_type === 'estimation') {
+      currentCtaContext = {
+        form_type:ctaData.cta_type,
+        source_cta_id:ctaData.cta_id,
+        source_section:ctaData.cta_location
+      };
+    }
 
     pushCroEvent('cro_cta_click', Object.assign(getCtaIntentContext(), {
       cta_id:ctaData.cta_id,
@@ -3971,12 +3972,6 @@ updateArrows();
       cta_location:cta.dataset.croLocation,
       destination:cta.dataset.croDestination
     };
-  }
-
-  function trackPhoneClick(link){
-    pushCroEvent('cro_phone_click', withActionContext({
-      click_location:link.dataset.croPhoneLocation || findSectionId(link) || 'unknown'
-    }));
   }
 
   function trackContentExpand(data){

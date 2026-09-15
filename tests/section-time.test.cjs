@@ -68,9 +68,11 @@ function browser(desktop = false) {
     move(y) { window.scrollY = y; window.emit('scroll'); advance(16); },
     hide() { document.visibilityState = 'hidden'; document.emit('visibilitychange'); },
     show() { document.visibilityState = 'visible'; document.emit('visibilitychange'); },
-    clickCta() {
+    clickCta(type = 'bilan') {
       const target = new Element();
-      target.dataset = { croCtaId:'hero_bilan', croCtaType:'bilan', croLocation:'hero', croDestination:'bilan_form' };
+      target.dataset = type === 'phone'
+        ? { croCtaId:'header_phone', croCtaType:'phone', croLocation:'header' }
+        : { croCtaId:'hero_bilan', croCtaType:'bilan', croLocation:'hero', croDestination:'bilan_form' };
       target.closest = (selector) => selector === '[data-cro-cta-id]' ? target : null;
       document.emit('click', { target });
       return window.dataLayer.filter((e) => e.event === 'cro_cta_click').at(-1);
@@ -300,4 +302,32 @@ test('CTA ranking ties favor the most recently qualified passage', () => {
   assert.equal(event.cta_most_time_section_time, 6000);
   assert.equal(event.cta_most_visited_section_id, 'risks');
   assert.equal(event.cta_most_visited_section_count, 1);
+});
+
+test('phone clicks use the CTA event once per click and include qualified context', () => {
+  const b = browser();
+  b.advance(816);
+  b.advance(6000);
+  const event = b.clickCta('phone');
+  assert.equal(event.cta_id, 'header_phone');
+  assert.equal(event.cta_type, 'phone');
+  assert.equal(event.cta_location, 'header');
+  assert.equal(event.cta_most_time_section_time, 6000);
+  assert.equal(event.cta_most_visited_section_count, 1);
+  assert.equal(b.window.dataLayer.filter((e) => e.event === 'cro_cta_click').length, 1);
+  b.clickCta('phone');
+  assert.equal(b.window.dataLayer.filter((e) => e.event === 'cro_cta_click').length, 2);
+  assert.ok(!script.includes('cro_phone_click'));
+  assert.match(html, /href="tel:[^"]+"[\s\S]*?data-cro-cta-id="header_phone"/);
+});
+
+test('phone CTA does not overwrite the previous form source', () => {
+  const b = browser();
+  b.advance(816);
+  b.clickCta();
+  b.clickCta('phone');
+  b.window.CroTracker.trackFormOpen('bilan');
+  const opened = b.window.dataLayer.filter((e) => e.event === 'cro_form_open').at(-1);
+  assert.equal(opened.source_cta_id, 'hero_bilan');
+  assert.equal(opened.source_section, 'hero');
 });
