@@ -3180,18 +3180,6 @@ Sections 5 à 8 V2 : validées
 </section>
 </div>
 
-<script id="section-4-validated-version-b-script">
-document.querySelectorAll('[data-s4-more]').forEach((button) => {
-  button.addEventListener('click', () => {
-    const panel = document.getElementById(button.getAttribute('aria-controls'));
-    if (!panel) return;
-    const open = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', String(!open));
-    panel.hidden = open;
-    button.textContent = open ? 'Voir le détail' : 'Masquer le détail';
-  });
-});
-</script>
 
 <!-- =========================
      SECTION 3 V2 — VALIDÉE
@@ -3675,14 +3663,6 @@ next.addEventListener('click', () => {
 viewport.addEventListener('scroll', updateArrows, {passive:true});
 window.addEventListener('resize', updateArrows);
 
-document.querySelectorAll('.review-card').forEach((card) => {
-  const button = card.querySelector('.more');
-  button.addEventListener('click', () => {
-    const expanded = card.classList.toggle('expanded');
-    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    button.textContent = expanded ? 'Voir moins' : 'Voir plus';
-  });
-});
 
 updateArrows();
 </script>
@@ -3750,7 +3730,6 @@ updateArrows();
     : { matches:false };
   const pageStartedAt = nowMs();
 
-  const expandedContent = new Set();
   const sectionStates = new Map();
   const reviewTimers = new Map();
   const reviewsSeen = new Set();
@@ -3906,40 +3885,6 @@ updateArrows();
       const cta = target.closest('[data-cro-cta-id]');
       if (cta) trackCtaClick(cta);
 
-      const riskToggle = target.closest('[data-cro-content-type="risk"][data-cro-content-id]');
-      if (riskToggle && riskToggle.getAttribute('aria-expanded') !== 'true') {
-        trackContentExpand({
-          section_id:'risks',
-          content_type:'risk',
-          content_id:riskToggle.dataset.croContentId,
-          content_position:toNumber(riskToggle.dataset.croContentPosition)
-        });
-      }
-
-      const reviewMore = target.closest('.review-card .more');
-      if (reviewMore && reviewMore.getAttribute('aria-expanded') !== 'true') {
-        const card = reviewMore.closest('.review-card');
-        trackContentExpand({
-          section_id:'avis',
-          content_type:'review',
-          content_id:card && card.dataset.croReviewId,
-          content_position:card && toNumber(card.dataset.croReviewPosition)
-        });
-      }
-
-      const faqSummary = target.closest('.faq-item > summary');
-      if (faqSummary) {
-        const item = faqSummary.closest('.faq-item');
-        if (item && !item.open) {
-          trackContentExpand({
-            section_id:'faq',
-            content_type:'faq',
-            content_id:item.dataset.croContentId,
-            content_position:toNumber(item.dataset.croContentPosition)
-          });
-        }
-      }
-
       const reviewArrow = target.closest('.carousel-arrow');
       if (reviewArrow && !reviewArrow.disabled) {
         trackReviewNavigation(reviewArrow.classList.contains('prev') ? 'previous' : 'next');
@@ -3972,14 +3917,6 @@ updateArrows();
       cta_location:cta.dataset.croLocation,
       destination:cta.dataset.croDestination
     };
-  }
-
-  function trackContentExpand(data){
-    if (!data.content_id) return;
-    const key = [data.section_id, data.content_type, data.content_id].join(':');
-    if (expandedContent.has(key)) return;
-    expandedContent.add(key);
-    pushCroEvent('cro_content_expand', withActionContext(data));
   }
 
   function trackReviewNavigation(direction){
@@ -6057,5 +5994,6 @@ updateArrows();
 })();
 </script>
 
+<script src="assets/content-tracking.js"></script>
 </body>
 </html>
