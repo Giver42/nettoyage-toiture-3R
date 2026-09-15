@@ -4308,7 +4308,10 @@ updateArrows();
             reviewsSeen.add(reviewId);
             reviewsSeenUniqueCount += 1;
             pushCroEvent('cro_review_view', {
-              review_id:reviewId,
+              review_id:(card.querySelector('.name')?.textContent || reviewId)
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase().replace(/[^a-z0-9\s_]/g, '')
+                .trim().replace(/[\s_]+/g, '_') || reviewId,
               review_position:toNumber(card.dataset.croReviewPosition),
               reviews_seen_unique_count:reviewsSeenUniqueCount
             });
