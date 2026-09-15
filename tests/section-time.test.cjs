@@ -18,7 +18,7 @@ function browser(desktop = false) {
       if (!listeners.has(name)) listeners.set(name, []);
       listeners.get(name).push(callback);
     };
-    target.emit = (name) => (listeners.get(name) || []).forEach((cb) => cb());
+    target.emit = (name, event) => (listeners.get(name) || []).forEach((cb) => cb(event));
     return target;
   }
   const schedule = (callback, delay, repeat = false) => {
@@ -47,7 +47,8 @@ function browser(desktop = false) {
     documentElement: { clientHeight: 1000, scrollHeight: 4000, scrollTop: 0 },
     querySelectorAll: (selector) => selector === '[data-cro-section][data-cro-section-index]' ? sections : []
   });
-  vm.runInNewContext(script, { window, document, Element: class {} });
+  class Element {}
+  vm.runInNewContext(script, { window, document, Element });
   function advance(ms) {
     const end = clock + ms;
     while (true) {
@@ -67,6 +68,13 @@ function browser(desktop = false) {
     move(y) { window.scrollY = y; window.emit('scroll'); advance(16); },
     hide() { document.visibilityState = 'hidden'; document.emit('visibilitychange'); },
     show() { document.visibilityState = 'visible'; document.emit('visibilitychange'); },
+    clickCta() {
+      const target = new Element();
+      target.dataset = { croCtaId:'hero_bilan', croCtaType:'bilan', croLocation:'hero', croDestination:'bilan_form' };
+      target.closest = (selector) => selector === '[data-cro-cta-id]' ? target : null;
+      document.emit('click', { target });
+      return window.dataLayer.filter((e) => e.event === 'cro_cta_click').at(-1);
+    },
     events(name, section = 'hero') {
       return Array.from(window.dataLayer).filter((e) => e.event === name && e.section_id === section);
     },
@@ -200,4 +208,95 @@ test('section boundary belongs to only one section on desktop and mobile', () =>
     assert.equal(heroTime, 16);
     assert.equal(b.times('risks')[0].section_engagement_time, 500);
   }
+});
+
+test('CTA rankings count 6s + 2s + 5s as 11s and two qualified passages', () => {
+  const b = browser();
+  b.advance(816);
+  for (const duration of [6000, 2000, 5000]) {
+    b.advance(duration - 16);
+    b.move(2200);
+    b.advance(2100);
+    if (duration !== 5000) {
+      b.move(0);
+      b.advance(800);
+    }
+  }
+  const event = b.clickCta();
+  assert.equal(event.cta_most_time_section_id, 'hero');
+  assert.equal(event.cta_most_time_section_time, 11000);
+  assert.equal(event.cta_most_visited_section_id, 'hero');
+  assert.equal(event.cta_most_visited_count, 2);
+  assert.equal(b.times().reduce((sum, e) => sum + e.section_engagement_time, 0), 13000);
+  assert.equal(event.cta_id, 'hero_bilan');
+  assert.equal(event.destination, 'bilan_form');
+  assert.ok(!('most_engaged_section' in event));
+  assert.ok(!('most_reengaged_section' in event));
+});
+
+test('CTA at 3999ms has no winner; at 4000ms it credits the full current passage once', () => {
+  const b = browser();
+  b.advance(816);
+  b.advance(3999);
+  assert.ok(!('cta_most_time_section_id' in b.clickCta()));
+  b.advance(1);
+  const qualified = b.clickCta();
+  assert.equal(qualified.cta_most_time_section_time, 4000);
+  assert.equal(qualified.cta_most_visited_count, 1);
+  const repeated = b.clickCta();
+  assert.equal(repeated.cta_most_time_section_time, 4000);
+  assert.equal(repeated.cta_most_visited_count, 1);
+  b.advance(2000);
+  assert.equal(b.clickCta().cta_most_time_section_time, 6000);
+});
+
+test('CTA ranking excludes hidden time, retains partial passage and counts it once', () => {
+  const b = browser();
+  b.advance(816);
+  b.advance(3000);
+  b.hide();
+  b.advance(60000);
+  b.show();
+  b.advance(1000);
+  assert.equal(b.clickCta().cta_most_time_section_time, 4000);
+  b.hide();
+  b.advance(60000);
+  b.show();
+  b.advance(2000);
+  const event = b.clickCta();
+  assert.equal(event.cta_most_time_section_time, 6000);
+  assert.equal(event.cta_most_visited_count, 1);
+});
+
+test('CTA time and frequency rankings can select different sections', () => {
+  const b = browser();
+  b.advance(816);
+  b.advance(20000 - 16);
+  b.move(1000);
+  b.advance(800);
+  b.advance(4000 - 16);
+  b.move(2200);
+  b.advance(2100);
+  b.move(1000);
+  b.advance(800);
+  b.advance(4000);
+  const event = b.clickCta();
+  assert.equal(event.cta_most_time_section_id, 'hero');
+  assert.equal(event.cta_most_time_section_time, 20000);
+  assert.equal(event.cta_most_visited_section_id, 'risks');
+  assert.equal(event.cta_most_visited_count, 2);
+});
+
+test('CTA ranking ties favor the most recently qualified passage', () => {
+  const b = browser();
+  b.advance(816);
+  b.advance(6000 - 16);
+  b.move(1000);
+  b.advance(800);
+  b.advance(6000);
+  const event = b.clickCta();
+  assert.equal(event.cta_most_time_section_id, 'risks');
+  assert.equal(event.cta_most_time_section_time, 6000);
+  assert.equal(event.cta_most_visited_section_id, 'risks');
+  assert.equal(event.cta_most_visited_count, 1);
 });

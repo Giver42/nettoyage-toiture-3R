@@ -65,3 +65,36 @@ without JavaScript errors, blocking external requests to avoid test analytics.
 
 After deployment, verify the GTM mapping in Tag Assistant and actual receipt in
 GA4 DebugView. Local dataLayer checks do not establish GA4 receipt.
+
+## CTA rankings
+
+`cro_cta_click` now includes two rankings computed at click time, including the
+current passage. Only passages reaching 4000ms of measured visible engagement
+contribute. Once that threshold is reached, their entire measured duration is
+credited retroactively and continues accumulating; the first 4000ms are not
+subtracted. The initial 800ms visit confirmation delay remains excluded, as in
+the existing section timer. Hidden time is excluded.
+
+| Data layer key / suggested GA4 parameter | Meaning |
+| --- | --- |
+| `cta_most_time_section_id` | Section with the largest eligible duration |
+| `cta_most_time_section_time` | That section's eligible duration in milliseconds |
+| `cta_most_visited_section_id` | Section with the largest qualified passage count |
+| `cta_most_visited_count` | That section's qualified passage count |
+
+Each passage counts once. Ties favor the section whose most recent qualified
+passage started later. Without a qualifying passage, ranking keys are absent.
+Counters reset on page reload. A brief exit or a hidden tab resumes the same
+passage according to the existing section rules.
+
+Example: 6000ms + 2000ms + 5000ms on a section yields 11000ms and two qualifying
+passages for CTA rankings. The raw `cro_section_time` duration still totals
+13000ms; that event's measurement rules have not changed.
+
+For CTA payloads, these four parameters replace `most_engaged_section`,
+`most_engaged_section_count`, `most_reengaged_section`, and
+`most_reengaged_section_count`. Update the CTA GA4 tag to use DLVs reading the
+new exact keys; old values may remain in GTM's data model from other events.
+`last_engaged_section`, `last_reengaged_section`, `time_to_action_bucket`, and
+the existing CTA identity parameters are preserved. Other event types retain
+their existing context. This code change does not update GTM itself.
