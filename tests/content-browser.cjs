@@ -22,7 +22,9 @@ const { join } = require('node:path');
             const card = detail.closest('.review-card');
             const viewport = card.closest('.carousel-viewport');
             const rect = card.getBoundingClientRect();
-            viewport.scrollTo({ left:viewport.scrollLeft + (rect.left + rect.right) / 2 - innerWidth / 2, behavior:'instant' });
+            const clip = viewport.getBoundingClientRect();
+            const center = (Math.max(0, clip.left) + Math.min(innerWidth, clip.right)) / 2;
+            viewport.scrollTo({ left:viewport.scrollLeft + (rect.left + rect.right) / 2 - center, behavior:'instant' });
           }
         }, {selector, review});
         await page.waitForTimeout(700);

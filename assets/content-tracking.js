@@ -134,11 +134,13 @@
     let visibleBottom = Math.min(rect.bottom, zoneBottom);
     if (state.type === 'review') {
       const card = state.root.getBoundingClientRect();
-      const center = width / 2;
+      const clip = state.clip ? state.clip.getBoundingClientRect() : null;
+      const left = clip ? Math.max(0, clip.left) : 0;
+      const right = clip ? Math.min(width, clip.right) : width;
+      if (right <= left) return false;
+      const center = (left + right) / 2;
       if (card.left > center || card.right <= center) return false;
-      if (state.clip) {
-        const clip = state.clip.getBoundingClientRect();
-        if (clip.left > center || clip.right <= center) return false;
+      if (clip) {
         visibleTop = Math.max(visibleTop, clip.top);
         visibleBottom = Math.min(visibleBottom, clip.bottom);
       }

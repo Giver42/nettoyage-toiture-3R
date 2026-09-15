@@ -113,12 +113,19 @@ test('hidden time and repeated lifecycle notifications never double count', () =
   assert.equal(b.events('cro_content_time').length,2);
 });
 
-test('review must contain the horizontal viewport center inside carousel clipping', () => {
+test('review must contain the visible carousel center rather than the window center', () => {
   for(const centered of [false,true]) {
     const b=browser({type:'review'});b.cards[0].root.rect.right=centered?600:499;
     b.click();b.advance(1000);b.hide();assert.equal(b.total(),centered?1000:0);
   }
-  const b=browser({type:'review'});b.cards[0].clip.rect.left=501;
+  for (const centered of [false,true]) {
+    const b=browser({type:'review'});
+    b.cards[0].clip.rect.left=400;
+    b.cards[0].root.rect.left=centered?600:400;
+    b.cards[0].root.rect.right=centered?800:600;
+    b.click();b.advance(1000);b.hide();assert.equal(b.total(),centered?1000:0);
+  }
+  const b=browser({type:'review'});b.cards[0].clip.rect.left=1001;
   b.click();b.advance(1000);b.hide();assert.equal(b.total(),0);
 });
 

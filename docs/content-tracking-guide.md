@@ -10,7 +10,7 @@
   sa propre hauteur et la zone de lecture.
 - Zone ordinateur (largeur >= 64rem) : 35% a 50% de la hauteur de la fenetre.
 - Zone mobile (<64rem) : 25% a 40% de la hauteur de la fenetre.
-- Pour les avis, la carte doit aussi traverser le centre horizontal de la fenetre,
+- Pour les avis, la carte doit aussi traverser le centre horizontal de la zone visible du carrousel (pas celui de la fenetre),
   a l'interieur de la partie visible du carrousel.
 - Aucun seuil temporel : meme une consultation inferieure a 4 secondes compte.
 - Le temps concerne le detail ouvert, pas le titre ni le bouton.
