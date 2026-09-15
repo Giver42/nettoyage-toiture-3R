@@ -3866,6 +3866,36 @@ updateArrows();
     }, getIntentContext(), data || {});
   }
 
+  function getCtaIntentContext(){
+    const context = { time_to_action_bucket:getTimeToActionBucket() };
+    if (lastEngagedSection) context.last_engaged_section = lastEngagedSection;
+    if (lastReengagedSection) context.last_reengaged_section = lastReengagedSection;
+    let mostTime = null;
+    let mostVisited = null;
+    sectionStates.forEach((state) => {
+      if (state.qualifiedVisitCount === 0) return;
+      if (!mostTime || state.qualifiedEngagementMs > mostTime.qualifiedEngagementMs
+        || (state.qualifiedEngagementMs === mostTime.qualifiedEngagementMs
+          && state.lastQualifiedVisitAt > mostTime.lastQualifiedVisitAt)) {
+        mostTime = state;
+      }
+      if (!mostVisited || state.qualifiedVisitCount > mostVisited.qualifiedVisitCount
+        || (state.qualifiedVisitCount === mostVisited.qualifiedVisitCount
+          && state.lastQualifiedVisitAt > mostVisited.lastQualifiedVisitAt)) {
+        mostVisited = state;
+      }
+    });
+    if (mostTime) {
+      context.cta_most_time_section_id = mostTime.sectionId;
+      context.cta_most_time_section_time = Math.floor(mostTime.qualifiedEngagementMs);
+    }
+    if (mostVisited) {
+      context.cta_most_visited_section_id = mostVisited.sectionId;
+      context.cta_most_visited_section_count = mostVisited.qualifiedVisitCount;
+    }
+    return context;
+  }
+
   function initClickTracking(){
     document.addEventListener('click', (event) => {
       const target = event.target;
@@ -3919,6 +3949,7 @@ updateArrows();
   }
 
   function trackCtaClick(cta){
+    evaluateSections(false);
     const ctaData = getCtaData(cta);
     currentCtaContext = {
       form_type:ctaData.cta_type,
@@ -3926,11 +3957,10 @@ updateArrows();
       source_section:ctaData.cta_location
     };
 
-    pushCroEvent('cro_cta_click', withActionContext({
+    pushCroEvent('cro_cta_click', Object.assign(getCtaIntentContext(), {
       cta_id:ctaData.cta_id,
       cta_type:ctaData.cta_type,
-      cta_location:ctaData.cta_location,
-      destination:ctaData.destination
+      cta_location:ctaData.cta_location
     }));
   }
 
@@ -4011,6 +4041,11 @@ updateArrows();
         reengagementCount:0,
         totalEngagementMs:0,
         currentVisitEngagementMs:0,
+        qualifiedEngagementMs:0,
+        qualifiedVisitCount:0,
+        currentVisitQualified:false,
+        currentVisitStartedAt:null,
+        lastQualifiedVisitAt:null,
         currentVisitTimeSentMs:0,
         engagementStartedAt:null,
         currentVisitIndex:null,
@@ -4136,6 +4171,8 @@ updateArrows();
     state.currentVisitIndex = state.visitCount;
     state.currentVisitDirection = entryDirection || lastScrollDirection;
     state.currentVisitEngagementMs = 0;
+    state.currentVisitQualified = false;
+    state.currentVisitStartedAt = current;
     state.currentVisitTimeSentMs = 0;
     state.engagementStartedAt = current;
     state.currentVisitReengaged = false;
@@ -4248,6 +4285,18 @@ updateArrows();
       state.engagementStartedAt = current;
       state.totalEngagementMs += delta;
       state.currentVisitEngagementMs += delta;
+
+      // Crossing the threshold credits the entire passage, including its first 4s.
+      if (state.currentVisitEngagementMs >= SECTION_ENGAGEMENT_MS) {
+        if (!state.currentVisitQualified) {
+          state.currentVisitQualified = true;
+          state.qualifiedVisitCount += 1;
+          state.lastQualifiedVisitAt = state.currentVisitStartedAt;
+          state.qualifiedEngagementMs += state.currentVisitEngagementMs;
+        } else {
+          state.qualifiedEngagementMs += delta;
+        }
+      }
 
       if (!state.hasEngaged && state.totalEngagementMs >= SECTION_ENGAGEMENT_MS) {
         state.hasEngaged = true;
