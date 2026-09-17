@@ -4572,6 +4572,10 @@ updateArrows();
           <fieldset class="estimate-options">
             <legend class="estimate-visually-hidden">Surface approximative</legend>
             <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="under_75">
+              <span>Moins de 75 m²</span>
+            </label>
+            <label class="estimate-choice">
               <input type="radio" name="roof_surface_range" value="75_125">
               <span>75 à 125 m²</span>
             </label>
@@ -4584,8 +4588,12 @@ updateArrows();
               <span>175 à 225 m²</span>
             </label>
             <label class="estimate-choice">
-              <input type="radio" name="roof_surface_range" value="225_plus">
-              <span>225 m² et +</span>
+              <input type="radio" name="roof_surface_range" value="225_300">
+              <span>225 à 300 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="300_plus">
+              <span>Plus de 300 m²</span>
             </label>
             <label class="estimate-choice">
               <input type="radio" name="roof_surface_range" value="unknown">
@@ -4753,8 +4761,12 @@ updateArrows();
               <span>175 à 225 m²</span>
             </label>
             <label class="estimate-choice">
-              <input type="radio" name="roof_surface_range" value="225_plus">
-              <span>225 m² et +</span>
+              <input type="radio" name="roof_surface_range" value="225_300">
+              <span>225 à 300 m²</span>
+            </label>
+            <label class="estimate-choice">
+              <input type="radio" name="roof_surface_range" value="300_plus">
+              <span>Plus de 300 m²</span>
             </label>
             <label class="estimate-choice">
               <input type="radio" name="roof_surface_range" value="unknown">
@@ -4832,10 +4844,12 @@ updateArrows();
   ];
 
   const surfaceRanges = [
+    { id:'under_75', label:'Moins de 75 m²' },
     { id:'75_125', label:'75 à 125 m²' },
     { id:'125_175', label:'125 à 175 m²' },
     { id:'175_225', label:'175 à 225 m²' },
-    { id:'225_plus', label:'225 m² et +' },
+    { id:'225_300', label:'225 à 300 m²' },
+    { id:'300_plus', label:'Plus de 300 m²' },
     { id:'unknown', label:'Je ne sais pas' }
   ];
 
@@ -5238,6 +5252,9 @@ updateArrows();
       state.currentStep = 'result';
       render(true);
       trackEstimateSuccess(payload, trackingData);
+    } catch (error) {
+      if (window.CroTracker) window.CroTracker.trackFormError('estimation', 'contact', 'form', 'submit_failed');
+      setError('email', 'L’envoi n’a pas pu être confirmé. Vos réponses sont conservées ; vous pouvez réessayer.');
     } finally {
       state.submitting = false;
       render(false);
@@ -5245,7 +5262,7 @@ updateArrows();
   }
 
   async function submitEstimateLead(payload){
-    return { ok:true, payload };
+    return window.LeadSubmission.submit('estimation', payload);
   }
 
   function buildEstimatePayload(){
@@ -5824,7 +5841,7 @@ updateArrows();
   }
 
   async function submitExpertiseLead(payload){
-    return { ok:true, payload };
+    return window.LeadSubmission.submit('bilan', payload);
   }
 
   function fail(name, message, errorType){
@@ -5998,5 +6015,6 @@ updateArrows();
 </script>
 
 <script src="assets/content-tracking.js"></script>
+<script src="assets/lead-submit.js"></script>
 </body>
 </html>
