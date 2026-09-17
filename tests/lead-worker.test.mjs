@@ -52,6 +52,16 @@ test('bilan email is different and never includes a price',()=>{
   const mail=messages(lead,{DELIVERY_MODE:'live'},'id');
   assert.doesNotMatch(mail[2].textContent,/€/);
   assert.match(mail[2].textContent,/demande d’expertise/);
+  assert.equal(mail[2].subject,'Votre Expertise Toiture — 3R Services');
+  assert.match(mail[2].textContent,/et caler un rendez-vous si besoin\./);
+  const estimation=messages(validate(input()),{DELIVERY_MODE:'live'},'id')[2];
+  assert.equal(estimation.subject,'Votre estimation toiture — 3R Services');
+  assert.doesNotMatch(estimation.textContent,/caler un rendez-vous/);
+  for(const message of [mail[2],estimation]) {
+    assert.match(message.textContent,/quelques places de libre ce mois-ci/);
+    assert.match(message.textContent,/À quels horaires préférez-vous être contacté/);
+    assert.match(message.textContent,/dérangions inutilement\./);
+  }
 });
 
 test('reject malformed fields and missing consent',()=>{

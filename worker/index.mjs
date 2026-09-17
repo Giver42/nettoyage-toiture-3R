@@ -7,6 +7,25 @@ const HYDRO = ['incolore','colore','colore_isolant','unknown'];
 const SURFACES = { '75_125':'75 à moins de 125 m²', '125_175':'125 à moins de 175 m²', '175_225':'175 à moins de 225 m²', '225_300':'225 à 300 m²', '300_plus':'Plus de 300 m²', under_75:'Moins de 75 m²', unknown:'Je ne sais pas' };
 const LABELS = { terre_cuite_ste_foy:'Terre cuite Ste Foy', beton:'Béton', unknown:'Je ne sais pas', incolore:'Incolore', colore:'Coloré', colore_isolant:'Coloré isolant' };
 const EMAIL = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/;
+const ATTRIBUTION_KEYS = ['gclid','gbraid','wbraid','utm_camp','utm_campaign','utm_ville','utm_ga','utm_ann','utm_term','utm_kw'];
+const ADS_TIME = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\+0000$/;
+const adsTime = now => new Date(now).toISOString().slice(0,19).replace('T',' ') + '+0000';
+
+function attributionFields(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
+  const result = {};
+  for (const prefix of ['first_visit_', 'last_visit_']) {
+    for (const key of ATTRIBUTION_KEYS) {
+      const item = value[prefix + key];
+      result[prefix + key] = typeof item === 'string' ? item.replace(/[\x00-\x1f\x7f]/g,'').slice(0,160) : '';
+    }
+    const time = value[prefix + 'time'];
+    result[prefix + 'time'] = typeof time === 'string' && ADS_TIME.test(time) ? time : '';
+  }
+  for (const key of ATTRIBUTION_KEYS) result[key] = result['last_visit_' + key];
+  result.visit_count = Number.isSafeInteger(value.visit_count) && value.visit_count > 0 ? Math.min(value.visit_count,1000000) : 1;
+  return result;
+}
 
 export function validate(body) {
   if (!body || !['bilan','estimation'].includes(body.form_type)) throw new Error('invalid');
@@ -31,7 +50,10 @@ export function validate(body) {
     }
   }
   // Only retain necessary lead fields; never trust a price supplied by the browser.
-  return { form_type:body.form_type, name, email, phone, postcode, surface:p.roof_surface_range, material, hydrofuge };
+  const lead = { form_type:body.form_type, name, email, phone, postcode, surface:p.roof_surface_range, material, hydrofuge };
+  const attribution = attributionFields(p.attribution);
+  if (attribution) lead.attribution = attribution;
+  return lead;
 }
 
 export function estimate(lead) {
@@ -51,15 +73,21 @@ export function messages(lead, env, id) {
   const opening = isEstimate
     ? `Votre demande d’estimation est bien reçue.\n\n${priceText}\n\nPour connaître le prix exact, nous proposons une expertise toiture gratuite et sans engagement.`
     : 'Votre demande d’expertise toiture gratuite et sans engagement est bien reçue.';
-  const availability = ' Il nous reste quelques places pour cette expertise ce mois-ci avant d’être complets.';
-  const prospect = `Bonjour,\n\n${opening}${availability}\n\nNous vous appellerons depuis le 07 83 06 09 72 pour répondre à vos questions et voir si elle serait utile pour vous.\n\nÀ quels horaires préférez-vous être rappelé ? Vous pouvez nous les indiquer en réponse à cet email pour éviter que nous vous dérangions.\n\nÀ bientôt,\nL’équipe 3R Services`;
+  const availability = ' Il nous reste quelques places de libre ce mois-ci avant d’être complets.';
+  const contact = isEstimate
+    ? 'Nous vous contacterons depuis le 07 83 06 09 72 pour répondre à vos questions et voir si cette expertise serait utile pour vous.'
+    : 'Nous vous contacterons depuis le 07 83 06 09 72 pour répondre à vos questions, voir si cette expertise serait utile pour vous et caler un rendez-vous si besoin.';
+  const prospect = `Bonjour,\n\n${opening}${availability}\n\n${contact}\n\nÀ quels horaires préférez-vous être contacté ? Vous pouvez nous les indiquer en réponse à cet email pour éviter que nous vous dérangions inutilement.\n\nÀ bientôt,\nL’équipe 3R Services`;
   const summary = `Nouvelle demande : ${isEstimate ? 'estimation' : 'expertise'}\nRéférence : ${id}\n\nNom : ${lead.name}\nEmail : ${lead.email}\nTéléphone : ${lead.phone}\nCode postal : ${lead.postcode}\nSurface : ${SURFACES[lead.surface]}\nMatériau : ${LABELS[lead.material] || 'Non demandé'}\nHydrofuge : ${LABELS[lead.hydrofuge] || 'Non demandé'}${isEstimate ? `\nEstimation : ${priceText}` : ''}`;
+  const attributionSummary = lead.attribution ? '\n\nAttribution (informations du navigateur)\n' +
+    Object.entries(lead.attribution).map(([key,value]) => `${key} : ${value === '' ? '(vide)' : value}`).join('\n') : '';
+  const internalSummary = summary + (lead.time ? `\nDate de la demande (UTC) : ${lead.time}` : '') + attributionSummary;
   const live = env.DELIVERY_MODE === 'live';
   if (!live && !EMAIL.test(env.TEST_RECIPIENT || '')) throw new Error('test_recipient_required');
   return [
-    { to:'croizads@outlook.com', subject:'Nouvelle demande toiture — 3R Services', text:summary, reply:lead.email },
-    { to:SENDER.email, subject:'Nouvelle demande toiture — 3R Services', text:summary, reply:lead.email },
-    { to:lead.email, subject:isEstimate ? 'Votre estimation toiture — 3R Services' : 'Votre demande d’expertise toiture — 3R Services', text:prospect, reply:SENDER.email }
+    { to:'croizads@outlook.com', subject:'Nouvelle demande toiture — 3R Services', text:internalSummary, reply:lead.email },
+    { to:SENDER.email, subject:'Nouvelle demande toiture — 3R Services', text:internalSummary, reply:lead.email },
+    { to:lead.email, subject:isEstimate ? 'Votre estimation toiture — 3R Services' : 'Votre Expertise Toiture — 3R Services', text:prospect, reply:SENDER.email }
   ].map((m, i) => ({ sender:SENDER, to:[{ email:live ? m.to : env.TEST_RECIPIENT }], replyTo:{ email:live ? m.reply : env.TEST_RECIPIENT }, subject:(live ? '' : `[TEST ${i + 1}/3] `) + m.subject, textContent:m.text, tags:['lp-toiture',live ? 'production' : 'test'] }));
 }
 
@@ -117,8 +145,8 @@ async function handle(request, env, ctx) {
     if (!/^[a-f0-9-]{36}$/.test(body.request_id) || typeof body.token !== 'string' || !body.token || body.token.length>2048) throw new Error('invalid');
   } catch { return reply(400,{ ok:false }); }
   const fingerprint=await hash(JSON.stringify(lead));
-  const old=await env.DB.prepare('SELECT fingerprint FROM leads WHERE id=?').bind(body.request_id).first();
-  if (old) return old.fingerprint===fingerprint ? reply(200,{ok:true,accepted:true}) : reply(409,{ok:false});
+  const old=await env.DB.prepare('SELECT fingerprint,payload FROM leads WHERE id=?').bind(body.request_id).first();
+  if (old) return old.fingerprint===fingerprint ? reply(200,{ok:true,accepted:true,time:JSON.parse(old.payload).time}) : reply(409,{ok:false});
   const ip=request.headers.get('CF-Connecting-IP') || 'unknown';
   const ipHash=await hash(env.TURNSTILE_SECRET_KEY+ip);
   const emailHash=await hash(env.TURNSTILE_SECRET_KEY+lead.email);
@@ -131,8 +159,9 @@ async function handle(request, env, ctx) {
   });
   const check=await verification.json();
   if (!verification.ok || !check.success || check.hostname!==HOST || check.action!==lead.form_type) return reply(403,{ok:false});
-  const mail=messages(lead,env,body.request_id);
   const now=Date.now();
+  lead.time = adsTime(now);
+  const mail=messages(lead,env,body.request_id);
   // Atomic persistence: acceptance means the lead AND all three outbox jobs exist.
   try {
     await env.DB.batch([
@@ -140,11 +169,12 @@ async function handle(request, env, ctx) {
       ...mail.map((m,i)=>env.DB.prepare('INSERT INTO mail_jobs(id,lead_id,message,next_attempt,updated) VALUES(?,?,?,?,?)').bind(`${body.request_id}-${i}`,body.request_id,JSON.stringify(m),now,now))
     ]);
   } catch (e) {
-    const existing=await env.DB.prepare('SELECT fingerprint FROM leads WHERE id=?').bind(body.request_id).first();
+    const existing=await env.DB.prepare('SELECT fingerprint,payload FROM leads WHERE id=?').bind(body.request_id).first();
     if (!existing || existing.fingerprint!==fingerprint) throw e;
+    lead.time = JSON.parse(existing.payload).time;
   }
   ctx.waitUntil(deliver(env).catch(()=>console.error('outbox_delivery_failed')));
-  return reply(202,{ok:true,accepted:true});
+  return reply(202,{ok:true,accepted:true,time:lead.time});
 }
 
 export default {

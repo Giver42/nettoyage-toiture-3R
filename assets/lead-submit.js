@@ -21,6 +21,15 @@
   }
   window.LeadSubmission = {
     async submit(type, payload) {
+      const serialized = JSON.stringify({type,payload});
+      if (!requests.has(serialized)) requests.set(serialized, {
+        id:crypto.randomUUID(), attribution:window.LeadAttribution ? window.LeadAttribution.capture() : undefined
+      });
+      const attempt = requests.get(serialized);
+      const submittedPayload = Object.assign({}, payload, { attribution:attempt.attribution });
+      if (attempt.attribution) Object.entries(attempt.attribution).forEach(([key,value]) => {
+        if (!key.startsWith('first_visit_') && !key.startsWith('last_visit_')) submittedPayload[key] = value;
+      });
       const form = document.getElementById(type === 'bilan' ? 'expertise-form' : 'estimate-form');
       const panel = form.querySelector(type === 'bilan' ? '[data-expertise-step="contact"]' : '[data-estimate-step="contact"]');
       let widget, container;
@@ -38,14 +47,13 @@
           });
           container.scrollIntoView({block:'nearest'});
         });
-        const serialized = JSON.stringify({type,payload});
-        if (!requests.has(serialized)) requests.set(serialized, crypto.randomUUID());
         const response = await fetch(endpoint, {
           method:'POST', headers:{'Content-Type':'application/json'}, signal:AbortSignal.timeout(25000),
-          body:JSON.stringify({ form_type:type, payload, token, request_id:requests.get(serialized) })
+          body:JSON.stringify({ form_type:type, payload:submittedPayload, token, request_id:attempt.id })
         });
         const result = await response.json();
         if (!response.ok || result.ok !== true || result.accepted !== true) throw new Error('submit_failed');
+        if (window.LeadAttribution) window.LeadAttribution.accepted(result.time);
         return result;
       } finally {
         if (widget !== undefined) window.turnstile.remove(widget);

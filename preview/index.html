@@ -5446,8 +5446,7 @@ updateArrows();
 
   function captureAttribution(){
     const params = new URLSearchParams(window.location.search);
-    const stored = readStoredAttribution();
-    const attribution = Object.assign({}, stored);
+    const attribution = {};
     const hasUrlAttribution = attributionKeys.some((key) => params.has(key));
 
     attributionKeys.forEach((key) => {
@@ -5465,22 +5464,7 @@ updateArrows();
       attribution.referrer = document.referrer || null;
     }
 
-    storeAttribution(attribution);
     return attribution;
-  }
-
-  function readStoredAttribution(){
-    try {
-      return JSON.parse(window.sessionStorage.getItem('estimate_attribution') || '{}') || {};
-    } catch (error) {
-      return {};
-    }
-  }
-
-  function storeAttribution(attribution){
-    try {
-      window.sessionStorage.setItem('estimate_attribution', JSON.stringify(attribution));
-    } catch (error) {}
   }
 
   function focusActiveStep(){
@@ -5977,6 +5961,7 @@ updateArrows();
 })();
 </script>
 
+<script src="../assets/lead-attribution.js"></script>
 <script type="text/javascript" src="//cdn.dni.nimbata.com/797710131893.min.js"></script>
 </body>
 </html>
