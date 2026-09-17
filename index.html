@@ -4397,6 +4397,7 @@ updateArrows();
 
   function trackFormStepView(formType, stepIndex, stepId){
     const context = ensureFormContext(formType);
+    if (window.FormElapsedTracker) window.FormElapsedTracker.page(formType, stepIndex, stepId, context);
     const key = `${stepIndex}:${stepId}`;
     if (context.lastStepViewKey === key) return;
     context.lastStepViewKey = key;
@@ -4989,6 +4990,7 @@ updateArrows();
   }
 
   function closeEstimate(){
+    if (window.FormElapsedTracker) window.FormElapsedTracker.end('estimation');
     syncStateFromForm();
     modal.hidden = true;
     document.documentElement.classList.remove('estimate-modal-open');
@@ -5356,6 +5358,7 @@ updateArrows();
   }
 
   function trackCurrentStepView(flow, isResult){
+    if (isResult && window.FormElapsedTracker) window.FormElapsedTracker.end('estimation');
     if (modal.hidden || isResult) return;
     const meta = getEstimateStepMeta(state.currentStep, flow);
     if (window.CroTracker && meta) {
@@ -5675,6 +5678,7 @@ updateArrows();
   }
 
   function closeExpertise(){
+    if (window.FormElapsedTracker) window.FormElapsedTracker.end('bilan');
     syncStateFromForm();
     modal.hidden = true;
     document.documentElement.classList.remove('estimate-modal-open');
@@ -5956,6 +5960,7 @@ updateArrows();
   }
 
   function trackCurrentStepView(isSuccess){
+    if (isSuccess && window.FormElapsedTracker) window.FormElapsedTracker.end('bilan');
     if (modal.hidden || isSuccess) return;
     const meta = getExpertiseStepMeta(state.currentStep);
     if (window.CroTracker && meta) {
@@ -6016,5 +6021,6 @@ updateArrows();
 
 <script src="assets/content-tracking.js"></script>
 <script src="assets/lead-submit.js"></script>
+<script src="assets/form-elapsed-tracking.js"></script>
 </body>
 </html>

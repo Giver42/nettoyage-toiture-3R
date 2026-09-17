@@ -41,6 +41,23 @@ const { join } = require('node:path');
         assert.equal(await form.locator('[name="email"]').inputValue(),'tester@example.org');
         success=true;await submit();await page.waitForTimeout(300);
         assert.equal(await count(),before+1,'one success after acceptance');
+        const durations=()=>page.evaluate(t=>{
+          const events=dataLayer.filter(e=>e.form_type===t);
+          return {
+            form:events.reduce((n,e)=>n+(e.event==='cro_form_time'?e.form_elapsed_time:0),0),
+            steps:events.reduce((n,e)=>n+(e.event==='cro_form_step_time'?e.form_step_elapsed_time:0),0),
+            pages:[...new Set(events.filter(e=>e.event==='cro_form_step_time').map(e=>e.form_step_id))]
+          };
+        },type);
+        const elapsed=await durations();
+        assert.ok(elapsed.form>0,'duration recorded by actual form integration');
+        assert.equal(elapsed.form,elapsed.steps,'form time matches sum of page times');
+        assert.ok(elapsed.pages.includes('contact'));
+        assert.ok(elapsed.pages.includes('roof_surface'));
+        assert.ok(!elapsed.pages.includes('success')&&!elapsed.pages.includes('result'));
+        await page.waitForTimeout(100);
+        await page.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));
+        assert.deepEqual(await durations(),elapsed,'success page is not timed');
         const last=requests.slice(-2);assert.equal(last[0].request_id,last[1].request_id,'retry keeps id');
         await page.keyboard.press('Escape');
       }
