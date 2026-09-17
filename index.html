@@ -5405,11 +5405,11 @@ updateArrows();
   function trackEstimateSuccess(payload, trackingData){
     const resultStep = modal.querySelector('[data-estimate-step="result"]');
     if (!resultStep || resultStep.hidden || !window.CroTracker) return;
-    window.CroTracker.trackLeadSuccess('estimation', trackingData);
     window.CroTracker.trackLeadUserDataReady('estimation', {
       email:payload.email,
       phone_number:payload.phone
     });
+    window.CroTracker.trackLeadSuccess('estimation', trackingData);
   }
 
   function getSurfaceRange(rangeId){
@@ -6011,11 +6011,11 @@ updateArrows();
   function trackExpertiseSuccess(payload, trackingData){
     const successStep = modal.querySelector('[data-expertise-step="success"]');
     if (!successStep || successStep.hidden || !window.CroTracker) return;
-    window.CroTracker.trackLeadSuccess('bilan', trackingData);
     window.CroTracker.trackLeadUserDataReady('bilan', {
       email:payload.email,
       phone_number:payload.phone
     });
+    window.CroTracker.trackLeadSuccess('bilan', trackingData);
   }
 })();
 </script>
