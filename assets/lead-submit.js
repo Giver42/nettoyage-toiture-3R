@@ -3,6 +3,7 @@
   const endpoint = 'https://3r-formulaires.croizads.workers.dev/submit';
   const sitekey = '0x4AAAAAAE5OBU80ZUieL3O8';
   const requests = new Map();
+  const acceptedAttribution = new Map();
   let loading;
   function loadTurnstile() {
     if (window.turnstile) return Promise.resolve();
@@ -20,6 +21,17 @@
     return loading;
   }
   window.LeadSubmission = {
+    analytics(type) {
+      const attribution = acceptedAttribution.get(type) || {};
+      const data = { visit_count:attribution.visit_count || null };
+      // Only campaign dimensions, never click IDs, timestamps or contact details.
+      for (const prefix of ['first_visit_', 'last_visit_']) {
+        for (const key of ['utm_camp', 'utm_campaign', 'utm_ville', 'utm_ga', 'utm_ann', 'utm_term', 'utm_kw']) {
+          data[prefix + key] = attribution[prefix + key] || null;
+        }
+      }
+      return data;
+    },
     async submit(type, payload) {
       const serialized = JSON.stringify({type,payload});
       if (!requests.has(serialized)) requests.set(serialized, {
@@ -53,6 +65,7 @@
         });
         const result = await response.json();
         if (!response.ok || result.ok !== true || result.accepted !== true) throw new Error('submit_failed');
+        acceptedAttribution.set(type, attempt.attribution || {});
         if (window.LeadAttribution) window.LeadAttribution.accepted(result.time);
         return result;
       } finally {

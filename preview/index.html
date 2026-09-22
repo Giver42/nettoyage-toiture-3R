@@ -3793,7 +3793,7 @@ updateArrows();
   pushCroEvent('cro_page_view', {
     lp_name: LP_NAME,
     lp_variant: LP_VARIANT,
-    page_type: PAGE_TYPE
+    lp_page_type: PAGE_TYPE
   });
 
   if (document.readyState === 'loading') {
@@ -4153,9 +4153,9 @@ updateArrows();
       pushCroEvent('cro_section_revisit', {
         section_id:state.sectionId,
         section_index:state.sectionIndex,
-        visit_index:getVisitIndex(state.visitCount),
-        entry_direction:state.currentVisitDirection,
-        time_since_first_visit_bucket:timeSinceFirstVisitBucket
+        section_visit_index:getVisitIndex(state.visitCount),
+        section_entry_direction:state.currentVisitDirection,
+        section_time_since_first_visit_bucket:timeSinceFirstVisitBucket
       });
     }
 
@@ -4227,9 +4227,9 @@ updateArrows();
         pushCroEvent('cro_section_reengaged', {
           section_id:state.sectionId,
           section_index:state.sectionIndex,
-          visit_index:getVisitIndex(state.visitCount),
-          entry_direction:state.currentVisitDirection,
-          time_since_first_visit_bucket:state.currentVisitTimeSinceFirstVisitBucket,
+          section_visit_index:getVisitIndex(state.visitCount),
+          section_entry_direction:state.currentVisitDirection,
+          section_time_since_first_visit_bucket:state.currentVisitTimeSinceFirstVisitBucket,
           engagement_time_bucket:getDurationBucket(state.currentVisitEngagementMs)
         });
       }
@@ -4382,8 +4382,8 @@ updateArrows();
     context.lastStepViewKey = key;
     pushCroEvent('cro_form_step_view', {
       form_type:formType,
-      step_index:stepIndex,
-      step_id:stepId,
+      form_step_index:stepIndex,
+      form_step_id:stepId,
       source_cta_id:context.source_cta_id,
       source_section:context.source_section
     });
@@ -4392,17 +4392,17 @@ updateArrows();
   function trackFormStepComplete(formType, stepIndex, stepId){
     pushCroEvent('cro_form_step_complete', {
       form_type:formType,
-      step_index:stepIndex,
-      step_id:stepId
+      form_step_index:stepIndex,
+      form_step_id:stepId
     });
   }
 
   function trackFormError(formType, stepId, fieldId, errorType){
     pushCroEvent('cro_form_error', {
       form_type:formType,
-      step_id:stepId,
-      field_id:fieldId,
-      error_type:errorType
+      form_step_id:stepId,
+      form_field_id:fieldId,
+      form_error_type:errorType
     });
   }
 
@@ -4423,7 +4423,7 @@ updateArrows();
       form_type:formType,
       source_cta_id:context.source_cta_id,
       source_section:context.source_section
-    }, data || {})));
+    }, data || {}, window.LeadSubmission ? window.LeadSubmission.analytics(formType) : {})));
   }
 
   function trackLeadUserDataReady(formType, userData){
