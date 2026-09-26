@@ -4688,11 +4688,6 @@ updateArrows();
               <input class="estimate-input" id="estimate-email" name="email" type="email" autocomplete="email" placeholder="vous@email.fr" aria-describedby="estimate-email-error">
               <span class="estimate-error" id="estimate-email-error" data-estimate-error="email" hidden></span>
             </label>
-            <label class="estimate-consent" for="estimate-consent-contact">
-              <input id="estimate-consent-contact" name="consent_contact" type="checkbox" value="true" aria-describedby="estimate-consent-error">
-              <span>J’accepte d’être recontacté par 3R Services par téléphone et/ou e-mail concernant ma demande d’estimation et d’expertise toiture.</span>
-            </label>
-            <p class="estimate-error" id="estimate-consent-error" data-estimate-error="consent_contact" hidden></p>
             <p class="estimate-privacy">Politique de confidentialité : lien à ajouter.</p>
           </div>
         </div>
@@ -4883,8 +4878,7 @@ updateArrows();
       postcode:'',
       full_name:'',
       phone:'',
-      email:'',
-      consent_contact:false
+      email:''
     },
     trackedSteps:new Set(),
     started:false,
@@ -5062,7 +5056,6 @@ updateArrows();
     state.values.full_name = elements.full_name.value;
     state.values.phone = elements.phone.value;
     state.values.email = elements.email.value;
-    state.values.consent_contact = elements.consent_contact.checked;
   }
 
   function syncFormFromState(){
@@ -5071,7 +5064,6 @@ updateArrows();
     elements.full_name.value = state.values.full_name;
     elements.phone.value = state.values.phone;
     elements.email.value = state.values.email;
-    elements.consent_contact.checked = state.values.consent_contact;
     setRadioValue('roof_surface_range', state.values.roof_surface_range);
     setRadioValue('roof_material', state.values.roof_material);
     setRadioValue('hydrofuge_type', state.values.hydrofuge_type);
@@ -5176,11 +5168,6 @@ updateArrows();
       fail('email', 'Veuillez saisir une adresse e-mail valide.', state.values.email.trim() ? 'invalid_format' : 'required');
       valid = false;
     }
-    if (!state.values.consent_contact) {
-      fail('consent_contact', 'Veuillez accepter d’être recontacté pour recevoir votre estimation.', 'consent_required');
-      valid = false;
-    }
-
     if (!valid) {
       focusFirstInvalid();
       return false;
