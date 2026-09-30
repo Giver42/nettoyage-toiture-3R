@@ -3761,6 +3761,8 @@ updateArrows();
     trackLeadSubmit,
     trackLeadSuccess,
     trackLeadUserDataReady,
+    pauseSectionTiming,
+    resumeSectionTiming,
     normalizeEmail,
     normalizePhone,
     getDepartment,
@@ -4175,7 +4177,7 @@ updateArrows();
   }
 
   function resumeSectionTiming(){
-    if (pageIsActive || document.visibilityState !== 'visible') return;
+    if (pageIsActive || document.visibilityState !== 'visible' || isFormModalOpen()) return;
     pageIsActive = true;
     const current = nowMs();
     sectionStates.forEach((state) => {
@@ -4206,7 +4208,7 @@ updateArrows();
   }
 
   function trackSectionEngagement(current = nowMs()){
-    if (!pageIsActive) return;
+    if (!pageIsActive || isFormModalOpen()) return;
 
     sectionStates.forEach((state) => {
       if (!state.isQualified || state.engagementStartedAt === null) return;
@@ -4248,6 +4250,11 @@ updateArrows();
         });
       }
     });
+  }
+
+  function isFormModalOpen(){
+    const root = document.documentElement;
+    return Boolean(root && root.classList && root.classList.contains('estimate-modal-open'));
   }
 
   function recordSectionEngagement(state, isReengagement){
@@ -4994,6 +5001,7 @@ updateArrows();
   render(false);
 
   function openEstimate(){
+    if (window.CroTracker) window.CroTracker.pauseSectionTiming();
     modal.hidden = false;
     document.documentElement.classList.add('estimate-modal-open');
     document.body.classList.add('estimate-modal-open');
@@ -5011,6 +5019,7 @@ updateArrows();
     modal.hidden = true;
     document.documentElement.classList.remove('estimate-modal-open');
     document.body.classList.remove('estimate-modal-open');
+    if (window.CroTracker) window.CroTracker.resumeSectionTiming();
     if (state.lastTrigger && typeof state.lastTrigger.focus === 'function') {
       state.lastTrigger.focus({ preventScroll:true });
     }
@@ -5704,6 +5713,7 @@ updateArrows();
   render(false);
 
   function openExpertise(){
+    if (window.CroTracker) window.CroTracker.pauseSectionTiming();
     modal.hidden = false;
     document.documentElement.classList.add('estimate-modal-open');
     document.body.classList.add('estimate-modal-open');
@@ -5721,6 +5731,7 @@ updateArrows();
     modal.hidden = true;
     document.documentElement.classList.remove('estimate-modal-open');
     document.body.classList.remove('estimate-modal-open');
+    if (window.CroTracker) window.CroTracker.resumeSectionTiming();
     if (state.lastTrigger && typeof state.lastTrigger.focus === 'function') {
       state.lastTrigger.focus({ preventScroll:true });
     }
