@@ -34,9 +34,6 @@ keys. Variable display names are arbitrary; the underlying key is not.
 | `section_visit_type` | `first`, `return` | Event-scoped dimension |
 | `section_engagement_time` | Positive integer milliseconds, incremental | Custom metric, milliseconds |
 
-The payload also includes `lp_name`, `lp_variant`, and `page_type` with the
-page's existing values.
-
 Legacy `cro_section_revisit` and `cro_section_reengaged` events still use
 `visit_index` as their data layer key. Keep the DLV reading `visit_index` for
 those events; use a separate DLV reading `section_visit_index` for the new time

@@ -94,7 +94,9 @@ test('first passage starts at confirmation and records the final partial tick', 
   assert.equal(event.section_visit_index, 1);
   assert.equal(event.section_visit_type, 'first');
   assert.equal(event.section_index, 1);
-  assert.equal(event.lp_name, 'nettoyage_toiture_3r');
+  assert.equal(event.lp_name, undefined);
+  assert.equal(event.lp_variant, undefined);
+  assert.equal(event.lp_page_type, undefined);
   b.advance(5000);
   assert.equal(b.times().length, 1);
 });

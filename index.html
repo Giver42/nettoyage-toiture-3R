@@ -3714,9 +3714,6 @@ updateArrows();
 (function(){
   'use strict';
 
-  const LP_NAME = 'nettoyage_toiture_3r';
-  const LP_VARIANT = 'preview';
-  const PAGE_TYPE = 'landing_page';
   const SECTION_VIEW_DELAY_MS = 800;
   const SECTION_ENGAGEMENT_MS = 4000;
   const SECTION_REVISIT_OUT_MS = 2000;
@@ -3770,11 +3767,7 @@ updateArrows();
     getReadingLineRatio
   };
 
-  pushCroEvent('cro_page_view', {
-    lp_name: LP_NAME,
-    lp_variant: LP_VARIANT,
-    lp_page_type: PAGE_TYPE
-  });
+  pushCroEvent('cro_page_view');
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCroTracking, { once:true });
@@ -4196,9 +4189,6 @@ updateArrows();
     if (state.currentVisitIndex === null || unsentMs <= 0) return;
     state.currentVisitTimeSentMs = measuredMs;
     pushCroEvent('cro_section_time', {
-      lp_name:LP_NAME,
-      lp_variant:LP_VARIANT,
-      lp_page_type:PAGE_TYPE,
       section_id:state.sectionId,
       section_index:state.sectionIndex,
       section_visit_index:getVisitIndex(state.currentVisitIndex),

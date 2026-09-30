@@ -42,9 +42,7 @@
   });
 
   function emit(state, event, duration){
-    const page = (window.dataLayer || []).find((entry) => entry.event === 'cro_page_view') || {};
     window.CroTracker.pushEvent(event, {
-      lp_name:page.lp_name, lp_variant:page.lp_variant, lp_page_type:page.lp_page_type,
       section_id:state.section, content_type:state.type, content_id:state.id,
       content_position:state.position, content_open_index:state.index,
       content_open_type:state.index === 1 ? 'first' : 'reopen',
