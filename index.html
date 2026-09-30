@@ -4700,7 +4700,7 @@ updateArrows();
 
       <footer class="estimate-footer">
         <button class="estimate-back" type="button" data-estimate-back>Retour</button>
-        <button class="estimate-next" type="submit" data-estimate-next>Continuer</button>
+        <button class="estimate-next" type="button" data-estimate-next>Continuer</button>
       </footer>
     </form>
   </section>
@@ -4801,7 +4801,7 @@ updateArrows();
 
       <footer class="estimate-footer">
         <button class="estimate-back" type="button" data-expertise-back>Retour</button>
-        <button class="estimate-next" type="submit" data-expertise-next>Continuer</button>
+        <button class="estimate-next" type="button" data-expertise-next>Continuer</button>
       </footer>
     </form>
   </section>
@@ -4919,9 +4919,24 @@ updateArrows();
     closeEstimate();
   });
 
+  nextButton.addEventListener('click', (event) => {
+    if (nextButton.type === 'submit') {
+      syncStateFromForm();
+      if (!validateStep('contact')) {
+        event.preventDefault();
+        return;
+      }
+      trackEstimateUserDataReady();
+      return;
+    }
+    event.preventDefault();
+    void handleEstimateAction();
+  });
+
   form.addEventListener('input', (event) => {
     trackFormStartFromEvent(event);
     syncStateFromForm();
+    autoAdvancePostcodeStep(event);
   });
   form.addEventListener('change', (event) => {
     trackFormStartFromEvent(event);
@@ -4937,6 +4952,11 @@ updateArrows();
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    await handleEstimateAction();
+  });
+
+  async function handleEstimateAction(){
+    if (state.submitting) return;
     if (state.currentStep === 'result') {
       closeEstimate();
       return;
@@ -4953,12 +4973,17 @@ updateArrows();
     }
 
     await submitCurrentEstimate();
-  });
+  }
 
   modal.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       closeEstimate();
+      return;
+    }
+    if (event.key === 'Enter' && state.currentStep !== 'result' && event.target !== nextButton) {
+      event.preventDefault();
+      nextButton.click();
       return;
     }
 
@@ -5031,6 +5056,7 @@ updateArrows();
     backButton.disabled = state.submitting;
     backButton.textContent = isResult ? 'Modifier' : 'Retour';
     nextButton.disabled = state.submitting;
+    nextButton.type = state.currentStep === 'contact' ? 'submit' : 'button';
     nextButton.textContent = getNextButtonLabel(isResult);
 
     trackCurrentStepView(flow, isResult);
@@ -5085,6 +5111,20 @@ updateArrows();
       if (state.currentStep !== stepName || state.submitting) return;
       if (!validateStep(stepName)) return;
       trackStepComplete(stepName);
+      goToNextStep();
+    }, 120);
+  }
+
+  function autoAdvancePostcodeStep(event){
+    const target = event.target;
+    if (!target || target.name !== 'postcode' || state.currentStep !== 'postcode') return;
+    if (!/^\d{5}$/.test(target.value.trim())) return;
+
+    window.setTimeout(() => {
+      if (state.currentStep !== 'postcode' || state.submitting) return;
+      syncStateFromForm();
+      if (!validatePostcode()) return;
+      trackStepComplete('postcode');
       goToNextStep();
     }, 120);
   }
@@ -5226,6 +5266,7 @@ updateArrows();
 
     const payload = buildEstimatePayload();
     const trackingData = buildEstimateTrackingData(payload);
+    trackEstimateUserDataReady(payload);
     if (window.CroTracker) {
       window.CroTracker.trackLeadSubmit('estimation', trackingData);
     }
@@ -5388,11 +5429,15 @@ updateArrows();
   function trackEstimateSuccess(payload, trackingData){
     const resultStep = modal.querySelector('[data-estimate-step="result"]');
     if (!resultStep || resultStep.hidden || !window.CroTracker) return;
-    window.CroTracker.trackLeadUserDataReady('estimation', {
-      email:payload.email,
-      phone_number:payload.phone
-    });
     window.CroTracker.trackLeadSuccess('estimation', trackingData);
+  }
+
+  function trackEstimateUserDataReady(payload){
+    if (!window.CroTracker) return;
+    window.CroTracker.trackLeadUserDataReady('estimation', {
+      email:payload ? payload.email : state.values.email,
+      phone_number:payload ? payload.phone : state.values.phone
+    });
   }
 
   function getSurfaceRange(rangeId){
@@ -5592,9 +5637,24 @@ updateArrows();
     closeExpertise();
   });
 
+  nextButton.addEventListener('click', (event) => {
+    if (nextButton.type === 'submit') {
+      syncStateFromForm();
+      if (!validateStep('contact')) {
+        event.preventDefault();
+        return;
+      }
+      trackExpertiseUserDataReady();
+      return;
+    }
+    event.preventDefault();
+    void handleExpertiseAction();
+  });
+
   form.addEventListener('input', (event) => {
     trackFormStartFromEvent(event);
     syncStateFromForm();
+    autoAdvancePostcodeStep(event);
   });
   form.addEventListener('change', (event) => {
     trackFormStartFromEvent(event);
@@ -5605,6 +5665,11 @@ updateArrows();
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    await handleExpertiseAction();
+  });
+
+  async function handleExpertiseAction(){
+    if (state.submitting) return;
     if (state.currentStep === 'success') {
       closeExpertise();
       return;
@@ -5620,12 +5685,17 @@ updateArrows();
     }
 
     await submitExpertise();
-  });
+  }
 
   modal.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       event.preventDefault();
       closeExpertise();
+      return;
+    }
+    if (event.key === 'Enter' && state.currentStep !== 'success' && event.target !== nextButton) {
+      event.preventDefault();
+      nextButton.click();
       return;
     }
     if (event.key === 'Tab') trapFocus(event);
@@ -5670,6 +5740,7 @@ updateArrows();
     backButton.disabled = state.submitting;
     backButton.textContent = isSuccess ? 'Modifier' : 'Retour';
     nextButton.disabled = state.submitting;
+    nextButton.type = state.currentStep === 'contact' ? 'submit' : 'button';
     nextButton.textContent = getNextLabel(isSuccess);
 
     trackCurrentStepView(isSuccess);
@@ -5713,6 +5784,20 @@ updateArrows();
       if (state.currentStep !== 'surface' || state.submitting) return;
       if (!validateStep('surface')) return;
       trackStepComplete('surface');
+      goToNextExpertiseStep();
+    }, 120);
+  }
+
+  function autoAdvancePostcodeStep(event){
+    const target = event.target;
+    if (!target || target.name !== 'postcode' || state.currentStep !== 'postcode') return;
+    if (!/^\d{5}$/.test(target.value.trim())) return;
+
+    window.setTimeout(() => {
+      if (state.currentStep !== 'postcode' || state.submitting) return;
+      syncStateFromForm();
+      if (!validatePostcode()) return;
+      trackStepComplete('postcode');
       goToNextExpertiseStep();
     }, 120);
   }
@@ -5792,6 +5877,7 @@ updateArrows();
       phone:normalizePhone(state.values.phone)
     };
     const trackingData = buildBilanTrackingData(payload);
+    trackExpertiseUserDataReady(payload);
     if (window.CroTracker) {
       window.CroTracker.trackLeadSubmit('bilan', trackingData);
     }
@@ -5978,11 +6064,15 @@ updateArrows();
   function trackExpertiseSuccess(payload, trackingData){
     const successStep = modal.querySelector('[data-expertise-step="success"]');
     if (!successStep || successStep.hidden || !window.CroTracker) return;
-    window.CroTracker.trackLeadUserDataReady('bilan', {
-      email:payload.email,
-      phone_number:payload.phone
-    });
     window.CroTracker.trackLeadSuccess('bilan', trackingData);
+  }
+
+  function trackExpertiseUserDataReady(payload){
+    if (!window.CroTracker) return;
+    window.CroTracker.trackLeadUserDataReady('bilan', {
+      email:payload ? payload.email : state.values.email,
+      phone_number:payload ? payload.phone : state.values.phone
+    });
   }
 })();
 </script>
