@@ -398,3 +398,268 @@
   .roof-final__benefits li { font-size: 17px; }
   .roof-final__phone { font-size: 16px; }
 }
+/* Mobile-first layout for the locked Toit impeccable variant. */
+.lp-page {
+  --ink:#463B35; --ink-strong:#2B2622; --muted:#756B64;
+  --green:#668F2E; --green-dark:#4F7320; --green-soft:#F3F8EA; --green-line:#D7E5C5;
+  --bg:#FCFBF7; --white:#FFFFFF; --sand:#F4F3F1; --line:#E8E1DA;
+  --red:#B53B32; --red-soft:#FBF1F0; --star:#F9B400; --radius:16px;
+  --delay:#bd7d13; --roof-before:#59663a; --roof-after:#a95137;
+  --team:#756b63; --photo:#858b76;
+  --shadow:color-mix(in srgb, var(--ink) 24%, transparent);
+  --green-shadow:color-mix(in srgb, var(--green) 25%, transparent);
+}
+html { scroll-padding-top:78px; }
+body.lp-page { margin:0; }
+.lp-page, .lp-page *, .lp-page *::before, .lp-page *::after { box-sizing:border-box; }
+.lp-page {
+  padding-top:68px; padding-bottom:max(84px,var(--lp-sticky-height,84px)); background:var(--bg); color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.5; letter-spacing:0;
+  -webkit-font-smoothing:antialiased;
+}
+.lp-page.estimate-modal-open, html.estimate-modal-open { overflow:hidden; }
+.lp-page [hidden] { display:none !important; }
+.lp-page img { max-width:100%; }
+.lp-page button, .lp-page input { font:inherit; }
+.lp-page h1, .lp-page h2, .lp-page h3, .lp-page p, .lp-page figure,
+.lp-page blockquote, .lp-page dl, .lp-page dd { margin:0; }
+.lp-page h1, .lp-page h2, .lp-page h3 { color:var(--ink-strong); letter-spacing:0; overflow-wrap:break-word; }
+.lp-page h1 { font-size:36px; line-height:1.08; font-weight:850; }
+.lp-page h2 { font-size:27px; line-height:1.15; font-weight:850; }
+.lp-page h3 { font-size:18px; line-height:1.3; font-weight:800; }
+.lp-page a { color:inherit; }
+.lp-page a:focus-visible, .lp-page button:focus-visible, .lp-page input:focus-visible,
+.lp-page summary:focus-visible { outline:3px solid var(--green-dark); outline-offset:3px; }
+.lp-page :is(.hero-impeccable__inner,.price-comparison__inner,.roof-method__inner,.roof-results__inner,.neighbor-reviews__inner,.roof-service__inner,.roof-journey__inner,.roof-commitments__inner,.roof-faq__inner,.roof-final__panel,.footer-3r__inner,.lp-sticky__inner) { width:min(100% - 32px, 640px); margin:0 auto; min-width:0; }
+.lp-page main > section { width:100%; padding:44px 0; }
+.lp-page main > section:nth-of-type(3n+1) { background:var(--bg); }
+.lp-page main > section:nth-of-type(3n+2) { background:var(--white); }
+.lp-page main > section:nth-of-type(3n) { background:var(--green-soft); }
+.lp-page :is(.price-comparison__eyebrow,.roof-method__eyebrow,.roof-results__eyebrow,
+.neighbor-reviews__eyebrow,.roof-service__eyebrow,.roof-journey__eyebrow,
+.roof-commitments__eyebrow,.roof-faq__eyebrow,.method-step__number) {
+  font-size:12px; line-height:1.4; font-weight:800; text-transform:uppercase;
+  color:var(--green-dark); margin-bottom:10px;
+}
+.lp-page h2 > span, .lp-page h1 > span { color:var(--green); }
+.lp-page :is(.price-comparison__intro,.roof-method__intro,.roof-journey__intro) { font-size:17px; margin-top:12px; }
+.lp-page :is(.price-comparison__intro,.roof-method__intro) p + p { margin-top:12px; }
+.lp-page :is(.price-comparison__offers,.roof-method__steps,.neighbor-reviews__summary,
+.roof-service__offer,.roof-journey__timeline,.roof-commitments__list,.faq-list) { margin-top:22px; }
+.lp-page :is(.price-comparison__transition,.roof-method__transition,.roof-results__next,
+.neighbor-reviews__next,.roof-service__transition,.hero-impeccable__discover) {
+  display:flex; gap:10px; align-items:center; justify-content:center;
+  min-height:44px; margin-top:26px; color:var(--green-dark); font-size:15px;
+  line-height:1.5; text-align:center; font-weight:800; text-decoration:none;
+}
+.lp-page :is(.roof-results__next,.neighbor-reviews__next,.hero-impeccable__discover):hover { text-decoration:underline; }
+.lp-page :is(.hero-impeccable__actions,.roof-service__actions) { display:grid; grid-template-columns:minmax(0,1fr); gap:10px; margin-top:22px; }
+.lp-page .hero-impeccable__button {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-width:0; min-height:56px; padding:14px 18px; border:2px solid var(--green);
+  border-radius:14px; font-size:17px; line-height:1.3; font-weight:800;
+  text-align:center; text-decoration:none; transition:transform .15s,background-color .15s;
+}
+.lp-page .hero-impeccable__button--primary { background:var(--green); color:var(--white); box-shadow:0 10px 22px var(--green-shadow); }
+.lp-page .hero-impeccable__button--secondary { background:var(--white); color:var(--green-dark); }
+.lp-page .hero-impeccable__button--primary:hover { background:var(--green-dark); }
+.lp-page .hero-impeccable__button:active { transform:scale(.98); }
+.lp-page :is(.hero-impeccable__reassurance,.roof-service__reassurance,.roof-final__reassurance) { margin-top:3px; text-align:center; color:var(--muted); font-size:14px; font-weight:700; }
+.lp-page .hero-impeccable__check, .lp-page .price-offer__status { display:grid; place-items:center; width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:var(--green); color:var(--white); font-size:16px; line-height:1; font-weight:800; }
+.lp-page .site-header-3r { position:fixed; inset:0 0 auto; z-index:900; background:color-mix(in srgb,var(--white) 98%,transparent); border-bottom:1px solid var(--line); box-shadow:0 2px 10px color-mix(in srgb,var(--ink) 4%,transparent); }
+.lp-page.has-fixed-navbar-3r { padding-top:68px; }
+.lp-page .navbar-3r { width:min(100% - 28px,1380px); height:68px; min-height:68px; margin:auto; display:flex; justify-content:space-between; align-items:center; gap:14px; }
+.lp-page .brand-3r { display:flex; gap:10px; align-items:center; text-decoration:none; min-width:0; }
+.lp-page .brand-logo-3r { width:46px; height:44px; object-fit:contain; }
+.lp-page .brand-name-3r { font-size:15px; color:var(--ink-strong); font-weight:850; }
+.lp-page .phone-link-3r { display:flex; align-items:center; justify-content:center; width:auto; height:44px; min-width:44px; min-height:44px; padding:0; border:0; gap:8px; text-decoration:none; color:var(--green-dark); }
+.lp-page .phone-link-3r svg { width:23px; height:23px; fill:none; stroke:currentColor; stroke-width:1.8; }
+.lp-page :is(.desktop-center-3r,.desktop-phone-number-3r,.desktop-cta-label-3r) { display:none; }
+.lp-page main > section.hero-impeccable { padding:22px 0 30px; background:linear-gradient(180deg,var(--green-soft),var(--bg)); }
+.lp-page .hero-impeccable h1 span { white-space:nowrap; }
+.lp-page .hero-impeccable__owners { display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border:1px solid var(--green-line); border-radius:24px; background:var(--white); color:var(--green-dark); font-size:13px; font-weight:800; margin-bottom:14px; }
+.lp-page .hero-impeccable__eyebrow { margin-bottom:8px; color:var(--muted); font-size:12px; line-height:1.4; font-weight:800; }
+.lp-page .hero-impeccable__benefits { display:grid; gap:10px; list-style:none; padding:0; margin:18px 0 0; }
+.lp-page .hero-impeccable__benefits li, .lp-page .roof-final__benefits li { display:flex; align-items:flex-start; gap:10px; font-size:16px; }
+.lp-page .hero-impeccable__proof { display:flex; flex-wrap:wrap; justify-content:center; gap:5px 14px; font-size:13px; margin-top:14px; }
+.lp-page :is(.hero-impeccable__stars,.neighbor-reviews__stars,.roof-results__stars,.roof-service__stars) { color:var(--star); white-space:nowrap; font-style:normal; }
+.lp-page :is(.hero-impeccable__photo-placeholder,.neighbor-reviews__team) { position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:var(--radius); margin-top:22px; background:var(--roof-after); }
+.lp-page .neighbor-reviews__team { background:var(--team); }
+.lp-page :is(.hero-impeccable__photo-placeholder,.neighbor-reviews__team) figcaption,
+.lp-page .roof-compare__placeholder { position:absolute; bottom:10px; left:10px; max-width:calc(100% - 20px); padding:4px 7px; border-radius:6px; background:color-mix(in srgb,var(--ink-strong) 85%,transparent); color:var(--white); font-size:12px; font-weight:700; }
+.lp-page .price-comparison__offers { display:grid; gap:20px; }
+.lp-page .price-offer { position:relative; min-width:0; border:1px solid var(--line); border-radius:var(--radius); padding:16px; background:var(--white); }
+.lp-page .price-offer__header { display:grid; grid-template-columns:44px minmax(0,1fr); gap:10px; align-items:center; padding-bottom:14px; border-bottom:1px solid var(--line); }
+.lp-page .price-offer__icon { display:grid; place-items:center; width:44px; height:44px; border-radius:12px; background:var(--sand); font-size:25px; }
+.lp-page .price-offer__identity p { color:var(--muted); font-size:13px; margin-top:3px; }
+.lp-page .price-offer__price { grid-column:2; }
+.lp-page .price-offer__price strong { display:block; white-space:nowrap; font-size:23px; font-weight:850; line-height:1.2; color:var(--ink-strong); }
+.lp-page .price-offer__price strong span { font-size:15px; }
+.lp-page .price-offer__price small { display:block; color:var(--muted); font-size:12px; }
+.lp-page .price-offer__details { display:grid; gap:10px; list-style:none; padding:0; margin:14px 0 0; }
+.lp-page .price-offer__details li { display:flex; align-items:flex-start; gap:10px; }
+.lp-page .price-offer__details li > div { min-width:0; flex:1; }
+.lp-page .price-offer__status--wait { background:var(--delay); }
+.lp-page .price-offer__status--warning { background:var(--red); }
+.lp-page .price-offer__fees { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.lp-page .price-offer__fees > div { padding:10px; background:var(--red-soft); border-radius:12px; }
+.lp-page .price-offer__fees dt { color:var(--red); font-size:20px; font-weight:800; }
+.lp-page .price-offer__fees dd { font-size:12px; line-height:1.4; }
+.lp-page .price-offer--recommended { padding-top:26px; border:2px solid var(--green); background:var(--green-soft); }
+.lp-page .price-offer--recommended .price-offer__price strong { color:var(--green-dark); }
+.lp-page .price-offer__icon--brand { color:var(--white); background:var(--green); }
+.lp-page .price-offer__badge { position:absolute; top:-12px; left:14px; max-width:calc(100% - 28px); padding:4px 10px; border-radius:20px; background:var(--green); color:var(--white); font-size:12px; font-weight:800; }
+.lp-page .price-comparison__source { font-size:12px; color:var(--muted); margin-top:8px; }
+.lp-page .roof-method__steps { display:grid; gap:14px; list-style:none; padding:0; }
+.lp-page .method-step { min-width:0; padding:16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--white); }
+.lp-page .method-step__header { display:grid; grid-template-columns:64px minmax(0,1fr); gap:12px; align-items:center; }
+.lp-page .method-step__photo { position:relative; width:64px; aspect-ratio:1; background:var(--photo); border-radius:12px; }
+.lp-page .method-step__photo span { position:absolute; left:4px; bottom:4px; padding:2px 4px; background:var(--ink); color:var(--white); border-radius:4px; font-size:10px; }
+.lp-page .method-step__number { margin-bottom:4px; }
+.lp-page .method-step__body { margin-top:12px; }
+.lp-page .method-step__concrete { padding:12px; margin-top:12px; background:var(--sand); border-radius:12px; color:var(--muted); font-size:13px; }
+.lp-page .method-step__concrete strong { color:var(--ink); }
+.lp-page .method-step__bridge { margin-top:12px; color:var(--muted); font-size:14px; font-weight:700; font-style:italic; }
+.lp-page .roof-compare { position:relative; isolation:isolate; overflow:hidden; width:100%; aspect-ratio:4/3; border-radius:var(--radius); margin-top:22px; }
+.lp-page .roof-compare__surface { position:absolute; inset:0; }
+.lp-page .roof-compare__surface--after { background:repeating-linear-gradient(170deg,var(--roof-after) 0 20px,color-mix(in srgb,var(--roof-after) 85%,var(--white)) 20px 38px); }
+.lp-page .roof-compare__surface--before { background:repeating-linear-gradient(170deg,var(--roof-before) 0 20px,color-mix(in srgb,var(--roof-before) 85%,var(--white)) 20px 38px); clip-path:inset(0 calc(100% - var(--reveal)) 0 0); }
+.lp-page .roof-compare__label { position:absolute; top:10px; padding:4px 10px; border-radius:20px; color:var(--white); background:var(--green-dark); font-size:12px; font-weight:800; white-space:nowrap; }
+.lp-page .roof-compare__label--before { left:10px; background:var(--ink-strong); }
+.lp-page .roof-compare__label--after { right:10px; }
+.lp-page .roof-compare__divider { position:absolute; top:0; bottom:0; left:var(--reveal); width:3px; background:var(--white); transform:translateX(-50%); pointer-events:none; }
+.lp-page .roof-compare__divider span { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:grid; place-items:center; width:44px; height:44px; border-radius:50%; color:var(--green-dark); background:var(--white); font-size:24px; }
+.lp-page .roof-compare__range { position:absolute; inset:0; margin:0; width:100%; height:100%; opacity:0; cursor:ew-resize; touch-action:pan-y; }
+.lp-page .roof-compare:focus-within { outline:3px solid var(--green-dark); outline-offset:3px; }
+.lp-page .roof-results__caption { margin-top:5px; font-size:12px; color:var(--muted); }
+.lp-page :is(.roof-results__testimonial,.roof-service__testimonial,.neighbor-review,.roof-journey__testimonials figure) { padding:16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--white); min-width:0; }
+.lp-page :is(.roof-results__testimonial,.roof-service__testimonial) { margin-top:18px; }
+.lp-page :is(.roof-results__testimonial,.roof-service__testimonial,.neighbor-review,.roof-journey__testimonials) blockquote { font-size:16px; font-style:italic; line-height:1.5; }
+.lp-page :is(.roof-results__testimonial,.roof-service__testimonial,.neighbor-review,.roof-journey__testimonials) figcaption { margin-top:10px; color:var(--muted); font-size:13px; font-weight:700; }
+.lp-page .neighbor-reviews__summary { display:flex; align-items:center; gap:16px; border:1px solid var(--line); border-radius:var(--radius); padding:16px; background:var(--white); }
+.lp-page .neighbor-reviews__rating { font-size:38px; line-height:1.2; color:var(--ink-strong); }
+.lp-page .neighbor-reviews__summary p { color:var(--muted); font-size:13px; }
+.lp-page .neighbor-reviews__grid,.lp-page .roof-journey__testimonials { display:grid; grid-template-columns:minmax(0,1fr); max-width:none; gap:12px; margin-top:22px; }
+.lp-page .roof-service__offer { overflow:hidden; border:2px solid var(--green); border-radius:var(--radius); background:var(--white); }
+.lp-page .roof-service__price { padding:20px 16px; text-align:center; background:var(--green-soft); }
+.lp-page .roof-service__price p { color:var(--muted); }
+.lp-page .roof-service__price > strong { display:block; color:var(--green-dark); font-size:46px; line-height:1.2; white-space:nowrap; font-weight:850; }
+.lp-page .roof-service__price > strong span { font-size:23px; }
+.lp-page .roof-service__details { padding:16px; }
+.lp-page .roof-service__details h3 { color:var(--muted); font-size:14px; }
+.lp-page :is(.roof-service__included,.roof-service__options) { display:grid; gap:10px; list-style:none; margin:12px 0 22px; padding:0; }
+.lp-page :is(.roof-service__included,.roof-service__options) li { display:flex; align-items:flex-start; gap:10px; }
+.lp-page :is(.roof-service__included,.roof-service__options) li > span:first-child { flex:0 0 18px; color:var(--green); font-weight:800; }
+.lp-page .roof-service__guarantee { display:inline-block; padding:3px 8px; border-radius:20px; background:var(--green); color:var(--white); font-size:12px; font-weight:800; white-space:nowrap; }
+.lp-page .roof-service__example { padding:12px; background:var(--sand); border-radius:12px; }
+.lp-page .roof-journey__timeline { list-style:none; padding:0; }
+.lp-page .roof-journey__timeline li { position:relative; display:grid; grid-template-columns:36px minmax(0,1fr); gap:12px; padding-bottom:22px; }
+.lp-page .roof-journey__timeline li:not(:last-child)::before { content:""; position:absolute; left:17px; top:36px; bottom:0; width:2px; background:var(--green-line); }
+.lp-page .roof-journey__timeline li:last-child { padding-bottom:0; }
+.lp-page .roof-journey__marker { position:relative; display:grid; place-items:center; width:36px; height:36px; border-radius:50%; border:2px solid var(--green); background:var(--white); color:var(--green-dark); font-weight:800; }
+.lp-page .roof-journey__marker--done { background:var(--green); color:var(--white); font-size:22px; }
+.lp-page .roof-journey__timeline p { margin-top:4px; color:var(--muted); }
+.lp-page .roof-commitments__list { list-style:none; padding:4px 16px; border:1px solid var(--green-line); border-radius:var(--radius); background:var(--green-soft); }
+.lp-page .roof-commitments__list li { display:grid; grid-template-columns:40px minmax(0,1fr); gap:12px; padding:14px 0; }
+.lp-page .roof-commitments__list li + li { border-top:1px solid var(--green-line); }
+.lp-page .roof-commitments__letter { display:grid; place-items:center; width:40px; height:40px; border-radius:12px; background:var(--green); color:var(--white); font-size:23px; font-weight:850; }
+.lp-page .roof-commitments__list p { margin-top:4px; }
+.lp-page .faq-list { display:grid; gap:10px; }
+.lp-page .s10.roof-faq { width:100%; margin:0; padding:44px 0; }
+.lp-page .faq-item { overflow:hidden; background:var(--white); border:1px solid var(--line); border-radius:14px; }
+.lp-page .faq-item summary { position:relative; min-height:44px; list-style:none; padding:16px 46px 16px 16px; cursor:pointer; font-weight:800; }
+.lp-page .faq-item summary::-webkit-details-marker { display:none; }
+.lp-page .faq-item summary::after { content:"+"; position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--green); font-size:22px; }
+.lp-page .faq-item[open] summary::after { content:"−"; }
+.lp-page .faq-answer { padding:0 16px 16px; color:var(--muted); }
+.lp-page .s10.roof-faq .faq-item summary, .lp-page .s10.roof-faq .faq-answer { font-size:16px; }
+.lp-page .roof-final__panel { padding:20px; border:1px solid var(--green-line); border-radius:var(--radius); background:var(--green-soft); }
+.lp-page .roof-final__benefits { display:grid; gap:10px; padding:0; margin:22px 0 0; list-style:none; }
+.lp-page .roof-final__phone { text-align:center; font-size:14px; }
+.lp-page .roof-final__phone a { color:var(--green-dark); font-weight:800; white-space:nowrap; text-decoration:none; }
+.lp-page .footer-3r { padding:28px 0; border-top:1px solid var(--line); background:var(--white); }
+.lp-page .footer-3r__inner { display:grid; gap:16px; }
+.lp-page .footer-3r__brand { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; }
+.lp-page .footer-3r__logo { width:48px; height:44px; object-fit:contain; }
+.lp-page .footer-3r__links { display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:13px; }
+.lp-page .footer-3r__legal { display:inline-flex; align-items:center; min-height:44px; }
+.lp-page .lp-sticky { position:fixed; inset:auto 0 0; z-index:950; padding:10px 16px calc(10px + env(safe-area-inset-bottom)); border-top:1px solid var(--line); background:color-mix(in srgb,var(--bg) 98%,transparent); box-shadow:0 -5px 20px color-mix(in srgb,var(--ink) 8%,transparent); transform:translateY(110%); visibility:hidden; pointer-events:none; transition:transform .25s,visibility .25s; }
+.lp-page .lp-sticky[data-visible="true"] { transform:translateY(0); visibility:visible; pointer-events:auto; }
+.lp-page .lp-sticky__inner { width:min(100%,640px); display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; }
+.lp-page .lp-sticky .hero-impeccable__button { min-height:50px; font-size:15px; padding:12px; }
+.lp-page .estimate-modal { position:fixed; inset:0; z-index:9999; display:grid; place-items:stretch; background:color-mix(in srgb,var(--ink) 48%,transparent); }
+.lp-page .estimate-backdrop { position:absolute; inset:0; }
+.lp-page .estimate-dialog { position:relative; display:flex; flex-direction:column; width:100%; min-width:0; min-height:100svh; max-height:100svh; overflow:auto; background:var(--bg); }
+.lp-page .estimate-header { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px; border-bottom:1px solid var(--line); background:var(--bg); }
+.lp-page .estimate-header-title { font-size:14px; font-weight:800; }
+.lp-page .estimate-close { width:44px; height:44px; flex:0 0 44px; border:1px solid var(--line); border-radius:50%; background:var(--white); color:var(--ink); font-size:24px; cursor:pointer; }
+.lp-page .estimate-form { flex:1; display:flex; flex-direction:column; min-width:0; min-height:0; }
+.lp-page .estimate-progress { padding:16px 16px 0; }
+.lp-page .estimate-progress-text { display:flex; justify-content:space-between; gap:12px; color:var(--muted); font-size:12px; font-weight:800; margin-bottom:8px; }
+.lp-page .estimate-progress-track { height:6px; border-radius:8px; background:var(--line); overflow:hidden; }
+.lp-page .estimate-progress-bar { height:100%; background:var(--green); border-radius:8px; transition:width .2s; }
+.lp-page .estimate-body { flex:1; padding:24px 16px; min-width:0; }
+.lp-page .estimate-step h2 { margin-bottom:10px; }
+.lp-page :is(.estimate-help,.estimate-small) { color:var(--muted); font-size:14px; margin-bottom:20px; }
+.lp-page .estimate-field { display:grid; gap:7px; margin-bottom:16px; min-width:0; }
+.lp-page .estimate-label { font-size:14px; font-weight:800; }
+.lp-page .estimate-input { width:100%; min-width:0; min-height:54px; padding:13px 14px; border:1px solid var(--line); border-radius:12px; background:var(--white); color:var(--ink); }
+.lp-page .estimate-input[aria-invalid="true"] { border-color:var(--red); background:var(--red-soft); }
+.lp-page .estimate-options { display:grid; gap:10px; border:0; margin:0; padding:0; min-width:0; }
+.lp-page .estimate-choice { display:block; position:relative; cursor:pointer; min-width:0; }
+.lp-page .estimate-choice input { position:absolute; opacity:0; pointer-events:none; }
+.lp-page .estimate-choice > span { display:flex; align-items:center; min-height:56px; padding:14px; border:1px solid var(--line); border-radius:14px; background:var(--white); font-weight:800; }
+.lp-page .estimate-choice input:checked + span { border-color:var(--green); background:var(--green-soft); box-shadow:inset 0 0 0 1px var(--green); }
+.lp-page .estimate-choice input:focus-visible + span { outline:3px solid var(--green-dark); outline-offset:2px; }
+.lp-page .estimate-choice .estimate-choice-media { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; padding:10px; }
+.lp-page .estimate-choice .estimate-material-thumbs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; padding:0; border:0; background:none; min-height:0; }
+.lp-page .estimate-material-thumb { width:100%; height:58px; object-fit:cover; border-radius:8px; background:var(--sand); }
+.lp-page .estimate-choice-media b { font:inherit; min-width:0; }
+.lp-page .estimate-error { margin-top:8px; font-size:13px; color:var(--red); font-weight:700; }
+.lp-page .estimate-contact-grid { display:grid; gap:12px; }
+.lp-page .estimate-consent { display:grid; grid-template-columns:22px minmax(0,1fr); gap:10px; font-size:13px; }
+.lp-page .estimate-consent input { width:20px; height:20px; accent-color:var(--green); }
+.lp-page .estimate-privacy { color:var(--muted); font-size:12px; }
+.lp-page .estimate-result-card { padding:16px; border:1px solid var(--green-line); border-radius:var(--radius); background:var(--green-soft); }
+.lp-page .estimate-result-label { color:var(--green-dark); font-size:13px; font-weight:800; text-transform:uppercase; }
+.lp-page .estimate-result-price { margin:8px 0; font-size:30px; font-weight:850; line-height:1.2; }
+.lp-page .estimate-result-copy { font-size:14px; }
+.lp-page .estimate-result-success { color:var(--green-dark); font-weight:800; }
+.lp-page .estimate-footer { position:sticky; bottom:0; z-index:2; display:grid; grid-template-columns:1fr 1.45fr; gap:10px; padding:14px 16px calc(16px + env(safe-area-inset-bottom)); border-top:1px solid var(--line); background:var(--bg); }
+.lp-page :is(.estimate-back,.estimate-next) { min-height:54px; border:2px solid var(--green); border-radius:14px; padding:12px; font-size:14px; font-weight:800; cursor:pointer; }
+.lp-page .estimate-back { color:var(--green-dark); background:var(--white); }
+.lp-page .estimate-next { color:var(--white); background:var(--green); }
+.lp-page :is(.estimate-back,.estimate-next):disabled { opacity:.55; cursor:not-allowed; }
+.lp-page .estimate-visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media (min-width:760px) {
+  .lp-page { padding-bottom:0; }
+  .lp-page main > section { padding:72px 0; }
+  .lp-page h1 { font-size:54px; }
+  .lp-page h2 { font-size:36px; }
+  .lp-page main > section.hero-impeccable { padding:48px 0 56px; }
+  .lp-page :is(.hero-impeccable__actions,.roof-service__actions) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .lp-page .neighbor-reviews__grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .lp-page .roof-journey__testimonials { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .lp-page .price-offer__header { grid-template-columns:44px minmax(0,1fr) auto; }
+  .lp-page .price-offer__price { grid-column:auto; text-align:right; }
+  .lp-page .price-offer { padding:20px; }
+  .lp-page .price-offer--recommended { padding-top:26px; }
+  .lp-page .method-step__header { grid-template-columns:80px minmax(0,1fr); }
+  .lp-page .method-step__photo { width:80px; }
+  .lp-page .roof-final__panel { padding:24px; }
+  .lp-page .desktop-center-3r { display:block; text-align:center; font-size:13px; min-height:0; padding:0; border:0; }
+  .lp-page .center-title-3r { font-weight:800; }
+  .lp-page .center-subtitle-3r { color:var(--muted); font-size:12px; }
+  .lp-page .desktop-cta-label-3r { display:inline; color:var(--green-dark); font-size:14px; font-weight:800; white-space:nowrap; }
+  .lp-page .lp-sticky { display:none; }
+  .lp-page .estimate-modal { padding:24px; place-items:center; }
+  .lp-page .estimate-dialog { width:min(100%,640px); min-height:0; max-height:calc(100svh - 48px); border-radius:18px; box-shadow:0 24px 80px var(--shadow); }
+  .lp-page .estimate-header { padding:16px 20px; }
+  .lp-page .estimate-progress { padding:18px 20px 0; }
+  .lp-page .estimate-body { padding:30px 20px 24px; }
+  .lp-page .s10.roof-faq { padding:72px 0; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .lp-page *, .lp-page *::before, .lp-page *::after { transition:none !important; animation:none !important; scroll-behavior:auto !important; }
+}
