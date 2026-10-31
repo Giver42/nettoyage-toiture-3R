@@ -45,3 +45,27 @@
   new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
   update();
 })();
+
+(function () {
+  'use strict';
+  document.querySelectorAll('.lp-google-review').forEach(card => {
+    const text = card.querySelector('.lp-google-review__text');
+    const button = card.querySelector('.lp-google-review__more');
+    if (!text || !button) return;
+    function refresh() {
+      if (card.dataset.expanded === 'true') return;
+      button.hidden = text.scrollHeight <= text.clientHeight + 1;
+    }
+    button.addEventListener('click', () => {
+      const expanded = card.dataset.expanded !== 'true';
+      card.dataset.expanded = String(expanded);
+      button.setAttribute('aria-expanded', String(expanded));
+      button.textContent = expanded ? 'Voir moins' : 'Voir plus';
+      refresh();
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(refresh).observe(text);
+    window.addEventListener('resize', refresh);
+    if (document.fonts) document.fonts.ready.then(refresh);
+    refresh();
+  });
+})();

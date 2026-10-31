@@ -663,3 +663,86 @@ body.lp-page { margin:0; }
 @media (prefers-reduced-motion:reduce) {
   .lp-page *, .lp-page *::before, .lp-page *::after { transition:none !important; animation:none !important; scroll-behavior:auto !important; }
 }
+/* Google review cards share the visual treatment of the main page. */
+.lp-page {
+  --review-card:#F5F5F5;
+  --review-name:#2E2A27;
+  --review-ink:#514944;
+  --review-muted:#8A817B;
+  --review-avatar:#08A9BD;
+}
+.lp-page figure.lp-google-review {
+  min-width:0;
+  padding:14px 14px 13px;
+  border:1px solid color-mix(in srgb,var(--ink) 4%,transparent);
+  border-radius:10px;
+  background:var(--review-card);
+}
+.lp-page .lp-google-review .lp-google-review__head {
+  display:grid;
+  grid-template-columns:40px minmax(0,1fr) 22px;
+  gap:9px;
+  align-items:start;
+  margin:0;
+  font-weight:400;
+}
+.lp-page .lp-google-review__avatar {
+  display:grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:var(--review-avatar);
+  color:var(--white);
+  font:400 14px/20px Arial,sans-serif;
+}
+.lp-page .lp-google-review__identity { min-width:0; padding-top:1px; }
+.lp-page .lp-google-review__name {
+  display:block;
+  margin-bottom:3px;
+  color:var(--review-name);
+  font:700 13px/1.15 Arial,sans-serif;
+  overflow-wrap:anywhere;
+}
+.lp-page .lp-google-review__meta { display:block; color:var(--review-muted); font:400 10.5px/1.2 Roboto,"Helvetica Neue",Arial,sans-serif; }
+.lp-page .lp-google-review__google { width:19px; height:19px; margin-top:1px; justify-self:end; }
+.lp-page .lp-google-review__rating { margin:11px 0 9px; color:var(--star); font:400 17px/1 Roboto,"Helvetica Neue",Arial,sans-serif; }
+.lp-page .lp-google-review blockquote.lp-google-review__text {
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+  overflow:hidden;
+  margin:0;
+  color:var(--review-ink);
+  font:400 12px/1.45 Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+.lp-page .lp-google-review[data-expanded="true"] blockquote.lp-google-review__text { display:block; overflow:visible; }
+.lp-page .lp-google-review__more {
+  display:block;
+  min-width:44px;
+  min-height:44px;
+  margin:3px 0 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font:400 10.5px/1.2 Roboto,"Helvetica Neue",Arial,sans-serif;
+  text-align:left;
+  cursor:pointer;
+}
+.lp-page .lp-google-review__more:hover { color:var(--ink); text-decoration:underline; }
+.lp-page {
+  --review-avatar-tone-1:#4A626D;
+  --review-avatar-tone-2:#5B34C4;
+  --review-avatar-tone-3:#00796B;
+  --review-avatar-tone-4:#6436C7;
+  --review-avatar-tone-5:#3A7C24;
+}
+.lp-page .lp-google-review[data-review-author="jacqueslannez"] { --review-avatar:var(--review-avatar-tone-1); }
+.lp-page .lp-google-review[data-review-author="pierretosi"] { --review-avatar:var(--review-avatar-tone-2); }
+.lp-page .lp-google-review[data-review-author="mariefrancoiseexbrayat"] { --review-avatar:var(--review-avatar-tone-3); }
+.lp-page .lp-google-review[data-review-author="jimjim"] { --review-avatar:var(--review-avatar-tone-4); }
+.lp-page .lp-google-review[data-review-author="gillesbaronnier"] { --review-avatar:var(--review-avatar-tone-5); }
+.lp-page .lp-google-review__rating { display:flex; flex-wrap:wrap; align-items:center; gap:7px; }
+.lp-page .lp-google-review__stars { white-space:nowrap; }
+.lp-page .lp-google-review__age { color:var(--review-muted); font:400 11px/1.2 Roboto,"Helvetica Neue",Arial,sans-serif; white-space:nowrap; }
