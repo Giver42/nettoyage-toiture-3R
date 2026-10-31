@@ -485,6 +485,8 @@ body.lp-page { margin:0; }
 .lp-page .hero-impeccable__proof { display:flex; flex-wrap:wrap; justify-content:center; gap:5px 14px; font-size:13px; margin-top:14px; }
 .lp-page :is(.hero-impeccable__stars,.neighbor-reviews__stars,.roof-results__stars,.roof-service__stars) { color:var(--star); white-space:nowrap; font-style:normal; }
 .lp-page :is(.hero-impeccable__photo-placeholder,.neighbor-reviews__team) { position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; border-radius:var(--radius); margin-top:22px; background:var(--roof-after); }
+.lp-page .hero-impeccable__photo { position:relative; width:calc(100% * 2 / 3); aspect-ratio:4/3; overflow:hidden; border-radius:var(--radius); margin:22px auto 0; }
+.lp-page .hero-impeccable__photo-image { display:block; width:100%; height:auto; }
 .lp-page .neighbor-reviews__team { background:var(--team); }
 .lp-page :is(.hero-impeccable__photo-placeholder,.neighbor-reviews__team) figcaption,
 .lp-page .roof-compare__placeholder { position:absolute; bottom:10px; left:10px; max-width:calc(100% - 20px); padding:4px 7px; border-radius:6px; background:color-mix(in srgb,var(--ink-strong) 85%,transparent); color:var(--white); font-size:12px; font-weight:700; }
@@ -521,17 +523,13 @@ body.lp-page { margin:0; }
 .lp-page .method-step__concrete { padding:12px; margin-top:12px; background:var(--sand); border-radius:12px; color:var(--muted); font-size:13px; }
 .lp-page .method-step__concrete strong { color:var(--ink); }
 .lp-page .method-step__bridge { margin-top:12px; color:var(--muted); font-size:14px; font-weight:700; font-style:italic; }
-.lp-page .roof-compare { position:relative; isolation:isolate; overflow:hidden; width:100%; aspect-ratio:4/3; border-radius:var(--radius); margin-top:22px; }
-.lp-page .roof-compare__surface { position:absolute; inset:0; }
-.lp-page .roof-compare__surface--after { background:repeating-linear-gradient(170deg,var(--roof-after) 0 20px,color-mix(in srgb,var(--roof-after) 85%,var(--white)) 20px 38px); }
-.lp-page .roof-compare__surface--before { background:repeating-linear-gradient(170deg,var(--roof-before) 0 20px,color-mix(in srgb,var(--roof-before) 85%,var(--white)) 20px 38px); clip-path:inset(0 calc(100% - var(--reveal)) 0 0); }
+.lp-page .roof-compare { position:relative; isolation:isolate; overflow:hidden; width:100%; aspect-ratio:16/9; border-radius:var(--radius); margin-top:22px; }
+.lp-page .roof-compare__photo { display:block; width:100%; height:auto; }
+.lp-page :is(.roof-compare__brand,.hero-impeccable__brand) { position:absolute; left:12px; bottom:12px; padding:8px; border-radius:8px; background:var(--white); pointer-events:none; }
+.lp-page :is(.roof-compare__brand,.hero-impeccable__brand) img { display:block; width:clamp(64px,15vw,100px); height:auto; }
 .lp-page .roof-compare__label { position:absolute; top:10px; padding:4px 10px; border-radius:20px; color:var(--white); background:var(--green-dark); font-size:12px; font-weight:800; white-space:nowrap; }
 .lp-page .roof-compare__label--before { left:10px; background:var(--ink-strong); }
 .lp-page .roof-compare__label--after { right:10px; }
-.lp-page .roof-compare__divider { position:absolute; top:0; bottom:0; left:var(--reveal); width:3px; background:var(--white); transform:translateX(-50%); pointer-events:none; }
-.lp-page .roof-compare__divider span { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:grid; place-items:center; width:44px; height:44px; border-radius:50%; color:var(--green-dark); background:var(--white); font-size:24px; }
-.lp-page .roof-compare__range { position:absolute; inset:0; margin:0; width:100%; height:100%; opacity:0; cursor:ew-resize; touch-action:pan-y; }
-.lp-page .roof-compare:focus-within { outline:3px solid var(--green-dark); outline-offset:3px; }
 .lp-page .roof-results__caption { margin-top:5px; font-size:12px; color:var(--muted); }
 .lp-page :is(.roof-results__testimonial,.roof-service__testimonial,.neighbor-review,.roof-journey__testimonials figure) { padding:16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--white); min-width:0; }
 .lp-page :is(.roof-results__testimonial,.roof-service__testimonial) { margin-top:18px; }

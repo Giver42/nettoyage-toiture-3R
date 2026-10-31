@@ -2899,8 +2899,9 @@ Sections 5 à 8 V2 : validées
       <span><span class="hero-impeccable__stars" aria-label="5 étoiles sur 5">★★★★★</span> <strong>5,0</strong> · 36 avis Google</span>
       <span><span aria-hidden="true">🏅</span> 15 ans de métier</span>
     </div>
-    <figure class="hero-impeccable__photo-placeholder" aria-label="Emplacement prévu pour une photo de toit propre">
-      <figcaption>Photo à fournir : toit propre</figcaption>
+    <figure class="hero-impeccable__photo">
+      <img class="hero-impeccable__photo-image" src="assets/toit-propre-hero.webp" alt="Toiture propre en tuiles terre cuite après l'intervention de 3R Services." width="1280" height="960" decoding="async">
+      <span class="hero-impeccable__brand"><img src="assets/logo-3r-services-navbar.png" alt="3R Services" width="100" height="80" decoding="async"></span>
     </figure>
     <a class="hero-impeccable__discover" href="#price-comparison-title">
       <span>Découvrez pourquoi on est moins cher et pourquoi nous plutôt qu'un drone</span>
@@ -3049,16 +3050,13 @@ Sections 5 à 8 V2 : validées
   <div class="roof-results__inner">
     <p class="roof-results__eyebrow">LE RÉSULTAT</p>
     <h2 id="roof-results-title" data-cro-section-anchor>Propre le jour même. <span>Encore impeccable des années après.</span></h2>
-    <div class="roof-compare" style="--reveal: 50%">
-      <div class="roof-compare__surface roof-compare__surface--after" aria-hidden="true"></div>
-      <div class="roof-compare__surface roof-compare__surface--before" aria-hidden="true"></div>
+    <div class="roof-compare">
+      <img class="roof-compare__photo" src="assets/toiture-avant-apres.webp" alt="À gauche, la toiture avant nettoyage, couverte de mousses ; à droite, la toiture propre après l'intervention." width="1280" height="720" decoding="async">
       <span class="roof-compare__label roof-compare__label--before" aria-hidden="true">AVANT</span>
       <span class="roof-compare__label roof-compare__label--after" aria-hidden="true">APRÈS</span>
-      <span class="roof-compare__divider" aria-hidden="true"><span>↔</span></span>
-      <span class="roof-compare__placeholder">Photos avant / après à fournir</span>
-      <input class="roof-compare__range" type="range" min="0" max="100" value="50" aria-label="Comparer le toit avant et après nettoyage" aria-valuetext="50 % avant, 50 % après">
+      <span class="roof-compare__brand"><img src="assets/logo-3r-services-navbar.png" alt="3R Services" width="100" height="80" loading="lazy" decoding="async"></span>
     </div>
-    <p class="roof-results__caption">Glissez pour comparer · [Ville], [mois et année] · photos prises le jour de l'intervention</p>
+    <p class="roof-results__caption">Avant / après l'intervention</p>
 <figure class="roof-results__testimonial lp-google-review" data-review-author="jacqueslannez">
       <figcaption class="lp-google-review__head">
         <span class="lp-google-review__avatar" aria-hidden="true">J</span>
@@ -3072,16 +3070,6 @@ Sections 5 à 8 V2 : validées
     <a class="roof-results__next" href="#avis-clients">Ce qu'en disent nos clients <span aria-hidden="true">↓</span></a>
   </div>
 </section>
-<script>
-(function(){
-  const range = document.querySelector('.roof-compare__range');
-  if (!range) return;
-  range.addEventListener('input', () => {
-    range.parentElement.style.setProperty('--reveal', range.value + '%');
-    range.setAttribute('aria-valuetext', range.value + ' % avant, ' + (100 - Number(range.value)) + ' % après');
-  });
-})();
-</script>
 
 <section class="neighbor-reviews" id="avis-clients" data-cro-section="avis" data-cro-section-index="5" aria-labelledby="neighbor-reviews-title">
   <div class="neighbor-reviews__inner">
@@ -3515,8 +3503,12 @@ Sections 5 à 8 V2 : validées
   }
 
   function decorateReviewCards(){
-    document.querySelectorAll('.neighbor-review').forEach((card, index) => {
-      card.dataset.croReviewId = `review_${String(index + 1).padStart(2, '0')}`;
+    document.querySelectorAll('.lp-google-review').forEach((card, index) => {
+      const fallback = `review_${String(index + 1).padStart(2, '0')}`;
+      card.dataset.croReviewId = (card.querySelector('.name')?.textContent || fallback)
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase().replace(/[^a-z0-9\s_]/g, '')
+        .trim().replace(/[\s_]+/g, '_') || fallback;
       card.dataset.croReviewPosition = String(index + 1);
     });
   }
@@ -3730,6 +3722,8 @@ Sections 5 à 8 V2 : validées
   }
 
   function pauseSectionTiming(){
+    reviewTimers.forEach((timer) => window.clearTimeout(timer));
+    reviewTimers.clear();
     if (!pageIsActive) return;
     trackSectionEngagement();
     pageIsActive = false;
@@ -3849,7 +3843,7 @@ Sections 5 à 8 V2 : validées
       const observer = new IntersectionObserver(scheduleReviewEvaluation, {
         threshold:[0, 0.25, 0.5, 0.6, 0.75, 1]
       });
-      document.querySelectorAll('.neighbor-review').forEach((card) => observer.observe(card));
+      document.querySelectorAll('.lp-google-review').forEach((card) => observer.observe(card));
     }
     scheduleReviewEvaluation();
   }
@@ -3863,32 +3857,30 @@ Sections 5 à 8 V2 : validées
   }
 
   function evaluateReviews(){
-    document.querySelectorAll('.neighbor-review').forEach((card) => {
+    document.querySelectorAll('.lp-google-review').forEach((card) => {
       const reviewId = card.dataset.croReviewId;
       if (!reviewId || reviewsSeen.has(reviewId)) return;
 
-      if (document.visibilityState === 'visible' && getVisibleRatio(card) >= REVIEW_VISIBLE_RATIO) {
-        if (!reviewTimers.has(reviewId)) {
+      if (document.visibilityState === 'visible' && !isFormModalOpen() && getVisibleRatio(card) >= REVIEW_VISIBLE_RATIO) {
+        if (!reviewTimers.has(card)) {
           const timer = window.setTimeout(() => {
-            reviewTimers.delete(reviewId);
+            reviewTimers.delete(card);
             if (reviewsSeen.has(reviewId)) return;
-            if (document.visibilityState !== 'visible' || getVisibleRatio(card) < REVIEW_VISIBLE_RATIO) return;
+            if (document.visibilityState !== 'visible' || isFormModalOpen() || getVisibleRatio(card) < REVIEW_VISIBLE_RATIO) return;
             reviewsSeen.add(reviewId);
             reviewsSeenUniqueCount += 1;
             pushCroEvent('cro_review_view', {
-              review_id:(card.querySelector('.name')?.textContent || reviewId)
-                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                .toLowerCase().replace(/[^a-z0-9\s_]/g, '')
-                .trim().replace(/[\s_]+/g, '_') || reviewId,
+              review_id:reviewId,
               review_position:toNumber(card.dataset.croReviewPosition),
+              section_id:findSectionId(card),
               reviews_seen_unique_count:reviewsSeenUniqueCount
             });
           }, REVIEW_VIEW_DELAY_MS);
-          reviewTimers.set(reviewId, timer);
+          reviewTimers.set(card, timer);
         }
-      } else if (reviewTimers.has(reviewId)) {
-        window.clearTimeout(reviewTimers.get(reviewId));
-        reviewTimers.delete(reviewId);
+      } else if (reviewTimers.has(card)) {
+        window.clearTimeout(reviewTimers.get(card));
+        reviewTimers.delete(card);
       }
     });
   }
@@ -5657,6 +5649,6 @@ Sections 5 à 8 V2 : validées
 <script src="assets/lead-submit.js"></script>
 <script src="assets/form-elapsed-tracking.js"></script>
 <script src="assets/toit-impeccable-layout.js"></script>
-<script type="text/javascript" src="//cdn.dni.nimbata.com/797710131893.min.js"></script>
+<script type="text/javascript" src="https://cdn.dni.nimbata.com/797710131893.min.js"></script>
 </body>
 </html>

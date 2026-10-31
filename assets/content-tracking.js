@@ -10,16 +10,22 @@
   let frame = null;
   const now = () => window.performance.now();
 
-  function register(type, section, id, position, root, detail, button){
+  function register(type, section, id, position, root, detail, button, external = false){
     if (!detail || !button) return;
     const state = { type, section, id, position, root, detail, button,
       clip:type === 'review' ? root.closest('.carousel-viewport') : null,
-      open:false, index:0, elapsed:0, sent:0, started:null };
+      open:false, index:0, elapsed:0, sent:0, started:null, external };
     states.push(state);
-    button.addEventListener('click', (event) => {
-      event.preventDefault();
-      setOpen(state, !state.open);
-    });
+    if (external) {
+      const sync = () => setOpen(state, button.getAttribute('aria-expanded') === 'true');
+      new MutationObserver(sync).observe(button, { attributes:true, attributeFilter:['aria-expanded'] });
+      sync();
+    } else {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        setOpen(state, !state.open);
+      });
+    }
     if (type === 'faq') {
       root.addEventListener('toggle', () => {
         if (root.open !== state.open) setOpen(state, root.open);
@@ -35,6 +41,13 @@
   document.querySelectorAll('.review-card').forEach((card, index) => {
     register('review', 'avis', card.dataset.croReviewId, index + 1, card,
       card.querySelector('.review-text'), card.querySelector('.more'));
+  });
+  document.querySelectorAll('.lp-google-review').forEach((card, index) => {
+    const section = card.closest('[data-cro-section]');
+    if (!section || !card.dataset.croReviewId) return;
+    register('review', section.dataset.croSection, card.dataset.croReviewId,
+      Number(card.dataset.croReviewPosition) || index + 1, card,
+      card.querySelector('.lp-google-review__text'), card.querySelector('.lp-google-review__more'), true);
   });
   document.querySelectorAll('.faq-item').forEach((item, index) => {
     register('faq', 'faq', item.dataset.croContentId, index + 1, item,
@@ -66,6 +79,7 @@
   }
 
   function render(state){
+    if (state.external) return;
     if (state.type === 'faq') {
       state.root.open = state.open;
     } else {
@@ -96,7 +110,7 @@
       const buttonTop = state.button.getBoundingClientRect().top;
       let closedPeer = false;
       states.forEach((entry) => {
-        if (entry !== state && entry.type === state.type && entry.open) {
+        if (!state.external && !entry.external && entry !== state && entry.type === state.type && entry.open) {
           close(entry, current);
           closedPeer = true;
         }
@@ -130,7 +144,7 @@
     if (detailHeight <= 0 || rect.right <= 0 || rect.left >= width) return false;
     let visibleTop = Math.max(rect.top, zoneTop);
     let visibleBottom = Math.min(rect.bottom, zoneBottom);
-    if (state.type === 'review') {
+    if (state.type === 'review' && !state.external) {
       const card = state.root.getBoundingClientRect();
       const clip = state.clip ? state.clip.getBoundingClientRect() : null;
       const left = clip ? Math.max(0, clip.left) : 0;
