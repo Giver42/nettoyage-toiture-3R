@@ -1,0 +1,19 @@
+/* Desktop adjustments for /toiture/ only. Mobile uses the shared styles. */
+@media (min-width: 760px) {
+  .lp-page main h1 {
+    font-size: 44px;
+  }
+
+  .lp-page main h2 {
+    font-size: 32px;
+  }
+
+  .lp-page main > section,
+  .lp-page main > section.s10.roof-faq {
+    padding: 48px 0;
+  }
+
+  .lp-page main > section.hero-impeccable {
+    padding: 32px 0 40px;
+  }
+}
