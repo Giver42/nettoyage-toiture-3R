@@ -1,4 +1,15 @@
-/* Desktop adjustments for /toiture/ only. Mobile uses the shared styles. */
+/* Page font and desktop adjustments for /toiture/ only. */
+.lp-page {
+  --lp-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--lp-font-family);
+}
+
+/* Keep section and form fonts independent of third-party font-face rules. */
+.lp-page main > section,
+.lp-page .estimate-modal {
+  font-family: var(--lp-font-family);
+}
+
 @media (min-width: 760px) {
   .lp-page main h1 {
     font-size: 44px;
