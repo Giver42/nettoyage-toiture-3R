@@ -10,6 +10,54 @@
   font-family: var(--lp-font-family);
 }
 
+.lp-page .hero-impeccable__inner {
+  text-align: center;
+}
+
+.lp-page .hero-impeccable h1 span {
+  white-space: normal;
+}
+
+.lp-page .hero-impeccable__positioning {
+  max-width: 520px;
+  margin: 16px auto 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.lp-page .hero-impeccable__highlights {
+  display: grid;
+  gap: 8px;
+  max-width: 560px;
+  margin: 22px auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.lp-page .hero-impeccable__highlights li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--green-line);
+  border-radius: 14px;
+  background: var(--white);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.lp-page .hero-impeccable__highlights strong {
+  color: var(--green-dark);
+  font-weight: 800;
+}
+
+.lp-page .hero-impeccable .hero-impeccable__actions {
+  max-width: 560px;
+  margin: 22px auto 0;
+}
+
 @media (min-width: 760px) {
   .lp-page main h1 {
     font-size: 44px;
@@ -25,6 +73,25 @@
   }
 
   .lp-page main > section.hero-impeccable {
-    padding: 32px 0 40px;
+    padding: 48px 0;
+  }
+
+  .lp-page .hero-impeccable h1 {
+    font-size: 54px;
+  }
+
+  .lp-page .hero-impeccable__eyebrow {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .lp-page .hero-impeccable__positioning {
+    margin-top: 20px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  .lp-page .hero-impeccable__highlights li {
+    padding: 14px 16px;
   }
 }
