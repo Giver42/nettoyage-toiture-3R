@@ -1,13 +1,72 @@
+/* A dedicated name avoids collisions with third-party Inter font definitions. */
+@font-face {
+  font-family: "3R Inter";
+  src: url("inter-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 /* Page font and desktop adjustments for /toiture/ only. */
 .lp-page {
-  --lp-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --lp-font-family: "3R Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-family: var(--lp-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 /* Keep section and form fonts independent of third-party font-face rules. */
 .lp-page main > section,
-.lp-page .estimate-modal {
+.lp-page .site-header-3r,
+.lp-page .footer-3r,
+.lp-page .estimate-modal,
+.lp-page .estimate-modal :is(input, button, select, textarea) {
   font-family: var(--lp-font-family);
+}
+
+.lp-page main :is(h1, h2, h3) {
+  letter-spacing: -0.02em;
+}
+
+.lp-page main h1 {
+  font-size: 36px;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.lp-page main h2 {
+  font-size: 27px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.lp-page main h3 {
+  font-weight: 700;
+}
+
+.lp-page main :is(b, strong) {
+  font-weight: 700;
+}
+
+.lp-page .hero-impeccable__button {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.lp-page :is(.price-comparison__eyebrow, .roof-method__eyebrow,
+  .roof-results__eyebrow, .neighbor-reviews__eyebrow, .roof-service__eyebrow,
+  .roof-journey__eyebrow, .roof-faq__eyebrow, .method-step__number) {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.lp-page :is(.price-comparison__transition, .roof-method__transition,
+  .roof-results__next, .neighbor-reviews__next, .roof-service__transition,
+  .hero-impeccable__discover) {
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .lp-page .hero-impeccable__inner {
@@ -21,8 +80,16 @@
 .lp-page .hero-impeccable__positioning {
   max-width: 520px;
   margin: 16px auto 0;
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+.lp-page .hero-impeccable__eyebrow {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 .lp-page .hero-impeccable__highlights {
@@ -44,13 +111,13 @@
   border: 1px solid var(--green-line);
   border-radius: 14px;
   background: var(--white);
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 .lp-page .hero-impeccable__highlights strong {
   color: var(--green-dark);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .lp-page .hero-impeccable .hero-impeccable__actions {
@@ -74,7 +141,8 @@
   border-radius: var(--radius);
   background: var(--green-soft);
   color: var(--green-dark);
-  font-weight: 750;
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .lp-page .price-comparison__arrow {
@@ -121,14 +189,21 @@
 
 .lp-page .price-quote__eyebrow {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.06em;
 }
 
 .lp-page .price-quote__details {
   margin: 14px 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.lp-page .price-quote h3 {
   font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .lp-page .price-quote__details > div {
@@ -158,8 +233,8 @@
   margin-top: auto;
   padding: 8px 10px;
   border-radius: 8px;
-  font-size: 17px;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 900;
   text-align: center;
 }
 
@@ -190,7 +265,7 @@
 
 .lp-page .price-comparison .price-comparison__source {
   margin-top: 28px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .lp-page .price-comparison__artisans {
@@ -200,8 +275,13 @@
   border-radius: 18px;
   background: var(--white);
   color: var(--ink-strong);
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.lp-page .price-comparison__artisans h3 {
+  font-size: 18px;
+  line-height: 1.3;
 }
 
 .lp-page .price-comparison__artisans p {
@@ -247,7 +327,7 @@
 .lp-page .roof-method .method-step {
   color: var(--ink-strong);
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.5;
 }
 
 .lp-page .roof-method .method-step__header + p {
@@ -256,9 +336,12 @@
 
 .lp-page .roof-method .method-step__body {
   font-size: inherit;
+  line-height: 1.5;
 }
 
 .lp-page .roof-method .method-step h3 {
+  font-size: 18px;
+  line-height: 1.2;
   font-weight: 700;
 }
 
@@ -272,6 +355,8 @@
   margin: 8px 0 0;
   padding-left: 1.25em;
   list-style: disc;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 .lp-page .method-step__details li::marker {
@@ -284,6 +369,8 @@
   border-left: 4px solid var(--green);
   border-radius: 14px;
   background: var(--green-soft);
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .lp-page .method-step__callout strong,
@@ -298,6 +385,7 @@
   grid-template-columns: 24px minmax(0, 1fr);
   gap: 12px;
   margin-top: 14px;
+  font-size: 16px;
 }
 
 .lp-page .method-step__benefit > span:first-child {
@@ -350,6 +438,48 @@
   margin-top: 16px;
 }
 
+.lp-page .roof-journey__timeline h3 {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.lp-page .roof-journey__timeline p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.lp-page .roof-service__price > strong {
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.lp-page .roof-service__price > strong span {
+  font-size: 20px;
+}
+
+.lp-page .roof-service__price p {
+  font-size: 14px;
+}
+
+.lp-page .roof-service__details :is(li, .roof-service__example) {
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.lp-page .roof-service__details h3 {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+.lp-page .s10.roof-faq .faq-answer {
+  font-size: 15px;
+}
+
+.lp-page .roof-final h2 {
+  font-size: 24px;
+}
+
 .lp-page .roof-journey__stamp {
   display: inline-block;
   margin-top: 12px;
@@ -367,11 +497,11 @@
 
 @media (min-width: 760px) {
   .lp-page main h1 {
-    font-size: 44px;
+    font-size: 56px;
   }
 
   .lp-page main h2 {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .lp-page main > section,
@@ -388,25 +518,25 @@
   }
 
   .lp-page .hero-impeccable h1 {
-    font-size: clamp(54px, 7.55vw, 68px);
+    font-size: 56px;
   }
 
   .lp-page .hero-impeccable__owners {
     margin-bottom: 18px;
     padding: 8px 16px;
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .lp-page .hero-impeccable__eyebrow {
-    font-size: 18px;
+    font-size: 15px;
     margin-bottom: 12px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
 
   .lp-page .hero-impeccable__positioning {
     margin-top: 24px;
-    font-size: 27px;
-    line-height: 1.4;
+    font-size: 22px;
+    line-height: 1.45;
   }
 
   .lp-page .hero-impeccable__highlights,
@@ -424,8 +554,8 @@
     gap: 15px;
     padding: 16px 20px;
     border-radius: 18px;
-    font-size: 18px;
-    line-height: 1.5;
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   .lp-page .hero-impeccable__highlights .hero-impeccable__check {
@@ -440,12 +570,12 @@
   .lp-page .hero-impeccable__actions .hero-impeccable__button {
     min-height: 71px;
     border-radius: 18px;
-    font-size: 21px;
+    font-size: 17px;
   }
 
   .lp-page .hero-impeccable__reassurance {
     color: var(--ink-strong);
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .lp-page .hero-impeccable__photo {
@@ -457,18 +587,18 @@
   }
 
   .lp-page main .price-comparison h2 {
-    font-size: 44px;
+    font-size: 36px;
   }
 
   .lp-page .price-comparison__eyebrow {
     margin-bottom: 16px;
-    font-size: 14px;
-    letter-spacing: 0.07em;
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
   .lp-page .price-comparison__intro,
   .lp-page .price-comparison__result {
-    font-size: 20px;
+    font-size: 17px;
   }
 
   .lp-page .price-comparison__intro p + p {
@@ -484,15 +614,15 @@
   }
 
   .lp-page .price-comparison__transition {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .lp-page .price-comparison__artisans {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .lp-page .price-comparison__artisans h3 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
   }
 
@@ -501,18 +631,18 @@
   }
 
   .lp-page main .roof-method h2 {
-    font-size: 44px;
+    font-size: 36px;
   }
 
   .lp-page .roof-method__eyebrow {
     margin-bottom: 16px;
-    font-size: 14px;
-    letter-spacing: 0.07em;
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
   .lp-page .roof-method__intro {
     margin-top: 16px;
-    font-size: 20px;
+    font-size: 17px;
   }
 
   .lp-page .roof-method__intro p + p {
@@ -527,7 +657,7 @@
   .lp-page .roof-method .method-step {
     padding: 18px;
     border-radius: 20px;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .lp-page .roof-method .method-step__header {
@@ -540,11 +670,11 @@
   }
 
   .lp-page .roof-method .method-step h3 {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .lp-page .roof-method .method-step__number {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .lp-page .roof-method .method-step__bridge {
@@ -552,12 +682,12 @@
   }
 
   .lp-page .roof-method__transition {
-    font-size: 19px;
+    font-size: 15px;
   }
 
   .lp-page .method-step__callout,
   .lp-page .method-step__details {
-    font-size: 18px;
+    font-size: 15px;
   }
 
   .lp-page .roof-results__inner {
@@ -565,13 +695,13 @@
   }
 
   .lp-page main .roof-results h2 {
-    font-size: 44px;
+    font-size: 36px;
   }
 
   .lp-page .roof-results__eyebrow {
     margin-bottom: 16px;
-    font-size: 14px;
-    letter-spacing: 0.07em;
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
   .lp-page .roof-journey__inner {
@@ -579,18 +709,18 @@
   }
 
   .lp-page main .roof-journey h2 {
-    font-size: 44px;
+    font-size: 36px;
   }
 
   .lp-page .roof-journey__eyebrow {
     margin-bottom: 16px;
-    font-size: 14px;
-    letter-spacing: 0.07em;
+    font-size: 12px;
+    letter-spacing: 0.08em;
   }
 
   .lp-page .roof-journey__intro {
     margin-top: 16px;
-    font-size: 20px;
+    font-size: 17px;
   }
 
   .lp-page .roof-journey__timeline {
@@ -610,5 +740,9 @@
   .lp-page .roof-journey__marker {
     width: 45px;
     height: 45px;
+  }
+
+  .lp-page .roof-final h2 {
+    font-size: 36px;
   }
 }
